@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<title>Google Music Test App</title>
+	</head>
+	<body>
+		<div>
+			<h1>gmusic</h1>
+			<a href="/">Home</a> | 
+			<a href="/account">Account</a> | 
+			<a href="/google">Google</a> |
+			<a href="/google/search">Search Google</a>
+		</div>
+		<hr>
+		<div class="flash">
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<ul>
+				{% for message in messages %}
+					<li>{{ message }} </li>
+				{% endfor %}
+				</ul>
+			{% endif %}
+		{% endwith %}
+		</div>
+		<div class="content">
+			{% block content %}{% endblock %}
+		</div>
+	</body>
+</html>

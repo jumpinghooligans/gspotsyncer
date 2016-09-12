@@ -1,0 +1,5 @@
+python-all
+python-pip
+build-essential
+libssl-dev
+libffi-dev

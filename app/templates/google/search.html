@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+	<form method="POST">
+		<input name="query" />
+		<input type="submit">
+	</form>
+	{% if results %}
+		<ul>
+		{% for result in results %}
+			{% if result['track'] %}
+				<li>{{ result['track']['title'] }}</li>
+			{% endif %}
+		{% endfor %}
+		</ul>
+	{% endif %}
+{% endblock %}

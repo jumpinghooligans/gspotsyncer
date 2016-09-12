@@ -1,0 +1,10 @@
+flask
+flask-login
+flask-mail
+flask-wtf
+flask-babel
+flask-dynamo
+guess_language
+flipflop
+coverage
+gmusicapi
