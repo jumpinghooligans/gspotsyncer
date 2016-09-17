@@ -1,12 +1,38 @@
 {% extends "layout.html" %}
 {% block content %}
-
-	<h1>Account</h1>
-	<p>
-		Account page for {{ current_user.username }}
-	</p>
+	<form method="POST" name="account">
+		{{ form.hidden_tag() }}
+		<h1>Account</h1>
+		<p>
+			Account page for {{ current_user.username }}
+		</p>
+		<p>
+			Set Password:
+			<br />
+			{{ form.password( size=40, value=current_user.password )}}
+		</p>
+		<h1>Credentials</h1>
+		<h2>Google</h2>
+		<p>
+			Google Account (email):
+			<br />
+			{{ form.google_id( size=40, value=current_user.google_id if current_user.google_id else '' )}}
+		</p>
+		<p>
+			Google Password (generate an <a href="https://security.google.com/settings/security/apppasswords" target="_blank">app password</a>):
+			<br />
+			{{ form.google_password( size=40, value=current_user.google_password if current_user.google_password else '')}}
+		</p>
+		<h2>Spotify</h2>
+		<p>
+			Coming soon
+		</p>
+		<p>
+			<input type="submit" value="Update" />
+		</p>
+	</form>
+	<hr />
 	<p>
 		<a href="/logout">Logout</a>
 	</p>
-
 {% endblock %}

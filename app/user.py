@@ -19,11 +19,13 @@ def create_user(user_obj):
 	try:
 		dynamo.users.put_item(data={
 			'username' : user_obj['username'],
-			'password' : md5.new(user_obj['password']).hexdigest()
+			'password' : hash_hex(user_obj['password'])
 		})
 	except Exception, e:
 		flash(e.message)
-	
+
+def hash_hex(s):
+	return md5.new(s).hexdigest()
 
 def attempt_login(username, password):
 	# Check the user password combination
@@ -63,11 +65,12 @@ def load_user(username):
 
 
 # User Object
-
 class User(UserMixin):
 	def __init__(self, user):
-		app.logger.info('Setting username to ' + user.get('username'))
-		self.username = user.get('username')
+		app.logger.info('Returning user ' + user.get('username'))
+
+		for key, value in user.items():
+			setattr(self, key, value)
 
 	def get_id(self):
 		return self.username
@@ -85,3 +88,13 @@ class User(UserMixin):
 		return {
 			username : ''
 		}
+
+	def save(self):
+		user = dynamo.users.get_item(username=self.username)
+
+		# update the dynamo obj
+		for obj in vars(self):
+			user[obj] = getattr(self, obj)
+
+		# save to db
+		return user.save(overwrite=True)

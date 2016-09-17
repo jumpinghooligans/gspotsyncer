@@ -1,46 +1,55 @@
 from app import app
 from gmusicapi import Mobileclient
+from uuid import getnode as get_mac
 
-def search_songs(query):
-	songs = []
-	full_results = search(query)
+class GoogleMusic():
+	def __init__(self, user):
+		self.google_id = user.google_id
+		self.google_password = user.google_password
 
-	if full_results['song_hits']:
-		songs = full_results['song_hits']
+	def search_songs(self, query):
+		songs = []
+		full_results = self.search(query)
 
-	return songs
+		if full_results['song_hits']:
+			songs = full_results['song_hits']
 
-def search(query):
-	api = get_api()
-	results = []
+		return songs
 
-	if api:
-		results = api.search(query)
+	def search(self, query):
+		api = self.get_api()
+		results = []
 
-	return results
+		if api:
+			results = api.search(query)
 
-def get_playlists():
-    api = get_api()
-    playlists = []
+		return results
 
-    if api:
-        playlists = api.get_all_playlists()
+	def get_playlists(self):
+		api = self.get_api()
+		playlists = []
 
-    return playlists
+		if api:
+			playlists = api.get_all_playlists()
 
-def get_full_playlists():
-    api = get_api()
-    playlists = []
+		return playlists
 
-    if api:
-        playlists = api.get_all_user_playlist_contents()
+	def get_full_playlists(self):
+		api = self.get_api()
+		playlists = []
 
-    return playlists
+		if api:
+			playlists = api.get_all_user_playlist_contents()
 
-def get_api():
-    api = Mobileclient()
-    logged_in = api.login('ryankortmann@gmail.com', 'fdwjigsodltkljbf', api.FROM_MAC_ADDRESS)
+		return playlists
 
-    if logged_in:
-        return api
-    return False
+	def get_api(self):
+		app.logger.info(self.google_password)
+
+		api = Mobileclient()
+		# logged_in = api.login('ryankortmann@gmail.com', 'fdwjigsodltkljbf', api.FROM_MAC_ADDRESS)
+		logged_in = api.login(self.google_id, self.google_password, api.FROM_MAC_ADDRESS)
+
+		if logged_in:
+			return api
+		return False

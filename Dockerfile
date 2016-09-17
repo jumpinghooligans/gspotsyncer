@@ -8,6 +8,7 @@ RUN cat /tmp/packages.txt | xargs apt-get install -y
 
 # PIP
 ADD docker/pip.txt /tmp/pip.txt
+RUN pip install --upgrade pip
 RUN pip install -r /tmp/pip.txt
 
 # AWS Environment Vars
@@ -16,9 +17,9 @@ ENV AWS_SECRET_ACCESS_KEY 'ud2XkoipkzQv5PZFPsOLjSKDpfV2VVMDGxEsaXP/'
 ENV AWS_REGION 'us-east-1'
 
 # App
-COPY . /opt/gmusic/
+COPY . /opt/gspotsyncer/
 
 # Start server
-WORKDIR /opt/gmusic/
+WORKDIR /opt/gspotsyncer/
 EXPOSE 5000
 CMD ["python", "run.py"]
