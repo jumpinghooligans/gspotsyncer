@@ -6,7 +6,7 @@ from flask_dynamo import Dynamo
 from .forms import CreateForm, LoginForm, UserAccountForm
 
 # Service Manipulation
-from app import app, gmusic, spotify, user
+from app import app, gmusic, spotify, user, playlist
 
 # General imports
 import urllib, urllib2, base64, json
@@ -95,6 +95,19 @@ def account():
 	return render_template('account/index.html',
 							title='Account',
 							form=form)
+
+@app.route('/account/playlists', methods=['GET', 'POST'])
+@user.login_required
+def playlists():
+	playlists = []
+
+	p = playlist.Playlist({})
+	p.save()
+
+	return render_template('account/playlists.html',
+							title='Playlists',
+							playlists=playlists)
+
 @app.route('/google')
 @user.login_required
 def google_playlists():

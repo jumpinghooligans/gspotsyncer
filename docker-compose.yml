@@ -6,11 +6,11 @@ services:
      - "5000:5000"
     volumes:
      - .:/opt/gspotsyncer
-    depends_on:
-     - jenkins
-  jenkins:
-    image: jenkins
-    ports:
-     - "49001:8080"
-    volumes:
-     - ./jenkins:/var/jenkins_home
+  #   depends_on:
+  #    - jenkins
+  # jenkins:
+  #   image: jenkins
+  #   ports:
+  #    - "49001:8080"
+  #   volumes:
+  #    - ./jenkins:/var/jenkins_home
