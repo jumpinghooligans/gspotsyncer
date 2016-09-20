@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+	{% if playlists %}
+		{% for playlist in playlists %}
+			<h1>{{ playlist['name'] }}</h1>
+			<ul>
+			{% for t in playlist['tracks'] %}
+				{% if t['track'] %}
+					<li>{{ t['track']['title'] }} - {{ t['track']['artist'] }}</li>
+				{% endif %}
+			{% endfor %}
+			</ul>
+		{% endfor %}
+	{% else %}
+		<h1>Not logged in</h1>
+	{% endif %}
+
+{% endblock %}
