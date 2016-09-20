@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: evandy
+Build-Jdk: 1.8.0_91
+Extension-Name: dashboard-view
+Specification-Title: Jenkins view that shows various cuts of build inf
+ ormation via configured portlets.
+Implementation-Title: dashboard-view
+Implementation-Version: 2.9.10
+Group-Id: org.jenkins-ci.plugins
+Short-Name: dashboard-view
+Long-Name: Dashboard View
+Url: http://wiki.jenkins-ci.org/display/JENKINS/Dashboard+View
+Plugin-Version: 2.9.10
+Hudson-Version: 1.554.1
+Jenkins-Version: 1.554.1
+Plugin-Dependencies: maven-plugin:2.3
+Plugin-Developers: Peter Hayes:petehayes:petehayes@gmail.com,Marco Amb
+ u:mambu:marco.ambu+jenkins@gmail.com
+

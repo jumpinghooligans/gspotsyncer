@@ -1,0 +1,107 @@
+.replay-button-component {
+  display: inline-block;
+}
+.replay-button-component .replay-button {
+  display: inline-block;
+  cursor: pointer;
+}
+.replay-button-component .svg-icon {
+  display: none;
+}
+.replay-button-component.icon-button {
+  height: 24px;
+}
+.replay-button-component.icon-button .replay-button {
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: 0;
+  position: relative;
+}
+.replay-button-component.icon-button .replay-button .svg-icon {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.replay-button-component.icon-button .button-label {
+  display: none;
+}
+.replay-button-component .svg-icon {
+  fill: #4A90E2;
+}
+.replay-button-component .svg-icon:hover {
+  fill: #1C436A;
+}
+.replay-button-component.dark .btn {
+  background: transparent;
+  color: white;
+  border-color: white;
+}
+.replay-button-component.dark .svg-icon {
+  fill: white;
+}
+.run-button-component {
+  display: inline-block;
+}
+.run-button-component .run-button,
+.run-button-component .stop-button {
+  display: inline-block;
+  cursor: pointer;
+}
+.run-button-component .svg-icon {
+  display: none;
+}
+.run-button-component.icon-button {
+  height: 24px;
+}
+.run-button-component.icon-button .run-button {
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: 0;
+  position: relative;
+}
+.run-button-component.icon-button .run-button .svg-icon {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.run-button-component.icon-button .stop-button {
+  padding: 2px;
+}
+.run-button-component.icon-button .stop-button .btn-icon {
+  width: 20px;
+  height: 20px;
+  background-image: url('icons/stop-button-blue.svg');
+}
+.run-button-component.icon-button .stop-button .btn-icon:hover {
+  background-image: url('icons/stop-button-blue-dark.svg');
+}
+.run-button-component.icon-button .stop-button.stopping {
+  opacity: 0.4;
+  cursor: auto;
+}
+.run-button-component.icon-button .button-label {
+  display: none;
+}
+.run-button-component .svg-icon {
+  fill: #4A90E2;
+}
+.run-button-component .svg-icon:hover {
+  fill: #1C436A;
+}
+.run-button-component.dark .btn {
+  background: transparent;
+  color: white;
+  border-color: white;
+}
+.run-button-component.dark .svg-icon {
+  fill: white;
+}
+.run-button-component.dark .stop-button .btn-icon {
+  background-image: url('icons/stop-button-white.svg');
+}
+
+/*# sourceMappingURL=blueocean-core-js.css.map */

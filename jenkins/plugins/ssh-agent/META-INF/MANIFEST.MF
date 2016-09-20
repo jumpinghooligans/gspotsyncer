@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: recena
+Build-Jdk: 1.8.0_40
+Extension-Name: ssh-agent
+Specification-Title: The Jenkins Plugins Parent POM Project
+Implementation-Title: ssh-agent
+Implementation-Version: 1.13
+Group-Id: org.jenkins-ci.plugins
+Short-Name: ssh-agent
+Long-Name: SSH Agent Plugin
+Url: http://wiki.jenkins-ci.org/display/JENKINS/SSH+Agent+Plugin
+Compatible-Since-Version: 1.5
+Plugin-Version: 1.13
+Hudson-Version: 1.609.3
+Jenkins-Version: 1.609.3
+PluginFirstClassLoader: true
+Plugin-Dependencies: workflow-step-api:1.9,credentials:1.22,bouncycast
+ le-api:1.0.2,ssh-credentials:1.11
+Plugin-Developers: Stephen Connolly:stephenconnolly:
+

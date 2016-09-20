@@ -1,0 +1,5 @@
+<l:dependencies xmlns:l='licenses'>
+  <l:dependency name='Favorite' groupId='org.jvnet.hudson.plugins' artifactId='favorite' version='1.16' url='http://wiki.jenkins-ci.org/display/JENKINS/Favorite+Plugin'>
+    <l:description />
+  </l:dependency>
+</l:dependencies>

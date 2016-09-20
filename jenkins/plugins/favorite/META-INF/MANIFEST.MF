@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: stephenc
+Build-Jdk: 1.7.0_21
+Extension-Name: favorite
+Implementation-Title: favorite
+Implementation-Version: 1.16
+Plugin-Class: hudson.plugins.favorite.FavoritePlugin
+Group-Id: org.jvnet.hudson.plugins
+Short-Name: favorite
+Long-Name: Favorite
+Url: http://wiki.jenkins-ci.org/display/JENKINS/Favorite+Plugin
+Plugin-Version: 1.16
+Hudson-Version: 1.447
+Jenkins-Version: 1.447
+Plugin-Dependencies: token-macro:1.5.1;resolution:=optional
+Plugin-Developers: Larry Shatzer, Jr.:lshatzer:larrys@gmail.com
+
