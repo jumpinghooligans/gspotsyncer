@@ -3,3 +3,5 @@ python-pip
 build-essential
 libssl-dev
 libffi-dev
+mongodb-org-shell
+host

@@ -3,7 +3,7 @@ flask-login
 flask-mail
 flask-wtf
 flask-babel
-flask-dynamo
+flask-pymongo
 guess_language
 flipflop
 coverage

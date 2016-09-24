@@ -1,6 +1,5 @@
 # Flask
 from flask import render_template, request, flash, redirect
-from flask_dynamo import Dynamo
 
 # Forms
 from .forms import CreateForm, LoginForm, UserAccountForm
@@ -11,7 +10,6 @@ from app import app, gmusic, spotify, user, playlist
 # General imports
 import urllib, urllib2, base64, json
 
-dynamo = Dynamo(app)
 spotify_config = {
 	'client_id' : 'cf030653cc244fcdac4d7e91bcb634e7',
 	'client_secret' : '456a5944f54d43a59d178e1a80210bdf',
@@ -29,7 +27,7 @@ def login():
 	form = LoginForm()
 
 	if form.validate_on_submit():
-		user.attempt_login(form.username.data, form.password.data)
+		user.login(form.username.data, form.password.data)
 		
 		# Current User will return an Anonymous User, so we
 		# need to check the actual ID (Anon returns 'None')
@@ -56,10 +54,11 @@ def create_user():
 			'username' : form.username.data,
 			'password' : form.password.data
 		}
-		user.create_user(new_user)
+		user.register(new_user)
+		return redirect('/account')
 
 	return render_template('account/create.html',
-							title='Login',
+							title='Create User',
 							form=form)
 
 
@@ -162,6 +161,7 @@ def spotify_connect():
 		'scope' : scope,
 		'redirect_uri' : spotify_config['redirect_uri']
 	}
+
 	spotify = 'https://accounts.spotify.com/authorize?' + urllib.urlencode(params)
 
 	return redirect(spotify)

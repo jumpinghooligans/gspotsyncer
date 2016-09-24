@@ -2,11 +2,11 @@ from app import app
 import md5
 
 from flask import flash
-from flask_dynamo import Dynamo
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from flask_login import LoginManager, AnonymousUserMixin, UserMixin, login_user, logout_user, login_required, current_user
+from flask_pymongo import PyMongo
 
-# db
-dynamo = Dynamo(app)
+# Mongo
+mongo = PyMongo(app)
 
 # session management
 login_manager = LoginManager()
@@ -15,23 +15,39 @@ login_manager.init_app(app)
 # redirects and flash messages
 login_manager.login_view = "login"
 
-def create_user(user_obj):
+@login_manager.user_loader
+def load_user(username):
+	user = mongo.db.users.find_one({ 'username' : username })
+
+	if user:
+		return User(user)
+
+	return None
+
+def register(user_obj):
 	try:
-		dynamo.users.put_item(data={
+		exists = mongo.db.users.find_one({ 'username' : user_obj['username'] })
+
+		if exists:
+			flash('Username already exists')
+			return
+
+		insert_result = mongo.db.users.insert_one({
 			'username' : user_obj['username'],
 			'password' : hash_hex(user_obj['password'])
 		})
+
+		new_user = mongo.db.users.find_one({ '_id' : insert_result.inserted_id })
+		login_user(User(new_user))
+
 	except Exception, e:
 		flash(e.message)
 
-def hash_hex(s):
-	return md5.new(s).hexdigest()
-
-def attempt_login(username, password):
+def login(username, password):
 	# Check the user password combination
 	user_data = None
 	try:
-		user_data = dynamo.users.get_item(username=username)
+		user_data = mongo.db.users.find_one({ 'username' : username })
 	except Exception, e:
 		pass
 
@@ -41,6 +57,8 @@ def attempt_login(username, password):
 
 		attempted_pw = md5.new(password)
 		current_pw = user_data.get('password')
+
+		app.logger.info(current_pw)
 
 		if attempted_pw.hexdigest() == current_pw:
 			# Password matches, we can return a user
@@ -53,21 +71,15 @@ def attempt_login(username, password):
 
 	flash('Incorrect username or password.')
 
-
-@login_manager.user_loader
-def load_user(username):
-	user = dynamo.users.get_item(username=username)
-
-	if user:
-		return User(user)
-
-	return None
+def hash_hex(s):
+	return md5.new(s).hexdigest()
 
 
 # User Object
 class User(UserMixin):
 	def __init__(self, user):
-		app.logger.info('Returning user ' + user.get('username'))
+		# app.logger.info('Returning user ' + user.username)
+		app.logger.info(dir(user))
 
 		for key, value in user.items():
 			setattr(self, key, value)
@@ -90,11 +102,11 @@ class User(UserMixin):
 		}
 
 	def save(self):
-		user = dynamo.users.get_item(username=self.username)
+		user = mongo.db.users.find_one({ 'username' : self.username })
 
-		# update the dynamo obj
+		# update the mongo doc
 		for obj in vars(self):
 			user[obj] = getattr(self, obj)
 
 		# save to db
-		return user.save(overwrite=True)
+		return mongo.db.users.save(user)
