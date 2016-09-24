@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+	<h2>Create a Playlist</h2>
+	<form method="POST" name="create">
+		{{ form.hidden_tag() }}
+		<p>
+			Spotify Playlist
+			<br />
+			{{ form.spotify_playlist() }}
+		</p>
+		<p>
+			Google Playlist
+			<br />
+			{{ form.google_playlist() }}
+		</p>
+		<p>
+			Master
+			<br />
+			{{ form.master() }}
+		</p>
+		<p>
+			<input type="submit">
+		</p>
+	</form>
+{% endblock %}

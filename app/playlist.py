@@ -1,8 +1,15 @@
-from app import app
+from app import app, mongo, user
+
 from flask import flash
-from flask_pymongo import PyMongo
 
 import urllib, urllib2, json, time
+
+
+def get_playlists(u):
+	return mongo.db.playlists.find({
+		'username' : u.username
+	})
+
 
 class Playlist():
 	def __init__(self, playlist):
@@ -13,11 +20,16 @@ class Playlist():
 			self.playlist_id = int(round(time.time() * 1000))
 
 	def save(self):
-		# playlist = dynamo.playlists.get_item(username='asdf')
+		playlist = mongo.db.playlists.find_one({ 'playlist_id' : self.playlist_id })
 
-		# update the dynamo obj
-		for obj in vars(self):
-			playlist[obj] = getattr(self, obj)
+		if playlist is None:
+			playlist = {
+				'username' : user.current_user.username
+			}
+
+		# update the mongo obj
+		for var in vars(self):
+			playlist[var] = getattr(self, var)
 
 		# save to db
-		# return playlist.save(overwrite=True)
+		return mongo.db.playlists.save(dict(playlist))

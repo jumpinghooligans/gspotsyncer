@@ -2,7 +2,7 @@
 {% block content %}
 	<form method="POST" name="account">
 		{{ form.hidden_tag() }}
-		<h1>Account</h1>
+		<h2>Account</h2>
 		<p>
 			Account page for {{ current_user.username }}
 		</p>
@@ -11,8 +11,8 @@
 			<br />
 			{{ form.password( size=40, value=current_user.password )}}
 		</p>
-		<h1>Credentials</h1>
-		<h2>Google</h2>
+		<h2>Credentials</h2>
+		<h3>Google</h3>
 		<p>
 			Google Account (email):
 			<br />
@@ -23,7 +23,7 @@
 			<br />
 			{{ form.google_password( size=40, value=current_user.google_password if current_user.google_password else '')}}
 		</p>
-		<h2>Spotify</h2>
+		<h3>Spotify</h3>
 		<p>
 			<a href="/spotify/connect">Connect Spotify</a>
 		</p>

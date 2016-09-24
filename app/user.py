@@ -1,12 +1,8 @@
-from app import app
+from app import app, mongo
 import md5
 
 from flask import flash
 from flask_login import LoginManager, AnonymousUserMixin, UserMixin, login_user, logout_user, login_required, current_user
-from flask_pymongo import PyMongo
-
-# Mongo
-mongo = PyMongo(app)
 
 # session management
 login_manager = LoginManager()
@@ -78,8 +74,7 @@ def hash_hex(s):
 # User Object
 class User(UserMixin):
 	def __init__(self, user):
-		# app.logger.info('Returning user ' + user.username)
-		app.logger.info(dir(user))
+		app.logger.info('Returning user ' + user.get('username'))
 
 		for key, value in user.items():
 			setattr(self, key, value)

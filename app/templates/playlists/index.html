@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+	<h2>Synced Playlists</h2>
+	{% if playlists %}
+		<a href="/playlists/create" style="float:right">Create a Playlist Link</a>
+		<h4>Playlists</h4>
+		{% for playlist in playlists %}
+			<p>{{ playlist }}</p>
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}

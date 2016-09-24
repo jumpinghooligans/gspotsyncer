@@ -1,5 +1,6 @@
 from app import app
 import urllib, urllib2, json
+from urlparse import urlparse
 
 class Spotify():
 	def __init__(self, user):
@@ -14,6 +15,16 @@ class Spotify():
 			return results['items']
 
 		return None
+
+	def get_playlists_select(self):
+		playlists = self.get_playlists()
+
+		formatted_playlists = []
+		if playlists:
+			for playlist in playlists:
+				formatted_playlists.append(( playlist['id'], playlist['name'] ))
+		return formatted_playlists
+
 
 	def send_auth_request(self, request, data={}):
 		try:
@@ -30,3 +41,9 @@ class Spotify():
 		generic_request.add_header('Authorization', self.spotify_credentials['token_type'] + ' ' + self.spotify_credentials['access_token'])
 
 		return generic_request
+
+def get_return_uri(request_url):
+	url = urlparse(request_url)
+	hostname = url.hostname
+
+	return 'http://' + hostname + '/spotify/return'

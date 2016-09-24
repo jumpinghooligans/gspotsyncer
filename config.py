@@ -1,4 +1,7 @@
 WTF_CSRF_ENABLED = True
-SECRET_KEY = 'you-will-never-guess'
+SECRET_KEY = 'gspotsyncer-secretz'
 
 MONGO_HOST = 'mongo'
+
+SPOTIFY_CLIENT_ID = 'cf030653cc244fcdac4d7e91bcb634e7'
+SPOTIFY_CLIENT_SECRET = '456a5944f54d43a59d178e1a80210bdf'

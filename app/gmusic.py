@@ -34,6 +34,18 @@ class GoogleMusic():
 
 		return playlists
 
+	def get_playlists_select(self):
+		api = self.get_api()
+		formatted_playlists = []
+
+		if api:
+			playlists = api.get_all_playlists()
+
+			for playlist in playlists:
+				formatted_playlists.append(( playlist['id'], playlist['name'] ))
+
+		return formatted_playlists
+
 	def get_full_playlists(self):
 		api = self.get_api()
 		playlists = []
@@ -44,8 +56,6 @@ class GoogleMusic():
 		return playlists
 
 	def get_api(self):
-		app.logger.info(self.google_password)
-
 		api = Mobileclient()
 		# logged_in = api.login('ryankortmann@gmail.com', 'fdwjigsodltkljbf', api.FROM_MAC_ADDRESS)
 		logged_in = api.login(self.google_id, self.google_password, api.FROM_MAC_ADDRESS)

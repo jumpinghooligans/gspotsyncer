@@ -1,5 +1,6 @@
 from flask_wtf import Form
-from wtforms import StringField, PasswordField, BooleanField
+from wtforms import StringField, PasswordField, BooleanField, SelectField, RadioField
+
 from wtforms.validators import DataRequired
 
 class LoginForm(Form):
@@ -16,3 +17,8 @@ class UserAccountForm(Form):
 	password = PasswordField('password')
 	google_id = StringField('google_id')
 	google_password = PasswordField('google_password')
+
+class CreatePlaylistForm(Form):
+	spotify_playlist = SelectField('spotify_playlist', choices=[ ( 'n', 'None' )])
+	google_playlist = SelectField('google_playlist', choices=[ ( 'n', 'None' )])
+	master = RadioField('master', choices=[('spotify','Spotify'),('google','Google')])

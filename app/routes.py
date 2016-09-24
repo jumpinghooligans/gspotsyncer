@@ -2,19 +2,13 @@
 from flask import render_template, request, flash, redirect
 
 # Forms
-from .forms import CreateForm, LoginForm, UserAccountForm
+from .forms import CreateForm, LoginForm, UserAccountForm, CreatePlaylistForm
 
 # Service Manipulation
 from app import app, gmusic, spotify, user, playlist
 
 # General imports
 import urllib, urllib2, base64, json
-
-spotify_config = {
-	'client_id' : 'cf030653cc244fcdac4d7e91bcb634e7',
-	'client_secret' : '456a5944f54d43a59d178e1a80210bdf',
-	'redirect_uri' : 'http://localhost:5000/spotify/return'
-}
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -32,6 +26,9 @@ def login():
 		# Current User will return an Anonymous User, so we
 		# need to check the actual ID (Anon returns 'None')
 		if user.current_user.get_id():
+			if request.args.get('next'):
+				return redirect(request.args.get('next'))
+
 			return redirect('/account')
 
 	return render_template('account/login.html',
@@ -95,17 +92,47 @@ def account():
 							title='Account',
 							form=form)
 
-@app.route('/account/playlists', methods=['GET', 'POST'])
+@app.route('/playlists', methods=['GET', 'POST'])
 @user.login_required
 def playlists():
-	playlists = []
+	playlists = playlist.get_playlists(user.current_user)
 
-	p = playlist.Playlist({})
-	p.save()
-
-	return render_template('account/playlists.html',
+	return render_template('playlists/index.html',
 							title='Playlists',
 							playlists=playlists)
+
+@app.route('/playlists/create', methods=['GET', 'POST'])
+@user.login_required
+def create_playlist():
+	form = CreatePlaylistForm()
+
+	s = spotify.Spotify(user.current_user)
+	spotify_choices = s.get_playlists_select()
+
+	g = gmusic.GoogleMusic(user.current_user)
+	google_choices = g.get_playlists_select()
+
+	form.spotify_playlist.choices = spotify_choices
+	form.google_playlist.choices = google_choices
+
+	if form.validate_on_submit():
+		p = playlist.Playlist({})
+
+		p.spotify_playlist_name = dict(spotify_choices).get(form.spotify_playlist.data)
+		p.spotify_playlist_id = form.spotify_playlist.data
+
+		p.google_playlist_name = dict(google_choices).get(form.google_playlist.data)
+		p.google_playlist_id = form.google_playlist.data
+
+		p.master = form.master.data
+
+		p.save()
+
+
+	return render_template('playlists/create.html',
+							title='Create a Playlist',
+							form=form)
+
 
 @app.route('/google')
 @user.login_required
@@ -149,6 +176,7 @@ def google_search():
 							results=results)
 
 @app.route('/spotify/connect')
+@user.login_required
 def spotify_connect():
 	scope = " ".join(['playlist-read-private',
 		'playlist-read-collaborative',
@@ -157,26 +185,27 @@ def spotify_connect():
 
 	params = {
 		'response_type' : 'code',
-		'client_id' : spotify_config['client_id'],
+		'client_id' : app.config['SPOTIFY_CLIENT_ID'],
 		'scope' : scope,
-		'redirect_uri' : spotify_config['redirect_uri']
+		'redirect_uri' : spotify.get_return_uri(request.url)
 	}
 
-	spotify = 'https://accounts.spotify.com/authorize?' + urllib.urlencode(params)
+	spotify_url = 'https://accounts.spotify.com/authorize?' + urllib.urlencode(params)
 
-	return redirect(spotify)
+	return redirect(spotify_url)
 
 @app.route('/spotify/return')
+@user.login_required
 def spotify_return():
 	if request.args.get('code'):
 
 		# get and store auth codes
 		spotify_auth_request = urllib2.Request('https://accounts.spotify.com/api/token')
-		spotify_auth_request.add_header('Authorization', 'Basic ' + base64.b64encode(spotify_config['client_id'] + ':' + spotify_config['client_secret']))
+		spotify_auth_request.add_header('Authorization', 'Basic ' + base64.b64encode(app.config['SPOTIFY_CLIENT_ID'] + ':' + app.config['SPOTIFY_CLIENT_SECRET']))
 		params = {
 			'grant_type' : 'authorization_code',
 			'code' : request.args.get('code'),
-			'redirect_uri' : spotify_config['redirect_uri']
+			'redirect_uri' : spotify.get_return_uri(request.url)
 		}
 
 		try:
