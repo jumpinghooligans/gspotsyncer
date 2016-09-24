@@ -21,7 +21,7 @@ ENV AWS_SECRET_ACCESS_KEY 'ud2XkoipkzQv5PZFPsOLjSKDpfV2VVMDGxEsaXP/'
 ENV AWS_REGION 'us-east-1'
 
 # App
-COPY . /opt/gspotsyncer/
+# COPY . /opt/gspotsyncer/
 
 # Start server
 WORKDIR /opt/gspotsyncer/
