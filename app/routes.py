@@ -8,7 +8,7 @@ from .forms import CreateForm, LoginForm, UserAccountForm, CreatePlaylistForm
 from app import app, gmusic, spotify, user, playlist
 
 # General imports
-import urllib, urllib2, base64, json
+import urllib, urllib2, json
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -47,11 +47,10 @@ def create_user():
 	form = CreateForm()
 
 	if form.validate_on_submit():
-		new_user = {
+		user.register({
 			'username' : form.username.data,
 			'password' : form.password.data
-		}
-		user.register(new_user)
+		})
 		return redirect('/account')
 
 	return render_template('account/create.html',
@@ -107,9 +106,9 @@ def create_playlist():
 	form = CreatePlaylistForm()
 
 	s = spotify.Spotify(user.current_user)
-	spotify_choices = s.get_playlists_select()
-
 	g = gmusic.GoogleMusic(user.current_user)
+
+	spotify_choices = s.get_playlists_select()
 	google_choices = g.get_playlists_select()
 
 	form.spotify_playlist.choices = spotify_choices
@@ -133,98 +132,26 @@ def create_playlist():
 							title='Create a Playlist',
 							form=form)
 
-
-@app.route('/google')
-@user.login_required
-def google_playlists():
-	g = gmusic.GoogleMusic(user.current_user)
-	playlists = g.get_full_playlists()
-
-	return render_template('google/index.html',
-							title='Google Playlists',
-							playlists=playlists)
-
-
-@app.route('/spotify')
-@user.login_required
-def spotify_playlists():
-	s = spotify.Spotify(user.current_user)
-	playlists = s.get_playlists()
-
-	app.logger.info(playlists)
-
-	return render_template('spotify/index.html',
-							title='Spotify Playlists',
-							playlists=playlists)
-	
-
-@app.route('/google/search', methods=['GET', 'POST'])
-@user.login_required
-def google_search():
-	results = []
-
-	if request.method == 'POST':
-		g = gmusic.GoogleMusic(user.current_user)
-
-		query = request.form.get("query")
-		results = g.search_songs(query)
-
-		app.logger.info(results)
-
-	return render_template('google/search.html',
-							title='Google Search',
-							results=results)
-
 @app.route('/spotify/connect')
 @user.login_required
 def spotify_connect():
-	scope = " ".join(['playlist-read-private',
-		'playlist-read-collaborative',
-		'playlist-modify-public',
-		'playlist-modify-private'])
-
-	params = {
-		'response_type' : 'code',
-		'client_id' : app.config['SPOTIFY_CLIENT_ID'],
-		'scope' : scope,
-		'redirect_uri' : spotify.get_return_uri(request.url)
-	}
-
-	spotify_url = 'https://accounts.spotify.com/authorize?' + urllib.urlencode(params)
-
+	spotify_url = spotify.get_connect_url(request.url)
 	return redirect(spotify_url)
+
+@app.route('/spotify/refresh_token')
+@user.login_required
+def spotify_refresh():
+	s = spotify.Spotify(user.current_user)
+	s.refresh_token()
+	return redirect('/account')
 
 @app.route('/spotify/return')
 @user.login_required
 def spotify_return():
 	if request.args.get('code'):
-
-		# get and store auth codes
-		spotify_auth_request = urllib2.Request('https://accounts.spotify.com/api/token')
-		spotify_auth_request.add_header('Authorization', 'Basic ' + base64.b64encode(app.config['SPOTIFY_CLIENT_ID'] + ':' + app.config['SPOTIFY_CLIENT_SECRET']))
-		params = {
-			'grant_type' : 'authorization_code',
-			'code' : request.args.get('code'),
-			'redirect_uri' : spotify.get_return_uri(request.url)
-		}
-
-		try:
-			spotify_auth_response = urllib2.urlopen(spotify_auth_request, urllib.urlencode(params)).read()
-			spotify_credentials = json.loads(spotify_auth_response)
-
-			user.current_user.spotify_credentials = spotify_credentials
-			if user.current_user.save():
-				flash('Successfully updated Spotify credentials...')
-			else:
-				flash('Unknown error updating Spotify credentials...')
-
-			return redirect('/account')
-		except urllib2.HTTPError as err:
-			response = json.loads(err.fp.read())
-			flash(response)
-
-		return redirect('/account')
-
+		s = spotify.Spotify(user.current_user)
+		s.connect()
 	else:
 		flash(request.args.get('error'))
-		return redirect('/account')
+
+	return redirect('/account')
