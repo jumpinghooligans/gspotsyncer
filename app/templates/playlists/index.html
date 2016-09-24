@@ -4,7 +4,12 @@
 	<h2>Synced Playlists</h2>
 	{% if playlists %}
 		{% for playlist in playlists %}
-			<p>{{ playlist }}</p>
+			<p>Playlist ID: <a href="/playlists/{{ playlist._id }}">{{ playlist._id }}</a></p>
+			<p>Playlist Master: {{ playlist.master }}</p>
+			<p>Spotify Playlist: {{ playlist.spotify_playlist_name }}</p>
+			<p>Google Playlist: {{ playlist.google_playlist_name }}</p>
+
+			<br />
 		{% endfor %}
 	{% endif %}
 

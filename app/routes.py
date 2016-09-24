@@ -94,7 +94,7 @@ def account():
 @app.route('/playlists', methods=['GET', 'POST'])
 @user.login_required
 def playlists():
-	playlists = playlist.get_playlists(user.current_user)
+	playlists = playlist.get_user_playlists(user.current_user)
 
 	return render_template('playlists/index.html',
 							title='Playlists',
@@ -125,12 +125,31 @@ def create_playlist():
 
 		p.master = form.master.data
 
-		p.save()
+		r = p.save()
+
+		return redirect('/playlists/modify/' + str(r.inserted_id))
 
 
 	return render_template('playlists/create.html',
 							title='Create a Playlist',
 							form=form)
+
+@app.route('/playlists/<string:playlist_id>', methods=['GET', 'POST'])
+@user.login_required
+def view_playlist(playlist_id):
+	p = playlist.get_playlist(playlist_id)
+	return render_template('playlists/playlist.html',
+							title='View Playlist',
+							playlist=p)
+
+@app.route('/playlists/modify/<string:playlist_id>', methods=['GET', 'POST'])
+@user.login_required
+def modify_playlist(playlist_id):
+	p = playlist.get_playlist(playlist_id)
+	return render_template('playlists/modify.html',
+							title='Modify Playlist',
+							playlist=p)
+
 
 @app.route('/spotify/connect')
 @user.login_required
@@ -162,6 +181,6 @@ def spotify_return():
 @user.login_required
 def test_method():
 	s = spotify.Spotify(user.current_user)
-	r = s.get_playlists()
+	r = s.get_user_playlists()
 
 	return str(r)

@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+	<a href="/playlists/modify/{{ playlist._id }}" style="float:right">Edit</a>
+	<h2>Playlist {{ playlist._id }}</h2>
+
+	{% if playlist %}
+
+		<p>Playlist Master: {{ playlist.master }}</p>
+		<p>Spotify Playlist: {{ playlist.spotify_playlist_name }}</p>
+		<p>Google Playlist: {{ playlist.google_playlist_name }}</p>
+
+	{% endif %}
+{% endblock %}

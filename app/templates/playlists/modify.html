@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+	<h2>Modify Playlist {{ playlist._id }}</h2>
+
+	{% if playlist %}
+
+		<p>Playlist Master: {{ playlist.master }}</p>
+		<p>Spotify Playlist: {{ playlist.spotify_playlist_name }}</p>
+		<p>Google Playlist: {{ playlist.google_playlist_name }}</p>
+
+	{% endif %}
+{% endblock %}
