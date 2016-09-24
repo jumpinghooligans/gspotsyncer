@@ -136,6 +136,7 @@ def create_playlist():
 @user.login_required
 def spotify_connect():
 	spotify_url = spotify.get_connect_url(request.url)
+
 	return redirect(spotify_url)
 
 @app.route('/spotify/refresh_token')
@@ -143,6 +144,7 @@ def spotify_connect():
 def spotify_refresh():
 	s = spotify.Spotify(user.current_user)
 	s.refresh_token()
+
 	return redirect('/account')
 
 @app.route('/spotify/return')
@@ -155,3 +157,11 @@ def spotify_return():
 		flash(request.args.get('error'))
 
 	return redirect('/account')
+
+@app.route('/test')
+@user.login_required
+def test_method():
+	s = spotify.Spotify(user.current_user)
+	r = s.get_playlists()
+
+	return str(r)

@@ -23,7 +23,10 @@ class Spotify():
 			spotify_auth_response = urllib2.urlopen(spotify_auth_request, urllib.urlencode(params))
 			spotify_credentials = json.loads(spotify_auth_response.read())
 
+			# update our credentials
+			self.spotify_credentials = spotify_credentials
 			user.current_user.spotify_credentials = spotify_credentials
+
 			if user.current_user.save():
 				flash('Successfully updated Spotify credentials...')
 				return True
@@ -50,7 +53,10 @@ class Spotify():
 			# spotify doesn't return our refresh token, so let's tack it back on
 			spotify_credentials['refresh_token'] = self.spotify_credentials['refresh_token']
 
+			# update our credentials
+			self.spotify_credentials = spotify_credentials
 			user.current_user.spotify_credentials = spotify_credentials
+
 			if user.current_user.save():
 				flash('Successfully updated Spotify credentials...')
 				return True
@@ -92,11 +98,10 @@ class Spotify():
 
 		except urllib2.HTTPError as err:
 			# unauthorized - refresh
-			if attempt_refresh == True:
-			# if err.getcode() == 401 and attempt_refresh == True:
+			if err.getcode() == 401 and attempt_refresh == True:
 				app.logger.info("Received 401 - Refreshing Token")
 				self.refresh_token()
-				self.send_auth_request(request, data, False)
+				return self.send_auth_request(request, data, False)
 			return err
 
 	def get_auth_request(self, url):
