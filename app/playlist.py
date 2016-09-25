@@ -3,11 +3,11 @@ from app import app, mongo, user
 from flask import flash
 from bson.objectid import ObjectId
 
-import urllib, urllib2, json, time, md5
+import urllib, urllib2, json, md5
 
 
 def get_playlist(id):
-	return mongo.db.playlists.find_one({ '_id' : ObjectId(id) })
+	return Playlist(mongo.db.playlists.find_one({ '_id' : ObjectId(id) }))
 
 def get_user_playlists(user):
 	cursor = mongo.db.playlists.find({

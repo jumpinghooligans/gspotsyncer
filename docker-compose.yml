@@ -8,15 +8,19 @@ services:
      - .:/opt/gspotsyncer
     depends_on:
       - mongo
+      - memcached
     links:
       - mongo
-  #    - jenkins
+      - memcached
+      # - jenkins
   mongo:
     image: mongo
     ports:
       - "27017:27017"
     volumes:
       - ./mongo_data:/data/db
+  memcached:
+      image: memcached
   # jenkins:
   #   image: jenkins
   #   ports:

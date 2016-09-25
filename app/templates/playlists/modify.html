@@ -1,12 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
+	<a href="/playlists/{{ playlist._id }}/process" style="float:right">Process</a>
 	<h2>Modify Playlist {{ playlist._id }}</h2>
 
 	{% if playlist %}
 
 		<p>Playlist Master: {{ playlist.master }}</p>
-		<p>Spotify Playlist: {{ playlist.spotify_playlist_name }}</p>
-		<p>Google Playlist: {{ playlist.google_playlist_name }}</p>
+		<p>Spotify Playlist: {{ playlist.spotify_playlist_data.name }}</p>
+		<p>Google Playlist: {{ playlist.google_playlist_data.name }}</p>
 
 	{% endif %}
 {% endblock %}

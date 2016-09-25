@@ -5,3 +5,5 @@ libssl-dev
 libffi-dev
 mongodb-org-shell
 host
+libmemcached-dev
+telnet

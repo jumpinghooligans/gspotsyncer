@@ -1,13 +1,16 @@
-from app import app, mongo, user
+from app import app, cache, user
 from flask import request, flash
 
-import urllib, urllib2, json, base64
+import urllib, urllib2, json, base64, md5
 
 from urlparse import urlparse
 
 class Spotify():
 	def __init__(self, user):
 		self.spotify_credentials = user.spotify_credentials
+
+	def __repr__(self):
+		return md5.new(self.spotify_credentials['access_token']).hexdigest()
 
 	def connect(self):
 		# get and store auth codes
@@ -58,10 +61,10 @@ class Spotify():
 			user.current_user.spotify_credentials = spotify_credentials
 
 			if user.current_user.save():
-				flash('Successfully updated Spotify credentials...')
+				flash('Successfully refreshed Spotify credentials...')
 				return True
 			else:
-				flash('Unknown error updating Spotify credentials...')
+				flash('Unknown error refreshing Spotify credentials...')
 				return False
 
 		except urllib2.HTTPError as err:
@@ -69,6 +72,7 @@ class Spotify():
 			flash(response)
 
 
+	@cache.memoize(600)
 	def get_playlists(self):
 		req = self.get_auth_request('https://api.spotify.com/v1/me/playlists')
 		
@@ -100,9 +104,12 @@ class Spotify():
 			# unauthorized - refresh
 			if err.getcode() == 401 and attempt_refresh == True:
 				app.logger.info("Received 401 - Refreshing Token")
-				self.refresh_token()
-				return self.send_auth_request(request, data, False)
-			return err
+
+				if self.refresh_token():
+					request = self.get_auth_request(request.get_full_url())
+					return self.send_auth_request(request, data, False)
+			else:
+				return err
 
 	def get_auth_request(self, url):
 		generic_request = urllib2.Request(url)

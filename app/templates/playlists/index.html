@@ -6,8 +6,8 @@
 		{% for playlist in playlists %}
 			<p>Playlist ID: <a href="/playlists/{{ playlist._id }}">{{ playlist._id }}</a></p>
 			<p>Playlist Master: {{ playlist.master }}</p>
-			<p>Spotify Playlist: {{ playlist.spotify_playlist_name }}</p>
-			<p>Google Playlist: {{ playlist.google_playlist_name }}</p>
+			<p>Spotify Playlist: {{ playlist.spotify_playlist_data.name }}</p>
+			<p>Google Playlist: {{ playlist.google_playlist_data.name }}</p>
 
 			<br />
 		{% endfor %}

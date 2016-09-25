@@ -8,7 +8,7 @@ from .forms import CreateForm, LoginForm, UserAccountForm, CreatePlaylistForm
 from app import app, gmusic, spotify, user, playlist
 
 # General imports
-import urllib, urllib2, json
+import urllib, urllib2, json, time
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -117,17 +117,25 @@ def create_playlist():
 	if form.validate_on_submit():
 		p = playlist.Playlist({})
 
-		p.spotify_playlist_name = dict(spotify_choices).get(form.spotify_playlist.data)
 		p.spotify_playlist_id = form.spotify_playlist.data
+		full_spotify_playlists = s.get_playlists()
+		for full_playlist in full_spotify_playlists:
+			if p.spotify_playlist_id == full_playlist['id']:
+				p.spotify_playlist_data = dict(full_playlist)
+				break
 
-		p.google_playlist_name = dict(google_choices).get(form.google_playlist.data)
 		p.google_playlist_id = form.google_playlist.data
+		full_google_playlists = g.get_playlists()
+		for full_playlist in full_google_playlists:
+			if p.google_playlist_id == full_playlist['id']:
+				p.google_playlist_data = dict(full_playlist)
+				break
 
 		p.master = form.master.data
 
 		r = p.save()
 
-		return redirect('/playlists/modify/' + str(r.inserted_id))
+		return redirect('/playlists/' + str(r.inserted_id) + '/modify')
 
 
 	return render_template('playlists/create.html',
@@ -142,11 +150,19 @@ def view_playlist(playlist_id):
 							title='View Playlist',
 							playlist=p)
 
-@app.route('/playlists/modify/<string:playlist_id>', methods=['GET', 'POST'])
+@app.route('/playlists/<string:playlist_id>/modify', methods=['GET', 'POST'])
 @user.login_required
 def modify_playlist(playlist_id):
 	p = playlist.get_playlist(playlist_id)
 	return render_template('playlists/modify.html',
+							title='Modify Playlist',
+							playlist=p)
+
+@app.route('/playlists/<string:playlist_id>/process', methods=['GET', 'POST'])
+@user.login_required
+def process_playlist(playlist_id):
+	p = playlist.get_playlist(playlist_id)
+	return render_template('playlists/process.html',
 							title='Modify Playlist',
 							playlist=p)
 

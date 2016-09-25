@@ -1,11 +1,15 @@
-from app import app
+from app import app, cache
 from gmusicapi import Mobileclient
 from uuid import getnode as get_mac
+import md5
 
 class GoogleMusic():
 	def __init__(self, user):
 		self.google_id = user.google_id
 		self.google_password = user.google_password
+
+	def __repr__(self):
+		return md5.new(self.google_id).hexdigest()
 
 	def search_songs(self, query):
 		songs = []
@@ -25,6 +29,7 @@ class GoogleMusic():
 
 		return results
 
+	@cache.memoize(600)
 	def get_playlists(self):
 		api = self.get_api()
 		playlists = []
@@ -35,17 +40,16 @@ class GoogleMusic():
 		return playlists
 
 	def get_playlists_select(self):
-		api = self.get_api()
 		formatted_playlists = []
 
-		if api:
-			playlists = api.get_all_playlists()
+		playlists = self.get_playlists()
 
-			for playlist in playlists:
-				formatted_playlists.append(( playlist['id'], playlist['name'] ))
+		for playlist in playlists:
+			formatted_playlists.append(( playlist['id'], playlist['name'] ))
 
 		return formatted_playlists
 
+	@cache.memoize(600)
 	def get_full_playlists(self):
 		api = self.get_api()
 		playlists = []
@@ -61,5 +65,6 @@ class GoogleMusic():
 		logged_in = api.login(self.google_id, self.google_password, api.FROM_MAC_ADDRESS)
 
 		if logged_in:
-			return api
+			self.api = api
+			return self.api
 		return False
