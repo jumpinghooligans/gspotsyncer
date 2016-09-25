@@ -48,7 +48,7 @@ class GoogleMusic():
 
 		return results
 
-	@cache.memoize(600)
+	@cache.memoize(30 * 60)
 	def get_playlists(self):
 		api = self.get_api()
 		playlists = []
@@ -68,7 +68,7 @@ class GoogleMusic():
 
 		return formatted_playlists
 
-	@cache.memoize(600)
+	@cache.memoize(30 * 60)
 	def get_full_playlists(self):
 		api = self.get_api()
 		playlists = []
@@ -78,6 +78,8 @@ class GoogleMusic():
 
 		return playlists
 
+	# uses get_full_playlists which is cached
+	# so there's not need to cache this
 	def get_tracks(self, playlist):
 		# api work handled in playlist function
 		playlists = self.get_full_playlists()

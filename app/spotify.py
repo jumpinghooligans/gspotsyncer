@@ -86,7 +86,7 @@ class Spotify():
 
 		return json.loads(res.read())
 
-	@cache.memoize(600)
+	@cache.memoize(30 * 60)
 	def get_playlists(self):
 		req = self.get_auth_request('https://api.spotify.com/v1/me/playlists')
 		res = self.send_auth_request(req)
@@ -106,7 +106,7 @@ class Spotify():
 				formatted_playlists.append(( playlist['id'], playlist['name'] ))
 		return formatted_playlists
 
-	@cache.memoize(600)
+	@cache.memoize(30 * 60)
 	def get_tracks(self, playlist):
 		req = self.get_auth_request('https://api.spotify.com/v1/users/' + playlist['owner']['id'] +'/playlists/' + playlist['id'])
 		res = self.send_auth_request(req)
