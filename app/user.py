@@ -91,7 +91,7 @@ class User(UserMixin):
 	def is_authenticated(self):
 		return bool(self.username)
 
-	def can_create_playlist(self):
+	def can_modify_playlist(self):
 		if not hasattr(self, 'google_credentials'):
 			return False
 

@@ -15,6 +15,7 @@
 		<h3>Google</h3>
 		{% if current_user.google_credentials %}
 			<h4>Google credentials okay</h4>
+			<a href="/google/disconnect">Clear</a>
 		{% else %}
 			<p>
 				Google Account (email):
@@ -30,6 +31,7 @@
 		<h3>Spotify</h3>
 		{% if current_user.spotify_credentials %}
 			<h4>Spotify connected okay</h4>
+			<a href="/spotify/disconnect">Clear</a>
 		{% else %}
 			<p>
 				<a href="/spotify/connect">Connect Spotify</a>

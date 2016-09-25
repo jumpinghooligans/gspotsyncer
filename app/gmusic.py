@@ -26,9 +26,9 @@ class GoogleMusic():
 			return False
 
 	def disconnect(self):
-		if hasattr(self, 'google_credentials'):
-			del(self.google_credentials)
-		return self.save()
+		if hasattr(self.user, 'google_credentials'):
+			del(self.user.google_credentials)
+		return self.user.save()
 
 	def search_songs(self, query):
 		songs = []

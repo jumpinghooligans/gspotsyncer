@@ -72,6 +72,11 @@ class Spotify():
 			flash(response)
 			return False
 
+	def disconnect(self):
+		if hasattr(self.user, 'spotify_credentials'):
+			del(self.user.spotify_credentials)
+		return self.user.save()
+
 	def refresh_user_data(self):
 		# get my user data
 		data = self.get_me()

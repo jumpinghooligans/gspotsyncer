@@ -96,10 +96,12 @@ def account():
 							title='Account',
 							form=form)
 
-@app.route('/account/clear_google')
+@app.route('/google/disconnect')
 @user.login_required
-def clear_google():
-	user.current_user.clear_google()
+def google_disconnect():
+	g = gmusic.GoogleMusic(user.current_user)
+	g.disconnect()
+
 	return redirect('/account')
 
 @app.route('/playlists', methods=['GET', 'POST'])
@@ -114,8 +116,8 @@ def playlists():
 @app.route('/playlists/create', methods=['GET', 'POST'])
 @user.login_required
 def create_playlist():
-	if not user.current_user.can_create_playlist():
-		flash('You must setup both Google and Spotify credentials')
+	if not user.current_user.can_modify_playlist():
+		flash('You must setup both Google and Spotify credentials to create a playlist')
 		return redirect('/account')
 
 	form = CreatePlaylistForm()
@@ -168,6 +170,10 @@ def view_playlist(playlist_id):
 @app.route('/playlists/<string:playlist_id>/modify', methods=['GET', 'POST'])
 @user.login_required
 def modify_playlist(playlist_id):
+	if not user.current_user.can_modify_playlist():
+		flash('You must setup both Google and Spotify credentials to modify a playlist')
+		return redirect('/account')
+
 	p = playlist.get_playlist(playlist_id)
 
 	s = spotify.Spotify(user.current_user)
@@ -214,6 +220,14 @@ def spotify_return():
 		s.connect()
 	else:
 		flash(request.args.get('error'))
+
+	return redirect('/account')
+
+@app.route('/spotify/disconnect')
+@user.login_required
+def spotify_disconnect():
+	s = spotify.Spotify(user.current_user)
+	s.disconnect()
 
 	return redirect('/account')
 
