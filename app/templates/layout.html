@@ -1,38 +1,41 @@
 <html>
 	<head>
 		<title>gspot syncer</title>
+		<link rel="stylesheet" type="text/css" href="/static/css/styles.css"></style>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	</head>
 	<body>
-		<div>
-			<h1>gspot syncer</h1>
-			<a href="/">Home</a> | 
-			<a href="/account">Account</a> | 
-			<a href="/playlists">Playlists</a>
-		</div>
-		<hr>
-		<div class="flash">
-		{% with messages = get_flashed_messages() %}
-			{% if messages %}
-				<ul>
-				{% for message in messages %}
-					<li>{{ message }} </li>
+		<div class="container" style="width:80%; margin:auto">
+			<div>
+				<h1>gspot syncer</h1>
+				<a href="/">Home</a> | 
+				<a href="/account">Account</a> | 
+				<a href="/playlists">Playlists</a>
+			</div>
+			<hr>
+			<div class="flash">
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					<ul>
+					{% for message in messages %}
+						<li>{{ message }} </li>
+					{% endfor %}
+					</ul>
+				{% endif %}
+			{% endwith %}
+			{% if form and form.errors %}
+				<ul class="errors">
+				{% for field_name, field_errors in form.errors|dictsort if field_errors %}
+					{% for error in field_errors %}
+						<li>{{ form[field_name].label }}: {{ error }}</li>
+					{% endfor %}
 				{% endfor %}
 				</ul>
 			{% endif %}
-		{% endwith %}
-		{% if form and form.errors %}
-			<ul class="errors">
-			{% for field_name, field_errors in form.errors|dictsort if field_errors %}
-				{% for error in field_errors %}
-					<li>{{ form[field_name].label }}: {{ error }}</li>
-				{% endfor %}
-			{% endfor %}
-			</ul>
-		{% endif %}
-		</div>
-		<div class="content">
-			{% block content %}{% endblock %}
+			</div>
+			<div class="content">
+				{% block content %}{% endblock %}
+			</div>
 		</div>
 	</body>
 </html>

@@ -1,4 +1,4 @@
-from app import app, mongo
+from app import app, mongo, gmusic, spotify
 import md5
 
 from flask import flash
@@ -91,13 +91,17 @@ class User(UserMixin):
 	def is_authenticated(self):
 		return bool(self.username)
 
-	def new_user(self):
-		return {
-			username : ''
-		}
+	def can_create_playlist(self):
+		if not hasattr(self, 'google_credentials'):
+			return False
+
+		if not hasattr(self, 'spotify_credentials'):
+			return False
+
+		return True
 
 	def save(self):
-		user = mongo.db.users.find_one({ 'username' : self.username })
+		user = {}
 
 		# update the mongo doc
 		for obj in vars(self):

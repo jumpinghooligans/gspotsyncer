@@ -4,6 +4,11 @@
 	<form method="POST" name="create">
 		{{ form.hidden_tag() }}
 		<p>
+			Playlist Link Type
+			<br />
+			{{ form.playlist_type() }}
+		</p>
+		<p>
 			Spotify Playlist
 			<br />
 			{{ form.spotify_playlist() }}

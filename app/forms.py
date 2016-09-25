@@ -19,6 +19,7 @@ class UserAccountForm(Form):
 	google_password = PasswordField('google_password')
 
 class CreatePlaylistForm(Form):
+	playlist_type = SelectField('playlist_type', choices=[ ( 'masterslave', 'Master / Slave' )])
 	spotify_playlist = SelectField('spotify_playlist', choices=[ ( 'n', 'None' )])
 	google_playlist = SelectField('google_playlist', choices=[ ( 'n', 'None' )])
 	master = RadioField('master', choices=[('spotify','Spotify'),('google','Google')])

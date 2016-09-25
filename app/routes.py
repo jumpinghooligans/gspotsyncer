@@ -74,9 +74,14 @@ def account():
 		else:
 			del(form.password)
 
-		# figure out a better way to do this
-		if form.google_password.data == '':
-			del(form.google_password)
+		# connect if we have values
+		if form.google_id.data and form.google_password.data:
+			g = gmusic.GoogleMusic(user.current_user)
+			g.connect(form.google_id.data, form.google_password.data)
+
+		# delete them so we don't store them flat on the user doc
+		del(form.google_id)
+		del(form.google_password)
 
 		# overwrite with the form data
 		form.populate_obj(u)
@@ -91,6 +96,12 @@ def account():
 							title='Account',
 							form=form)
 
+@app.route('/account/clear_google')
+@user.login_required
+def clear_google():
+	user.current_user.clear_google()
+	return redirect('/account')
+
 @app.route('/playlists', methods=['GET', 'POST'])
 @user.login_required
 def playlists():
@@ -103,6 +114,10 @@ def playlists():
 @app.route('/playlists/create', methods=['GET', 'POST'])
 @user.login_required
 def create_playlist():
+	if not user.current_user.can_create_playlist():
+		flash('You must setup both Google and Spotify credentials')
+		return redirect('/account')
+
 	form = CreatePlaylistForm()
 
 	s = spotify.Spotify(user.current_user)
@@ -154,9 +169,18 @@ def view_playlist(playlist_id):
 @user.login_required
 def modify_playlist(playlist_id):
 	p = playlist.get_playlist(playlist_id)
+
+	s = spotify.Spotify(user.current_user)
+	spotify_tracks = s.get_tracks(p.spotify_playlist_data)
+
+	g = gmusic.GoogleMusic(user.current_user)
+	google_tracks = g.get_tracks(p.google_playlist_data)
+
 	return render_template('playlists/modify.html',
 							title='Modify Playlist',
-							playlist=p)
+							playlist=p,
+							spotify_tracks=spotify_tracks,
+							google_tracks=google_tracks)
 
 @app.route('/playlists/<string:playlist_id>/process', methods=['GET', 'POST'])
 @user.login_required
@@ -193,10 +217,7 @@ def spotify_return():
 
 	return redirect('/account')
 
-@app.route('/test')
-@user.login_required
-def test_method():
-	s = spotify.Spotify(user.current_user)
-	r = s.get_user_playlists()
-
-	return str(r)
+# @app.route('/test')
+# @user.login_required
+# def test_method():
+# 	return 'test'

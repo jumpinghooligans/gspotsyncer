@@ -1,13 +1,43 @@
 {% extends "layout.html" %}
 {% block content %}
+
 	<a href="/playlists/{{ playlist._id }}/process" style="float:right">Process</a>
 	<h2>Modify Playlist {{ playlist._id }}</h2>
 
-	{% if playlist %}
+	<p>Playlist Master: {{ playlist.master }}</p>
 
-		<p>Playlist Master: {{ playlist.master }}</p>
-		<p>Spotify Playlist: {{ playlist.spotify_playlist_data.name }}</p>
-		<p>Google Playlist: {{ playlist.google_playlist_data.name }}</p>
+	<div class="spotify track-list">
+		<h3>Spotify Playlist: {{ playlist.spotify_playlist_data.name }}</h3>
+		{% if spotify_tracks %}
+		<div class="tracks">
+			<ul>
+			{% for item in spotify_tracks %}
+			<li>
+				<div class="name"><strong>{{ item.track.name }}</strong></div>
+				<div class="artist">{{ item.track.artists[0].name }}</div>
+			</li>
+			{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+	</div>
 
-	{% endif %}
+	<div class="google track-list">
+		<h3>Google Playlist: {{ playlist.google_playlist_data.name }}</h3>
+		{% if google_tracks %}
+		<div class="tracks">
+			<ul>
+			{% for item in google_tracks %}
+			{% if item.track %}
+				<li>
+					<div class="name"><strong>{{ item.track.title }}</strong></div>
+					<div class="artist">{{ item.track.artist }}</div>
+				</li>
+			{% endif %}
+			{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+	</div>
+
 {% endblock %}

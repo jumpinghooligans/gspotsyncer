@@ -1,16 +1,16 @@
-from app import app, cache, user
+from app import app, cache
 from flask import request, flash
 
-import urllib, urllib2, json, base64, md5
+import urllib, urllib2, json, base64
 
 from urlparse import urlparse
 
 class Spotify():
 	def __init__(self, user):
-		self.spotify_credentials = user.spotify_credentials
+		self.user = user
 
 	def __repr__(self):
-		return md5.new(self.spotify_credentials['access_token']).hexdigest()
+		return "%s:%s" % (self.__class__.__name__,self.user.username)
 
 	def connect(self):
 		# get and store auth codes
@@ -27,10 +27,10 @@ class Spotify():
 			spotify_credentials = json.loads(spotify_auth_response.read())
 
 			# update our credentials
-			self.spotify_credentials = spotify_credentials
-			user.current_user.spotify_credentials = spotify_credentials
+			self.user.spotify_credentials = spotify_credentials
 
-			if user.current_user.save():
+			if self.user.save():
+				self.refresh_user_data()
 				flash('Successfully updated Spotify credentials...')
 				return True
 			else:
@@ -46,7 +46,7 @@ class Spotify():
 		refresh_request.add_header('Authorization', 'Basic ' + base64.b64encode(app.config['SPOTIFY_CLIENT_ID'] + ':' + app.config['SPOTIFY_CLIENT_SECRET']))
 		params = {
 			'grant_type' : 'refresh_token',
-			'refresh_token' : self.spotify_credentials['refresh_token']
+			'refresh_token' : self.user.spotify_credentials['refresh_token']
 		}
 
 		try:
@@ -54,13 +54,13 @@ class Spotify():
 			spotify_credentials = json.loads(refresh_response.read())
 
 			# spotify doesn't return our refresh token, so let's tack it back on
-			spotify_credentials['refresh_token'] = self.spotify_credentials['refresh_token']
+			spotify_credentials['refresh_token'] = self.user.spotify_credentials['refresh_token']
 
 			# update our credentials
-			self.spotify_credentials = spotify_credentials
-			user.current_user.spotify_credentials = spotify_credentials
+			self.user.spotify_credentials = spotify_credentials
 
-			if user.current_user.save():
+			if self.user.save():
+				self.refresh_user_data()
 				flash('Successfully refreshed Spotify credentials...')
 				return True
 			else:
@@ -70,15 +70,29 @@ class Spotify():
 		except urllib2.HTTPError as err:
 			response = json.loads(err.fp.read())
 			flash(response)
+			return False
 
+	def refresh_user_data(self):
+		# get my user data
+		data = self.get_me()
+
+		# save it
+		self.user.spotify_data = data
+		return self.user.save()
+
+	def get_me(self):
+		req = self.get_auth_request('https://api.spotify.com/v1/me')
+		res = self.send_auth_request(req)
+
+		return json.loads(res.read())
 
 	@cache.memoize(600)
 	def get_playlists(self):
 		req = self.get_auth_request('https://api.spotify.com/v1/me/playlists')
-		
 		res = self.send_auth_request(req)
+
 		if res.getcode() == 200:
-			results = json.loads(res.fp.read())
+			results = json.loads(res.read())
 			return results['items']
 
 		return None
@@ -92,6 +106,15 @@ class Spotify():
 				formatted_playlists.append(( playlist['id'], playlist['name'] ))
 		return formatted_playlists
 
+	@cache.memoize(600)
+	def get_tracks(self, playlist):
+		req = self.get_auth_request('https://api.spotify.com/v1/users/' + playlist['owner']['id'] +'/playlists/' + playlist['id'])
+		res = self.send_auth_request(req)
+
+		if res.getcode() == 200:
+			return json.loads(res.read())['tracks']['items']
+
+		return []
 
 	def send_auth_request(self, request, data={}, attempt_refresh=True):
 		try:
@@ -113,7 +136,7 @@ class Spotify():
 
 	def get_auth_request(self, url):
 		generic_request = urllib2.Request(url)
-		generic_request.add_header('Authorization', self.spotify_credentials['token_type'] + ' ' + self.spotify_credentials['access_token'])
+		generic_request.add_header('Authorization', self.user.spotify_credentials['token_type'] + ' ' + self.user.spotify_credentials['access_token'])
 
 		return generic_request
 
