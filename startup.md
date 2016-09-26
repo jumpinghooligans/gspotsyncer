@@ -1,8 +1,3 @@
-# gspotsyncer
-Sync Spotify and Google Music playlists together
-
-## install
-```
 sudo yum update -y
 
 sudo yum install git
@@ -14,17 +9,10 @@ git clone https://github.com/jumpinghooligans/gspotsyncer.git .
 sudo curl -fsSL https://get.docker.com/ | sh
 
 curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-```
-There's some permission stuff here you need to set
-
-```
 chmod +x /usr/local/bin/docker-compose
-...
-```
-logout and log back in for everything to take effect
 
-```
+exit
+
 cd gspotsyncer
 sudo service docker start
 docker-compose up -d
-```

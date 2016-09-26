@@ -117,7 +117,6 @@ def playlists():
 @user.login_required
 def create_playlist():
 	if not user.current_user.can_modify_playlist():
-		flash('You must setup both Google and Spotify credentials to create a playlist')
 		return redirect('/account')
 
 	form = CreatePlaylistForm()
