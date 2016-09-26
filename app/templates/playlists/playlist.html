@@ -6,8 +6,39 @@
 	{% if playlist %}
 
 		<p>Playlist Master: {{ playlist.master }}</p>
-		<p>Spotify Playlist: {{ playlist.spotify_playlist_data.name }}</p>
-		<p>Google Playlist: {{ playlist.google_playlist_data.name }}</p>
 
+		<div class="spotify track-list">
+			<h3>Spotify Playlist: {{ playlist.spotify_playlist_data.name }}</h3>
+			{% if playlist.spotify_tracks %}
+			<div class="tracks">
+				<ul>
+				{% for item in playlist.spotify_tracks %}
+				<li>
+					<div class="name"><strong>{{ item.track.name }}</strong></div>
+					<div class="artist">{{ item.track.artists[0].name }}</div>
+				</li>
+				{% endfor %}
+				</ul>
+			</div>
+			{% endif %}
+		</div>
+
+		<div class="google track-list">
+			<h3>Google Playlist: {{ playlist.google_playlist_data.name }}</h3>
+			{% if playlist.google_tracks %}
+			<div class="tracks">
+				<ul>
+				{% for item in playlist.google_tracks %}
+				{% if item.track %}
+					<li>
+						<div class="name"><strong>{{ item.track.title }}</strong></div>
+						<div class="artist">{{ item.track.artist }}</div>
+					</li>
+				{% endif %}
+				{% endfor %}
+				</ul>
+			</div>
+			{% endif %}
+		</div>
 	{% endif %}
 {% endblock %}

@@ -4,6 +4,8 @@ import md5
 from flask import flash
 from flask_login import LoginManager, AnonymousUserMixin, UserMixin, login_user, logout_user, login_required, current_user
 
+from bson.objectid import ObjectId
+
 # session management
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -74,7 +76,12 @@ def hash_hex(s):
 # User Object
 class User(UserMixin):
 	def __init__(self, user):
-		app.logger.info('Returning user ' + user.get('username'))
+		# instantiate with a _id
+		if type(user) is str:
+			user = mongo.db.users.find_one({ '_id' : ObjectId(user) })
+
+		if not user:
+			user = {}
 
 		for key, value in user.items():
 			setattr(self, key, value)
@@ -91,11 +98,32 @@ class User(UserMixin):
 	def is_authenticated(self):
 		return bool(self.username)
 
-	def can_modify_playlist(self):
+	def can_view_playlist(self, playlist = None):
+		# if we're testing an individual playlist
+		# do a user id check
+		if playlist:
+			if not hasattr(playlist, '_id'):
+				flash('Playlist not found')
+				return False
+
+		return True
+
+	def can_modify_playlist(self, playlist = None):
+		if playlist:
+			if not self.can_view_playlist(playlist):
+				# above function will provide reason
+				return False
+
+			if not hasattr(playlist, 'user_id') or not self._id == playlist.user_id:
+				flash('You do not have permission to edit that playlist')
+				return False
+
 		if not hasattr(self, 'google_credentials'):
+			flash('Missing Google credentials')
 			return False
 
 		if not hasattr(self, 'spotify_credentials'):
+			flash('Missing Spotify credentials')
 			return False
 
 		return True
@@ -107,5 +135,11 @@ class User(UserMixin):
 		for obj in vars(self):
 			user[obj] = getattr(self, obj)
 
+		# convert to dict for mongo
+		user = dict(user)
+
 		# save to db
-		return mongo.db.users.save(user)
+		if '_id' in user:
+			return mongo.db.users.replace_one({ '_id' : user['_id'] }, user)
+
+		return mongo.db.users.insert_one(user)

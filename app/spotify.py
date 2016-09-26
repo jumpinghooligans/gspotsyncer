@@ -10,7 +10,7 @@ class Spotify():
 		self.user = user
 
 	def __repr__(self):
-		return "%s:%s" % (self.__class__.__name__,self.user.username)
+		return "%s:%s" % (self.__class__.__name__,self.user._id)
 
 	def connect(self):
 		# get and store auth codes
@@ -111,15 +111,55 @@ class Spotify():
 				formatted_playlists.append(( playlist['id'], playlist['name'] ))
 		return formatted_playlists
 
-	@cache.memoize(30 * 60)
-	def get_tracks(self, playlist):
-		req = self.get_auth_request('https://api.spotify.com/v1/users/' + playlist['owner']['id'] +'/playlists/' + playlist['id'])
-		res = self.send_auth_request(req)
+	def playlist_remove(playlist, delete_ids):
+		pass
 
-		if res.getcode() == 200:
-			return json.loads(res.read())['tracks']['items']
+	def playlist_add(playlist, insert_ids):
+		pass
+
+	# @cache.memoize(30)
+	def get_tracks(self, playlist=None):
+		if playlist:
+			req = self.get_auth_request('https://api.spotify.com/v1/users/' + playlist['owner']['id'] +'/playlists/' + playlist['id'])
+			res = self.send_auth_request(req)
+
+			if res.getcode() == 200:
+				return json.loads(res.read())['tracks']['items']
 
 		return []
+
+	def format_generic_track(self, track, existing_tracks):
+		track = track['track']
+
+		# if this spotify id already exists in our existing
+		# tracks we can just return that element
+		for existing in existing_tracks:
+			if existing['spotify_id'] == track['id']:
+				return existing
+
+		# if we don't have it already, generate it
+		return {
+			'spotify_id' : track['id'],
+			'google_id' : None,
+			'title' : track['name'],
+			'artists' : self.format_generic_artists(track['artists']),
+			'album' : self.format_generic_album(track['album'])
+		}
+
+	def format_generic_artists(self, artists):
+		formatted_artists = []
+
+		for artist in artists:
+			formatted_artists.append({
+				'name' : artist['name']
+			})
+
+		return formatted_artists
+
+	def format_generic_album(self, album):
+		return {
+			'name' : album['name']
+		}
 
 	def send_auth_request(self, request, data={}, attempt_refresh=True):
 		try:

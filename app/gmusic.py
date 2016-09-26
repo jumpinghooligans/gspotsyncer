@@ -7,7 +7,7 @@ class GoogleMusic():
 		self.user = user
 
 	def __repr__(self):
-		return "%s:%s" % (self.__class__.__name__,self.user.username)
+		return "%s:%s" % (self.__class__.__name__,self.user._id)
 
 	def connect(self, google_id, google_password):
 		# set the credentials
@@ -30,7 +30,10 @@ class GoogleMusic():
 			del(self.user.google_credentials)
 		return self.user.save()
 
+	@cache.memoize(5 * 60)
 	def search_songs(self, query):
+		app.logger.info('Searching for song: ' + query)
+
 		songs = []
 		full_results = self.search(query)
 
@@ -47,6 +50,39 @@ class GoogleMusic():
 			results = api.search(query)
 
 		return results
+
+	def playlist_remove(self, playlist, delete_ids):
+		app.logger.info('Removing ' + str(delete_ids) + ' from ' + str(playlist._id))
+
+		# we need to translate trackIds into entry Ids
+		# trackIds are used to add, but you need the specific
+		# instance of this track in the playlist to delete
+		entry_ids = []
+		for track_id in delete_ids:
+			for track_data in playlist.google_tracks:
+				if track_data['trackId'] == track_id:
+					entry_ids.append(track_data['id'])
+					break
+
+		app.logger.info('Translated into entriy IDs: ' + str(entry_ids))
+
+		api = self.get_api()
+
+		if api:
+			return api.remove_entries_from_playlist(entry_ids)
+
+		return False
+
+	def playlist_add(self, playlist, insert_ids):
+		app.logger.info('Adding ' + str(insert_ids) + ' from ' + str(playlist._id))
+
+		playlist_id = playlist.google_playlist_data['id']
+
+		if playlist_id and insert_ids:
+			api = self.get_api()
+
+			if api:
+				return api.add_songs_to_playlist(playlist_id, insert_ids)
 
 	@cache.memoize(30 * 60)
 	def get_playlists(self):
@@ -68,7 +104,6 @@ class GoogleMusic():
 
 		return formatted_playlists
 
-	@cache.memoize(30 * 60)
 	def get_full_playlists(self):
 		api = self.get_api()
 		playlists = []
@@ -78,15 +113,15 @@ class GoogleMusic():
 
 		return playlists
 
-	# uses get_full_playlists which is cached
-	# so there's not need to cache this
-	def get_tracks(self, playlist):
+	# @cache.memoize(30)
+	def get_tracks(self, playlist=None):
 		# api work handled in playlist function
-		playlists = self.get_full_playlists()
+		if playlist:
+			playlists = self.get_full_playlists()
 
-		for p in playlists:
-			if p['id'] == playlist['id']:
-				return p['tracks']
+			for p in playlists:
+				if p['id'] == playlist['id']:
+					return p['tracks']
 
 		return [];
 

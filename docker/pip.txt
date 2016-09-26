@@ -4,9 +4,9 @@ flask-mail
 flask-wtf
 flask-babel
 flask-pymongo
-Flask-Cache
+flask_caching
 guess_language
 flipflop
 coverage
 gmusicapi
-pylibmc
+python-memcached

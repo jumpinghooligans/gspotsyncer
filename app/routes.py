@@ -134,6 +134,10 @@ def create_playlist():
 	if form.validate_on_submit():
 		p = playlist.Playlist({})
 
+		p.user_id = user.current_user._id
+
+		p.type = form.playlist_type.data
+
 		p.spotify_playlist_id = form.spotify_playlist.data
 		full_spotify_playlists = s.get_playlists()
 		for full_playlist in full_spotify_playlists:
@@ -150,9 +154,12 @@ def create_playlist():
 
 		p.master = form.master.data
 
-		r = p.save()
+		# get get track lists
+		p.refresh_external_tracks()
 
-		return redirect('/playlists/' + str(r.inserted_id) + '/modify')
+		save = p.save()
+
+		return redirect('/playlists/' + str(save.inserted_id) + '/modify')
 
 
 	return render_template('playlists/create.html',
@@ -162,7 +169,11 @@ def create_playlist():
 @app.route('/playlists/<string:playlist_id>', methods=['GET', 'POST'])
 @user.login_required
 def view_playlist(playlist_id):
-	p = playlist.get_playlist(playlist_id)
+	p = playlist.Playlist(str(playlist_id))
+
+	if not user.current_user.can_view_playlist(p):
+		return redirect('/account')
+
 	return render_template('playlists/playlist.html',
 							title='View Playlist',
 							playlist=p)
@@ -170,31 +181,44 @@ def view_playlist(playlist_id):
 @app.route('/playlists/<string:playlist_id>/modify', methods=['GET', 'POST'])
 @user.login_required
 def modify_playlist(playlist_id):
-	if not user.current_user.can_modify_playlist():
-		flash('You must setup both Google and Spotify credentials to modify a playlist')
+	p = playlist.Playlist(str(playlist_id))
+
+	if not user.current_user.can_modify_playlist(p):
 		return redirect('/account')
 
-	p = playlist.get_playlist(playlist_id)
-
-	s = spotify.Spotify(user.current_user)
-	spotify_tracks = s.get_tracks(p.spotify_playlist_data)
-
-	g = gmusic.GoogleMusic(user.current_user)
-	google_tracks = g.get_tracks(p.google_playlist_data)
+	# refresh from the internet
+	p.refresh_external_tracks()
+	p.generate_track_list()
+	p.save()
 
 	return render_template('playlists/modify.html',
 							title='Modify Playlist',
-							playlist=p,
-							spotify_tracks=spotify_tracks,
-							google_tracks=google_tracks)
+							playlist=p)
 
 @app.route('/playlists/<string:playlist_id>/process', methods=['GET', 'POST'])
 @user.login_required
 def process_playlist(playlist_id):
-	p = playlist.get_playlist(playlist_id)
-	return render_template('playlists/process.html',
-							title='Modify Playlist',
-							playlist=p)
+	p = playlist.Playlist(str(playlist_id))
+
+	# actions = [
+	# 	'generate_track_list' : None,
+	# 	'find_missing_tracks' : None
+	# ]
+	# results = p.process(actions, False)
+
+	p.generate_track_list()
+	p.find_missing_tracks()
+	p.publish_tracks()
+	p.save()
+
+	# clear the caches
+	p.refresh_external_tracks()
+
+	return redirect('/playlists/' + playlist_id)
+
+	# return render_template('playlists/process.html',
+	# 						title='Modify Playlist',
+	# 						playlist=p)
 
 
 @app.route('/spotify/connect')
@@ -231,7 +255,10 @@ def spotify_disconnect():
 
 	return redirect('/account')
 
-# @app.route('/test')
-# @user.login_required
-# def test_method():
-# 	return 'test'
+@app.route('/test')
+@user.login_required
+def test_method():
+	p = playlist.Playlist('57e88ef3df24e006098f409b')
+	p.refresh_external_tracks(True)
+
+	return 'done'

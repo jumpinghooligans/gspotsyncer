@@ -6,12 +6,35 @@
 
 	<p>Playlist Master: {{ playlist.master }}</p>
 
+	<div class="generic track-table">
+		{% if playlist.tracks %}
+		<table style="width:100%">
+			<tr>
+				<th>Spotify ID</th>
+				<th>Google ID</th>
+				<th class="name">Title</th>
+				<th class="artist">Artist</th>
+				<th class="artist">Album</th>
+			</tr>
+			{% for track in playlist.tracks %}
+			<tr>
+				<td>{{ track.spotify_id }}</td>
+				<td>{{ track.google_id }}</td>
+				<td class="name"><strong>{{ track.title }}</strong></td>
+				<td class="artist">{{ track.artists[0].name }}</td>
+				<td class="artist">{{ track.album.name }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+		{% endif %}
+	</div>
+
 	<div class="spotify track-list">
 		<h3>Spotify Playlist: {{ playlist.spotify_playlist_data.name }}</h3>
-		{% if spotify_tracks %}
+		{% if playlist.spotify_tracks %}
 		<div class="tracks">
 			<ul>
-			{% for item in spotify_tracks %}
+			{% for item in playlist.spotify_tracks %}
 			<li>
 				<div class="name"><strong>{{ item.track.name }}</strong></div>
 				<div class="artist">{{ item.track.artists[0].name }}</div>
@@ -24,10 +47,10 @@
 
 	<div class="google track-list">
 		<h3>Google Playlist: {{ playlist.google_playlist_data.name }}</h3>
-		{% if google_tracks %}
+		{% if playlist.google_tracks %}
 		<div class="tracks">
 			<ul>
-			{% for item in google_tracks %}
+			{% for item in playlist.google_tracks %}
 			{% if item.track %}
 				<li>
 					<div class="name"><strong>{{ item.track.title }}</strong></div>
