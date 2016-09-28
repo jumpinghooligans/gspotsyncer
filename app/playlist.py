@@ -31,18 +31,6 @@ class Playlist():
 		for key, value in playlist.items():
 			setattr(self, key, value)
 
-	# def process(self, actions = {}, save = True):
-	# 	results = {}
-	# 	for action, params in actions.iteritems():
-	# 		if hasattr(self, action):
-	# 			func = getattr(self, action)
-	# 			results[action] = func(params)
-
-	# 	if save:
-	# 		results['save'] = self.save()
-
-	# 	return results
-
 	def publish_tracks(self):
 		u = user.User(str(self.user_id))
 

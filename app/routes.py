@@ -199,25 +199,29 @@ def modify_playlist(playlist_id):
 def process_playlist(playlist_id):
 	p = playlist.Playlist(str(playlist_id))
 
-	# actions = [
-	# 	'generate_track_list' : None,
-	# 	'find_missing_tracks' : None
-	# ]
-	# results = p.process(actions, False)
-
+	# Using the type of playlist, and both sets of
+	# playlist data, generate a master list
 	p.generate_track_list()
-	p.find_missing_tracks()
-	p.publish_tracks()
-	p.save()
 
-	# clear the caches
+	# Using track name/artist/album lookup any
+	# missing service track IDs
+	p.find_missing_tracks()
+
+	# Do a diff and publish any tracks that exist
+	# in the master list and don't exist on the
+	# remote playlists - reverse for tracks on the
+	# remote and not on the master list
+	p.publish_tracks()
+
+	# Refresh our external track data, this
+	# should now reflect any playlist edits
+	# we made above
 	p.refresh_external_tracks()
 
-	return redirect('/playlists/' + playlist_id)
+	# Save all of our changes
+	p.save()
 
-	# return render_template('playlists/process.html',
-	# 						title='Modify Playlist',
-	# 						playlist=p)
+	return redirect('/playlists/' + playlist_id)
 
 
 @app.route('/spotify/connect')
