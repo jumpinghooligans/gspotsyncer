@@ -3,7 +3,7 @@ from app import app, mongo, cache, user, gmusic, spotify
 from flask import flash
 from bson.objectid import ObjectId
 
-import urllib, urllib2, json, md5
+import urllib, json, md5
 
 def get_user_playlists(user):
 	cursor = mongo.db.playlists.find({
@@ -25,6 +25,9 @@ class Playlist():
 		if not playlist:
 			playlist = {}
 
+		# some defaults
+		setattr(self, 'tracks', [])
+
 		for key, value in playlist.items():
 			setattr(self, key, value)
 
@@ -41,16 +44,6 @@ class Playlist():
 	# 	return results
 
 	def publish_tracks(self):
-
-		# if masterslave
-			# clear slaves track cache
-			# get_tracks
-			#
-			# find tracks in get_tracks not on self.tracks
-			# 	delete them
-			# find tracks in self.tracks not on get_tracks
-			# 	add them
-
 		u = user.User(str(self.user_id))
 
 		service = None
@@ -64,14 +57,15 @@ class Playlist():
 			# with whats in self.tracks.{{service}}_ids
 
 			if self.master == 'spotify':
-				remote_track_ids = self.get_track_ids(self.google_tracks, 'google')
-				local_track_ids = self.get_track_ids(self.tracks, 'generic_google')
+				slave = 'google'
 				service = g
 
 			if self.master == 'google':
-				remote_track_ids = self.get_track_ids(self.spotify_tracks, 'spotify')
-				local_track_ids = self.get_track_ids(self.tracks, 'generic_spotify')
+				slave = 'spotify'
 				service = s
+
+			remote_track_ids = self.get_track_ids(getattr(self, slave + '_tracks'), slave)
+			local_track_ids = self.get_track_ids(self.tracks, 'generic_' + slave)
 
 			# as long as we have something to do
 			if local_track_ids:
@@ -83,6 +77,8 @@ class Playlist():
 
 				service.playlist_remove(self, delete_ids)
 				service.playlist_add(self, insert_ids)
+
+				return True
 
 		return False
 
@@ -103,10 +99,15 @@ class Playlist():
 
 				# real dumb right now
 				if matching_tracks:
+					# trackId is nid in search results
 					self.tracks[idx]['google_id'] = matching_tracks[0]['track']['nid']
 
 			if not track['spotify_id']:
-				app.logger.info('Search for spotify track')
+				matching_tracks = s.search_songs(query)
+
+				# still dumb
+				if matching_tracks:
+					self.tracks[idx]['spotify_id'] = matching_tracks[0]['uri']
 
 		return True
 
@@ -165,14 +166,10 @@ class Playlist():
 		if service == 'spotify':
 			service_api = spotify.Spotify(u)
 
-		existing_tracks = []
-		if hasattr(self, 'tracks'):
-			existing_tracks = self.tracks
-
 		formatted_tracks = []
 		if service_api:
 			for track in new_tracks:
-				formatted_tracks.append(service_api.format_generic_track(track, existing_tracks))
+				formatted_tracks.append(service_api.format_generic_track(track, self.tracks))
 
 		return formatted_tracks
 

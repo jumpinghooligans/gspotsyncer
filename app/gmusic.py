@@ -9,6 +9,20 @@ class GoogleMusic():
 	def __repr__(self):
 		return "%s:%s" % (self.__class__.__name__,self.user._id)
 
+	def get_api(self):
+		if hasattr(self, 'api'):
+			app.logger.info('Loaded cached Google API')
+			return self.api
+
+		api = Mobileclient()
+
+		logged_in = api.login(self.user.google_credentials['google_id'], self.user.google_credentials['google_password'], api.FROM_MAC_ADDRESS)
+
+		if logged_in:
+			self.api = api
+			return self.api
+		return False
+
 	def connect(self, google_id, google_password):
 		# set the credentials
 		self.user.google_credentials = {
@@ -84,6 +98,8 @@ class GoogleMusic():
 			if api:
 				return api.add_songs_to_playlist(playlist_id, insert_ids)
 
+		return False
+
 	@cache.memoize(30 * 60)
 	def get_playlists(self):
 		api = self.get_api()
@@ -123,18 +139,36 @@ class GoogleMusic():
 				if p['id'] == playlist['id']:
 					return p['tracks']
 
-		return [];
+		return []
 
-	def get_api(self):
-		if hasattr(self, 'api'):
-			app.logger.info('Loaded cached Google API')
-			return self.api
+	def format_generic_track(self, track, existing_tracks):
+		track_data = track['track']
 
-		api = Mobileclient()
+		# if this spotify id already exists in our existing
+		# tracks we can just return that element
+		for existing in existing_tracks:
+			if existing['google_id'] == track['trackId']:
+				return existing
 
-		logged_in = api.login(self.user.google_credentials['google_id'], self.user.google_credentials['google_password'], api.FROM_MAC_ADDRESS)
+		# if we don't have it already, generate it
+		return {
+			'spotify_id' : None,
+			'google_id' : track['trackId'],
+			'title' : track_data['title'],
+			'artists' : self.format_generic_artists(track_data),
+			'album' : self.format_generic_album(track_data)
+		}
 
-		if logged_in:
-			self.api = api
-			return self.api
-		return False
+	def format_generic_artists(self, track_data):
+		formatted_artists = []
+
+		formatted_artists.append({
+			'name' : track_data['artist']
+		})
+
+		return formatted_artists
+
+	def format_generic_album(self, track_data):
+		return {
+			'name' : track_data['album']
+		}

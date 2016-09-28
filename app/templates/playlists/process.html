@@ -9,25 +9,5 @@
 		<p>Spotify Playlist: {{ playlist.spotify_playlist_data.name }}</p>
 		<p>Google Playlist: {{ playlist.google_playlist_data.name }}</p>
 
-		{% if playlist.tracks %}
-			<table>
-			<tr>
-				<th>Spotify ID</th>
-				<th>Google ID</th>
-				<th class="name">Title</th>
-				<th class="artist">Artist</th>
-				<th class="artist">Album</th>
-			</tr>
-			{% for track in playlist.tracks %}
-			<tr>
-				<td>{{ track.spotify_id }}</td>
-				<td>{{ track.google_id }}</td>
-				<td class="name"><strong>{{ track.title }}</strong></td>
-				<td class="artist">{{ track.artists[0].name }}</td>
-				<td class="artist">{{ track.album.name }}</td>
-			</tr>
-			{% endfor %}
-			</table>
-		{% endif %}
 	{% endif %}
 {% endblock %}

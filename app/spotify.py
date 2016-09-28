@@ -1,7 +1,7 @@
 from app import app, cache
 from flask import request, flash
 
-import urllib, urllib2, json, base64
+import urllib, urllib2, httplib2, json, base64
 
 from urlparse import urlparse
 
@@ -91,12 +91,30 @@ class Spotify():
 
 		return json.loads(res.read())
 
+	def search_songs(self, query):
+		search_results = self.search(query, 'track')
+
+		search_results = search_results.get('tracks', [])
+		search_results = search_results.get('items', [])
+		return search_results
+
+	def search(self, query, result_type):
+		params = {
+			'q' : query,
+			'type' : result_type
+		}
+
+		req = self.get_auth_request('https://api.spotify.com/v1/search?' + urllib.urlencode(params))
+		res = self.send_auth_request(req)
+
+		return json.loads(res.read())
+
 	@cache.memoize(30 * 60)
 	def get_playlists(self):
 		req = self.get_auth_request('https://api.spotify.com/v1/me/playlists')
 		res = self.send_auth_request(req)
 
-		if res.getcode() == 200:
+		if res and res.getcode() == 200:
 			results = json.loads(res.read())
 			return results['items']
 
@@ -111,19 +129,51 @@ class Spotify():
 				formatted_playlists.append(( playlist['id'], playlist['name'] ))
 		return formatted_playlists
 
-	def playlist_remove(playlist, delete_ids):
+	def playlist_remove(self, playlist, delete_ids):
 		pass
 
-	def playlist_add(playlist, insert_ids):
-		pass
+		playlist_data = playlist.spotify_playlist_data
+
+		uris = []
+		for delete_id in delete_ids:
+			uris.append({
+				'uri' : delete_id
+			})
+
+		params = {
+			'tracks' : uris
+		}
+
+		req = self.get_auth_request('https://api.spotify.com/v1/users/' + playlist_data['owner']['id'] +'/playlists/' + playlist_data['id'] + '/tracks', 'DELETE')
+		res = self.send_auth_request(req, json.dumps(params))
+
+		if res and res.getcode() == 200:
+			return json.loads(res.read())
+
+		return False
+
+	def playlist_add(self, playlist, insert_ids):
+		playlist_data = playlist.spotify_playlist_data
+
+		params = {
+			'uris' : insert_ids
+		}
+
+		req = self.get_auth_request('https://api.spotify.com/v1/users/' + playlist_data['owner']['id'] +'/playlists/' + playlist_data['id'] + '/tracks')
+		res = self.send_auth_request(req, json.dumps(params))
+
+		if res and res.getcode() == 200:
+			return json.loads(res.read())
+
+		return False
 
 	# @cache.memoize(30)
-	def get_tracks(self, playlist=None):
-		if playlist:
-			req = self.get_auth_request('https://api.spotify.com/v1/users/' + playlist['owner']['id'] +'/playlists/' + playlist['id'])
+	def get_tracks(self, playlist_data=None):
+		if playlist_data:
+			req = self.get_auth_request('https://api.spotify.com/v1/users/' + playlist_data['owner']['id'] +'/playlists/' + playlist_data['id'])
 			res = self.send_auth_request(req)
 
-			if res.getcode() == 200:
+			if res and res.getcode() == 200:
 				return json.loads(res.read())['tracks']['items']
 
 		return []
@@ -139,7 +189,7 @@ class Spotify():
 
 		# if we don't have it already, generate it
 		return {
-			'spotify_id' : track['id'],
+			'spotify_id' : track['uri'],
 			'google_id' : None,
 			'title' : track['name'],
 			'artists' : self.format_generic_artists(track['artists']),
@@ -162,11 +212,13 @@ class Spotify():
 		}
 
 	def send_auth_request(self, request, data={}, attempt_refresh=True):
+		opener = urllib2.build_opener(urllib2.HTTPHandler)
+
 		try:
 			if data:
-				return urllib2.urlopen(request, data)
+				return opener.open(request, data)
 			else:
-				return urllib2.urlopen(request)
+				return opener.open(request)
 
 		except urllib2.HTTPError as err:
 			# unauthorized - refresh
@@ -179,9 +231,13 @@ class Spotify():
 			else:
 				return err
 
-	def get_auth_request(self, url):
+	def get_auth_request(self, url, overrideMethod=None):
 		generic_request = urllib2.Request(url)
 		generic_request.add_header('Authorization', self.user.spotify_credentials['token_type'] + ' ' + self.user.spotify_credentials['access_token'])
+		generic_request.add_header('Content-Type', 'application/json')
+
+		if overrideMethod:
+			generic_request.get_method = lambda: 'PUT'
 
 		return generic_request
 

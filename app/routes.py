@@ -8,7 +8,7 @@ from .forms import CreateForm, LoginForm, UserAccountForm, CreatePlaylistForm
 from app import app, gmusic, spotify, user, playlist
 
 # General imports
-import urllib, urllib2, json, time
+import urllib, json, time
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -254,10 +254,10 @@ def spotify_disconnect():
 
 	return redirect('/account')
 
-@app.route('/test')
-@user.login_required
-def test_method():
-	p = playlist.Playlist('57e88ef3df24e006098f409b')
-	p.refresh_external_tracks(True)
+# @app.route('/test')
+# @user.login_required
+# def test_method():
+# 	s = spotify.Spotify(user.current_user)
+# 	p = playlist.Playlist('57eb39a2d124d6052dac6a73')
 
-	return 'done'
+# 	return str(s.playlist_add(p.spotify_playlist_data, ['spotify:track:7w4DjtzhYkz5hky2BMa7Bd']))
