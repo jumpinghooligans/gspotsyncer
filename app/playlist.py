@@ -80,7 +80,7 @@ class Playlist():
 		s = spotify.Spotify(u)
 
 		for idx, track in enumerate(self.tracks):
-			query = track['title'] + ' ' + track['artists'][0]['name'] + ' ' + track['album']['name']
+			query = track['title'].partition('(')[0] + ' ' + track['artists'][0]['name'] + ' ' + track['album']['name']
 
 			if not track['google_id']:
 				matching_tracks = g.search_songs(query)
@@ -105,7 +105,7 @@ class Playlist():
 		for track in tracks:
 			if service == 'spotify':
 				# spotify n.track.id
-				track_ids.append(track['track']['id'])
+				track_ids.append(track['track']['uri'])
 
 			if service == 'google':
 				track_ids.append(track['trackId'])

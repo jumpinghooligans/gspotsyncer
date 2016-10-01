@@ -219,7 +219,7 @@ def process_playlist(playlist_id):
 	p.refresh_external_tracks()
 
 	# Save all of our changes
-	p.save()
+	res = p.save()
 
 	return redirect('/playlists/' + playlist_id)
 
@@ -242,11 +242,14 @@ def spotify_refresh():
 @app.route('/spotify/return')
 @user.login_required
 def spotify_return():
+	# successful if we get a 'code' query param
 	if request.args.get('code'):
 		s = spotify.Spotify(user.current_user)
 		s.connect()
+
 	else:
-		flash(request.args.get('error'))
+		# in theory there should be an error
+		flash(request.args.get('error', 'Something went wrong...'))
 
 	return redirect('/account')
 
@@ -258,10 +261,9 @@ def spotify_disconnect():
 
 	return redirect('/account')
 
-# @app.route('/test')
-# @user.login_required
-# def test_method():
-# 	s = spotify.Spotify(user.current_user)
-# 	p = playlist.Playlist('57eb39a2d124d6052dac6a73')
+@app.route('/test')
+@user.login_required
+def test_method():
+	s = spotify.Spotify(user.current_user)
 
-# 	return str(s.playlist_add(p.spotify_playlist_data, ['spotify:track:7w4DjtzhYkz5hky2BMa7Bd']))
+	return str(s.get_me())

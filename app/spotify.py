@@ -1,7 +1,7 @@
 from app import app, cache
 from flask import request, flash
 
-import urllib, urllib2, httplib2, json, base64
+import urllib, requests, json, base64
 
 from urlparse import urlparse
 
@@ -13,21 +13,19 @@ class Spotify():
 		return "%s:%s" % (self.__class__.__name__,self.user._id)
 
 	def connect(self):
-		# get and store auth codes
-		spotify_auth_request = urllib2.Request('https://accounts.spotify.com/api/token')
-		spotify_auth_request.add_header('Authorization', 'Basic ' + base64.b64encode(app.config['SPOTIFY_CLIENT_ID'] + ':' + app.config['SPOTIFY_CLIENT_SECRET']))
-		params = {
-			'grant_type' : 'authorization_code',
-			'code' : request.args.get('code'),
-			'redirect_uri' : get_return_url(request.url)
-		}
+		spotify_auth_response = requests.post(
+			url='https://accounts.spotify.com/api/token',
+			headers={ 'Authorization' : 'Basic ' + base64.b64encode(app.config['SPOTIFY_CLIENT_ID'] + ':' + app.config['SPOTIFY_CLIENT_SECRET']) },
+			data={
+				'grant_type' : 'authorization_code',
+				'code' : request.args.get('code'),
+				'redirect_uri' : get_return_url(request.url)
+			}
+		)
 
-		try:
-			spotify_auth_response = urllib2.urlopen(spotify_auth_request, urllib.urlencode(params))
-			spotify_credentials = json.loads(spotify_auth_response.read())
-
+		if spotify_auth_response.status_code == requests.codes.ok:
 			# update our credentials
-			self.user.spotify_credentials = spotify_credentials
+			self.user.spotify_credentials = spotify_auth_response.json()
 
 			if self.user.save():
 				self.refresh_user_data()
@@ -36,28 +34,28 @@ class Spotify():
 			else:
 				flash('Unknown error updating Spotify credentials...')
 				return False
-
-		except urllib2.HTTPError as err:
-			response = json.loads(err.fp.read())
-			flash(response)
+		else:
+			flash(spotify_auth_response.json())
+			return False
 
 	def refresh_token(self):
-		refresh_request = urllib2.Request('https://accounts.spotify.com/api/token')
-		refresh_request.add_header('Authorization', 'Basic ' + base64.b64encode(app.config['SPOTIFY_CLIENT_ID'] + ':' + app.config['SPOTIFY_CLIENT_SECRET']))
-		params = {
-			'grant_type' : 'refresh_token',
-			'refresh_token' : self.user.spotify_credentials['refresh_token']
-		}
+		refresh_response = requests.post(
+			url='https://accounts.spotify.com/api/token',
+			headers={ 'Authorization' : 'Basic ' + base64.b64encode(app.config['SPOTIFY_CLIENT_ID'] + ':' + app.config['SPOTIFY_CLIENT_SECRET']) },
+			data={
+				'grant_type' : 'refresh_token',
+				'refresh_token' : self.user.spotify_credentials['refresh_token']
+			}
+		)
 
-		try:
-			refresh_response = urllib2.urlopen(refresh_request, urllib.urlencode(params))
-			spotify_credentials = json.loads(refresh_response.read())
+		if refresh_response.status_code == requests.codes.ok:
+			spotify_credentials = refresh_response.json()
 
 			# spotify doesn't return our refresh token, so let's tack it back on
-			spotify_credentials['refresh_token'] = self.user.spotify_credentials['refresh_token']
+			# spotify_credentials['refresh_token'] = self.user.spotify_credentials['refresh_token']
 
 			# update our credentials
-			self.user.spotify_credentials = spotify_credentials
+			self.user.spotify_credentials.update(spotify_credentials)
 
 			if self.user.save():
 				self.refresh_user_data()
@@ -66,10 +64,8 @@ class Spotify():
 			else:
 				flash('Unknown error refreshing Spotify credentials...')
 				return False
-
-		except urllib2.HTTPError as err:
-			response = json.loads(err.fp.read())
-			flash(response)
+		else:
+			flash(refresh_response.json())
 			return False
 
 	def disconnect(self):
@@ -81,21 +77,30 @@ class Spotify():
 		# get my user data
 		data = self.get_me()
 
-		# save it
-		self.user.spotify_data = data
-		return self.user.save()
+		if 'id' in data:
+			# save it
+			self.user.spotify_data = data
+			return self.user.save()
+		else:
+			flash(data)
+			return False
 
 	def get_me(self):
-		req = self.get_auth_request('https://api.spotify.com/v1/me')
-		res = self.send_auth_request(req)
+		res = self.request('get',
+			url='https://api.spotify.com/v1/me',
+			headers={ 'Content-Type' : 'application/json' }
+		)
 
-		return json.loads(res.read())
+		return res.json()
 
 	def search_songs(self, query):
+		app.logger.info('Searching for song: ' + query)
+
 		search_results = self.search(query, 'track')
 
-		search_results = search_results.get('tracks', [])
+		search_results = search_results.get('tracks', {})
 		search_results = search_results.get('items', [])
+
 		return search_results
 
 	def search(self, query, result_type):
@@ -104,21 +109,22 @@ class Spotify():
 			'type' : result_type
 		}
 
-		req = self.get_auth_request('https://api.spotify.com/v1/search?' + urllib.urlencode(params))
-		res = self.send_auth_request(req)
+		res = self.request('get',
+			url='https://api.spotify.com/v1/search',
+			params=params
+		)
 
-		return json.loads(res.read())
+		return res.json()
 
 	@cache.memoize(30 * 60)
 	def get_playlists(self):
-		req = self.get_auth_request('https://api.spotify.com/v1/me/playlists')
-		res = self.send_auth_request(req)
+		res = self.request('get',
+			url='https://api.spotify.com/v1/me/playlists'
+		)
 
-		if res and res.getcode() == 200:
-			results = json.loads(res.read())
-			return results['items']
+		res = res.json()
 
-		return None
+		return res.get('items', [])
 
 	def get_playlists_select(self):
 		playlists = self.get_playlists()
@@ -127,56 +133,63 @@ class Spotify():
 		if playlists:
 			for playlist in playlists:
 				formatted_playlists.append(( playlist['id'], playlist['name'] ))
+
 		return formatted_playlists
 
-	def playlist_remove(self, playlist, delete_ids):
-		pass
+	def playlist_remove(self, playlist, delete_uris):
+		app.logger.info('Removing ' + str(delete_uris) + ' from ' + str(playlist._id))
 
 		playlist_data = playlist.spotify_playlist_data
 
 		uris = []
-		for delete_id in delete_ids:
+		for delete_uri in delete_uris:
 			uris.append({
-				'uri' : delete_id
+				'uri' : delete_uri
 			})
 
-		params = {
+		data = {
 			'tracks' : uris
 		}
 
-		req = self.get_auth_request('https://api.spotify.com/v1/users/' + playlist_data['owner']['id'] +'/playlists/' + playlist_data['id'] + '/tracks', 'DELETE')
-		res = self.send_auth_request(req, json.dumps(params))
+		res = self.request('delete',
+			url='https://api.spotify.com/v1/users/' + playlist_data['owner']['id'] +'/playlists/' + playlist_data['id'] + '/tracks',
+			headers={ 'Content-Type' : 'application/json' },
+			data=json.dumps(data)
+		)
 
-		if res and res.getcode() == 200:
-			return json.loads(res.read())
-
-		return False
+		return res.json()
 
 	def playlist_add(self, playlist, insert_ids):
+		app.logger.info('Adding ' + str(insert_ids) + ' from ' + str(playlist._id))
+
 		playlist_data = playlist.spotify_playlist_data
 
-		params = {
+		data = {
 			'uris' : insert_ids
 		}
 
-		req = self.get_auth_request('https://api.spotify.com/v1/users/' + playlist_data['owner']['id'] +'/playlists/' + playlist_data['id'] + '/tracks')
-		res = self.send_auth_request(req, json.dumps(params))
+		res = self.request('post',
+			url='https://api.spotify.com/v1/users/' + playlist_data['owner']['id'] +'/playlists/' + playlist_data['id'] + '/tracks',
+			headers={ 'Content-Type' : 'application/json' },
+			data=json.dumps(data)
+		)
 
-		if res and res.getcode() == 200:
-			return json.loads(res.read())
-
-		return False
+		return res.json()
 
 	# @cache.memoize(30)
 	def get_tracks(self, playlist_data=None):
 		if playlist_data:
-			req = self.get_auth_request('https://api.spotify.com/v1/users/' + playlist_data['owner']['id'] +'/playlists/' + playlist_data['id'])
-			res = self.send_auth_request(req)
+			res = self.request('get',
+				url='https://api.spotify.com/v1/users/' + playlist_data['owner']['id'] +'/playlists/' + playlist_data['id']
+			)
 
-			if res and res.getcode() == 200:
-				return json.loads(res.read())['tracks']['items']
+			res = res.json()
 
-		return []
+			tracks = res.get('tracks', {})
+
+			return tracks.get('items', {})
+
+		return {}
 
 	def format_generic_track(self, track, existing_tracks):
 		track = track['track']
@@ -184,7 +197,7 @@ class Spotify():
 		# if this spotify id already exists in our existing
 		# tracks we can just return that element
 		for existing in existing_tracks:
-			if existing['spotify_id'] == track['id']:
+			if existing['spotify_id'] == track['uri']:
 				return existing
 
 		# if we don't have it already, generate it
@@ -211,35 +224,52 @@ class Spotify():
 			'name' : album['name']
 		}
 
-	def send_auth_request(self, request, data={}, attempt_refresh=True):
-		opener = urllib2.build_opener(urllib2.HTTPHandler)
+	def get_uris_from_ids(self, tracks, ids):
+		uris = []
 
-		try:
-			if data:
-				return opener.open(request, data)
+		for track in tracks:
+			track = track.get('track', {})
+
+			if track.get('id', None) in ids:
+				uri = track.get('uri', None)
+				if uri:
+					uris.append(uri)
+
+		return uris
+
+	def request(self, verb, **kwargs):
+		req = getattr(requests, verb)
+
+		# don't overwrite any passed headers
+		if 'headers' not in kwargs:
+			kwargs['headers'] = {}
+
+		# attach the user credentials
+		kwargs['headers'].update({ 'Authorization' : self.user.spotify_credentials['token_type'] + ' ' + self.user.spotify_credentials['access_token'] })
+
+		# hacky way of making sure we don't loop on 401s
+		refresh_attempted = kwargs.pop('refresh_attempted', False)
+
+		# make the request
+		res = req(**kwargs)
+
+		# if we get a 401 - attempt a refresh
+		if res.status_code == 401 and not refresh_attempted:
+			app.logger.info("User " + str(self.user._id) + " Received 401 - Refreshing Token")
+
+			# Don't get stuck in a unauthorized loop
+			kwargs['refresh_attempted'] = True
+
+			if self.refresh_token():
+				# try this request again
+				return self.request(verb, **kwargs)
 			else:
-				return opener.open(request)
-
-		except urllib2.HTTPError as err:
-			# unauthorized - refresh
-			if err.getcode() == 401 and attempt_refresh == True:
-				app.logger.info("Received 401 - Refreshing Token")
-
-				if self.refresh_token():
-					request = self.get_auth_request(request.get_full_url())
-					return self.send_auth_request(request, data, False)
-			else:
-				return err
-
-	def get_auth_request(self, url, overrideMethod=None):
-		generic_request = urllib2.Request(url)
-		generic_request.add_header('Authorization', self.user.spotify_credentials['token_type'] + ' ' + self.user.spotify_credentials['access_token'])
-		generic_request.add_header('Content-Type', 'application/json')
-
-		if overrideMethod:
-			generic_request.get_method = lambda: 'PUT'
-
-		return generic_request
+				# we tried to refresh but failed, there's probably
+				# some real issue, return the original request
+				return res
+		else:
+			# request is not a 401 - pass on through
+			return res
 
 #
 #  General spotify helpers

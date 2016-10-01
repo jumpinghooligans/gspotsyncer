@@ -71,19 +71,14 @@ class GoogleMusic():
 		# we need to translate trackIds into entry Ids
 		# trackIds are used to add, but you need the specific
 		# instance of this track in the playlist to delete
-		entry_ids = []
-		for track_id in delete_ids:
-			for track_data in playlist.google_tracks:
-				if track_data['trackId'] == track_id:
-					entry_ids.append(track_data['id'])
-					break
+		delete_nids = self.get_nids_from_ids(playlist.google_tracks, delete_ids)
 
-		app.logger.info('Translated into entriy IDs: ' + str(entry_ids))
+		app.logger.info('Translated into entriy IDs: ' + str(delete_nids))
 
 		api = self.get_api()
 
 		if api:
-			return api.remove_entries_from_playlist(entry_ids)
+			return api.remove_entries_from_playlist(delete_nids)
 
 		return False
 
@@ -172,3 +167,15 @@ class GoogleMusic():
 		return {
 			'name' : track_data['album']
 		}
+
+	def get_nids_from_ids(self, tracks, track_ids):
+		entry_ids = []
+
+		for track in tracks:
+			if track.get('trackId', None) in track_ids:
+				nid = track.get('id', None)
+
+				if nid:
+					entry_ids.append(nid)
+
+		return entry_ids

@@ -5,8 +5,7 @@ flask-wtf
 flask-babel
 flask-pymongo
 flask_caching
-guess_language
-flipflop
 coverage
 gmusicapi
 python-memcached
+requests
