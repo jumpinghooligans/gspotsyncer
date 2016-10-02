@@ -1,0 +1,7 @@
+Started by user [8mha:AAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgYu/dLi1CL9osrEPAC8oXAHvwAAAA==[0mRyan Kortmann
+Building in workspace /var/jenkins_home/workspace/Build
+ERROR: [GitHub Commit Status Setter] Failed to update commit state on GitHub. Ignoring exception [Cannot retrieve Git metadata for the build]
+[8mha:AAAAWB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0ldFVf2c+b/lb5MDAwVRQxSaBqcITRIIQMEMIIUFgAAckCEiWAAAAA=[0m[Build] $ /bin/sh -xe /tmp/hudson7886026601835690923.sh
++ whoami
+jenkins
+Finished: SUCCESS

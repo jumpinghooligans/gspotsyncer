@@ -1,0 +1,14 @@
+Started by user [8mha:AAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgYu/dLi1CL9osrEPAC8oXAHvwAAAA==[0mRyan Kortmann
+Building in workspace /var/jenkins_home/workspace/Build
+[ssh-agent] Looking for ssh-agent implementation...
+[ssh-agent]   Java/JNR ssh-agent
+[ssh-agent] Skipped registering BouncyCastle, not running on a remote agent
+[ssh-agent] Started.
+[ssh-agent] Using credentials ec2-user
+ERROR: [GitHub Commit Status Setter] Failed to update commit state on GitHub. Ignoring exception [Cannot retrieve Git metadata for the build]
+[8mha:AAAAWB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0ldFVf2c+b/lb5MDAwVRQxSaBqcITRIIQMEMIIUFgAAckCEiWAAAAA=[0mSSH: Connecting from host [dc9764c5072c]
+SSH: Connecting with configuration [Gspotsyncer] ...
+ERROR: Exception when publishing, exception message [Failed to connect session for config [Gspotsyncer]. Message [Auth fail]]
+[8mha:AAAAWB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0ldFVf2c+b/lb5MDAwVRQxSaBqcITRIIQMEMIIUFgAAckCEiWAAAAA=[0mBuild step 'Send files or execute commands over SSH' changed build result to UNSTABLE
+[ssh-agent] Stopped.
+Finished: UNSTABLE

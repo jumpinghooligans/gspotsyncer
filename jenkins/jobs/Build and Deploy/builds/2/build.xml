@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-build plugin="workflow-job@2.6">
+  <actions>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <hudson.model.Cause_-UserIdCause>
+            <userId>ryan</userId>
+          </hudson.model.Cause_-UserIdCause>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+    <jenkins.metrics.impl.TimeInQueueAction plugin="metrics@3.1.2.9">
+      <queuingDurationMillis>5</queuingDurationMillis>
+    </jenkins.metrics.impl.TimeInQueueAction>
+    <org.jenkinsci.plugins.workflow.libs.LibrariesAction plugin="workflow-cps-global-lib@2.3">
+      <libraries/>
+    </org.jenkinsci.plugins.workflow.libs.LibrariesAction>
+  </actions>
+  <queueId>5</queueId>
+  <timestamp>1475437322935</timestamp>
+  <startTime>1475437322935</startTime>
+  <result>SUCCESS</result>
+  <duration>33825</duration>
+  <keepLog>false</keepLog>
+  <execution class="org.jenkinsci.plugins.workflow.cps.CpsFlowExecution">
+    <result>SUCCESS</result>
+    <script>stage(&apos;Build&apos;) {
+    build job: &apos;Build&apos;
+}
+stage(&apos;Deploy&apos;) {
+    build job: &apos;Deploy&apos;
+}</script>
+    <loadedScripts class="map"/>
+    <sandbox>true</sandbox>
+    <iota>13</iota>
+    <head>1:13</head>
+  </execution>
+  <checkouts class="hudson.util.PersistedList"/>
+</flow-build>
