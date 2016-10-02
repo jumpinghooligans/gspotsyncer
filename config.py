@@ -2,6 +2,7 @@ WTF_CSRF_ENABLED = True
 SECRET_KEY = 'your_secret_key'
 
 MONGO_HOST = 'mongo'
+MONGO_DBNAME = 'gspotsyncer'
 
 SPOTIFY_CLIENT_ID = 'your_spotify_client_id'
 SPOTIFY_CLIENT_SECRET = 'your_spotify_client_secret'

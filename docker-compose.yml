@@ -2,17 +2,12 @@ version: '2'
 services:
   gspotsyncer:
     build: .
-    ports:
-     - "80:5000"
-    volumes:
-     - .:/opt/gspotsyncer
     depends_on:
       - mongo
       - memcached
     links:
       - mongo
       - memcached
-      # - jenkins
   mongo:
     image: mongo
     ports:
@@ -21,9 +16,3 @@ services:
       - ./mongo_data:/data/db
   memcached:
       image: memcached
-  # jenkins:
-  #   image: jenkins
-  #   ports:
-  #    - "49001:8080"
-  #   volumes:
-  #    - ./jenkins:/var/jenkins_home

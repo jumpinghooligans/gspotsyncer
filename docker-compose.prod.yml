@@ -1,0 +1,18 @@
+version: '2'
+services:
+  gspotsyncer:
+    build: .
+    ports:
+     - "80:5000"
+    depends_on:
+      - mongo
+      - memcached
+      - jenkins
+    links:
+      - jenkins
+  jenkins:
+    image: jenkins
+    ports:
+     - "49001:8080"
+    volumes:
+     - ./jenkins:/var/jenkins_home

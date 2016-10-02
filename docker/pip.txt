@@ -4,7 +4,7 @@ flask-mail
 flask-wtf
 flask-babel
 flask-pymongo
-flask_caching
+flask-caching
 coverage
 gmusicapi
 python-memcached
