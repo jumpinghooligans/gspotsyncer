@@ -28,5 +28,3 @@ cd gspotsyncer
 sudo service docker start
 docker-compose up -d
 ```
-
-changes
