@@ -20,6 +20,7 @@ There's some permission stuff here you need to set
 ```
 chmod +x /usr/local/bin/docker-compose
 ...
+chown -R 1000 jenkins/
 ```
 logout and log back in for everything to take effect
 
