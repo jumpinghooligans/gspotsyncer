@@ -1,0 +1,65 @@
+Started by upstream project "[8mha:AAAApB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyBEgYp/az8JH2n0sycFFUjg8Q8EOmSWpCTX6kPAGlkV77PAAAA[0mBuild and Deploy" build number [8mha:AAAApB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLQIwSBmn9rPwkfafSzJwUVSODxDwQ6ZJakJNfqW8BAFdB/C/QAAAA[0m8
+originally caused by:
+ Started by user [8mha:AAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgYu/dLi1CL9osrEPAC8oXAHvwAAAA==[0mRyan Kortmann
+Building in workspace /var/jenkins_home/workspace/Build
+ERROR: [GitHub Commit Status Setter] Failed to update commit state on GitHub. Ignoring exception [Cannot retrieve Git metadata for the build]
+[8mha:AAAAWB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0ldFVf2c+b/lb5MDAwVRQxSaBqcITRIIQMEMIIUFgAAckCEiWAAAAA=[0mSSH: Connecting from host [cb34900d5300]
+SSH: Connecting with configuration [Gspotsyncer] ...
+SSH: EXEC: STDOUT/STDERR from command [cd /home/ec2-user/gspotsyncer && \
+git pull &&\
+sudo chmod -R 777 jenkins/ &&\
+docker-compose build ] ...
+Already up-to-date.
+memcached uses an image, skipping
+mongo uses an image, skipping
+Building gspotsyncer
+Step 1 : FROM ubuntu:latest
+ ---> c73a085dc378
+Step 2 : MAINTAINER Ryan Kortmann "ryankortmann@gmail.com"
+ ---> Using cache
+ ---> abd9e8bc4dd3
+Step 3 : RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+ ---> Using cache
+ ---> 7ed231320159
+Step 4 : RUN echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+ ---> Using cache
+ ---> 89dc903c3671
+Step 5 : ADD docker/packages.txt /tmp/packages.txt
+ ---> Using cache
+ ---> 4483717de679
+Step 6 : RUN apt-get update -y
+ ---> Using cache
+ ---> 29b50cb4d40e
+Step 7 : RUN cat /tmp/packages.txt | xargs apt-get install -y
+ ---> Using cache
+ ---> 69b93935cbe7
+Step 8 : ADD docker/pip.txt /tmp/pip.txt
+ ---> Using cache
+ ---> 78d643dd12d8
+Step 9 : RUN pip install --upgrade pip
+ ---> Using cache
+ ---> 823a7fa429d0
+Step 10 : RUN pip install -r /tmp/pip.txt
+ ---> Using cache
+ ---> d00242721eaf
+Step 11 : COPY . /opt/gspotsyncer/
+ ---> 8ee915b801d7
+Removing intermediate container 416a496d8b58
+Step 12 : WORKDIR /opt/gspotsyncer/
+ ---> Running in 9060902e23ce
+ ---> cc50cdace7f3
+Removing intermediate container 9060902e23ce
+Step 13 : EXPOSE 5000
+ ---> Running in 9a8bd9730a67
+ ---> 3c7441040020
+Removing intermediate container 9a8bd9730a67
+Step 14 : CMD python run.py
+ ---> Running in 7914d3087778
+ ---> a2ab2e77d6e2
+Removing intermediate container 7914d3087778
+Successfully built a2ab2e77d6e2
+SSH: EXEC: completed after 54,570 ms
+SSH: Disconnecting configuration [Gspotsyncer] ...
+SSH: Transferred 0 file(s)
+Build step 'Send files or execute commands over SSH' changed build result to SUCCESS
+Finished: SUCCESS

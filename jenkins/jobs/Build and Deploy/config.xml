@@ -20,8 +20,14 @@
     <script>stage(&apos;Build&apos;) {
     build job: &apos;Build&apos;
 }
+stage(&apos;Pre-deploy Tests&apos;) {
+    build job: &apos;Test&apos;
+}
 stage(&apos;Deploy&apos;) {
     build job: &apos;Deploy&apos;
+}
+stage(&apos;Post-deploy Tests&apos;) {
+    build job: &apos;Test&apos;
 }</script>
     <sandbox>true</sandbox>
   </definition>

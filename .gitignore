@@ -1,2 +1,3 @@
 *.pyc
+config.py
 config_secret.py
