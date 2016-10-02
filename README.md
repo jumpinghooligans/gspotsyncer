@@ -1,7 +1,7 @@
 # gspotsyncer
 Sync Spotify and Google Music playlists together
 
-## install
+## Setup and Install
 ```
 sudo yum update -y
 
