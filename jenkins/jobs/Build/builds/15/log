@@ -1,0 +1,49 @@
+Started by user [8mha:AAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgYu/dLi1CL9osrEPAC8oXAHvwAAAA==[0mRyan Kortmann
+Building in workspace /var/jenkins_home/workspace/Build
+ERROR: [GitHub Commit Status Setter] Failed to update commit state on GitHub. Ignoring exception [Cannot retrieve Git metadata for the build]
+[8mha:AAAAWB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0ldFVf2c+b/lb5MDAwVRQxSaBqcITRIIQMEMIIUFgAAckCEiWAAAAA=[0mSSH: Connecting from host [0ecd8ac439d5]
+SSH: Connecting with configuration [Gspotsyncer] ...
+SSH: EXEC: STDOUT/STDERR from command [cd /home/ec2-user/gspotsyncer && \
+git pull &&\
+sudo chmod -R 777 jenkins/ &&\
+docker-compose build ] ...
+Already up-to-date.
+memcached uses an image, skipping
+mongo uses an image, skipping
+Building gspotsyncer
+Step 1 : FROM ubuntu:latest
+ ---> c73a085dc378
+Step 2 : MAINTAINER Ryan Kortmann "ryankortmann@gmail.com"
+ ---> Using cache
+ ---> 4dbea00a4141
+Step 3 : RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+ ---> Using cache
+ ---> fe1d97e900c8
+Step 4 : RUN echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+ ---> Using cache
+ ---> 66429d5a2ff3
+Step 5 : ADD docker/packages.txt /tmp/packages.txt
+ ---> Using cache
+ ---> 45a582666a4d
+Step 6 : RUN apt-get update -y
+ ---> Using cache
+ ---> 0d15bfcba895
+Step 7 : RUN cat /tmp/packages.txt | xargs apt-get install -y
+ ---> Using cache
+ ---> b3a2581056ef
+Step 8 : ADD docker/pip.txt /tmp/pip.txt
+ ---> Using cache
+ ---> c8d127c70a23
+Step 9 : RUN pip install --upgrade pip
+ ---> Using cache
+ ---> e4b6dd8da43f
+Step 10 : RUN pip install -r /tmp/pip.txt
+ ---> Using cache
+ ---> 915ad50371e7
+Step 11 : COPY . /opt/gspotsyncer/
+Service 'gspotsyncer' failed to build: write /var/lib/docker/image/devicemapper/layerdb/tmp/layer-380840404/diff: no space left on device
+SSH: EXEC: completed after 46,929 ms
+SSH: Disconnecting configuration [Gspotsyncer] ...
+ERROR: Exception when publishing, exception message [Exec exit status not zero. Status [1]]
+[8mha:AAAAWB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0ldFVf2c+b/lb5MDAwVRQxSaBqcITRIIQMEMIIUFgAAckCEiWAAAAA=[0mBuild step 'Send files or execute commands over SSH' changed build result to UNSTABLE
+Finished: UNSTABLE

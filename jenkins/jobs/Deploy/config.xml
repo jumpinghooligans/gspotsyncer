@@ -43,7 +43,8 @@
                   <makeEmptyDirs>false</makeEmptyDirs>
                   <patternSeparator>[, ]+</patternSeparator>
                   <execCommand>cd /home/ec2-user/gspotsyncer &amp;&amp; \
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml restart gspotsyncer</execCommand>
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml restart gspotsyncer &amp;&amp; \
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d</execCommand>
                   <execTimeout>120000</execTimeout>
                   <usePty>false</usePty>
                 </jenkins.plugins.publish__over__ssh.BapSshTransfer>

@@ -1,0 +1,18 @@
+Started by user [8mha:AAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgYu/dLi1CL9osrEPAC8oXAHvwAAAA==[0mRyan Kortmann
+Building in workspace /var/jenkins_home/workspace/Build
+ERROR: [GitHub Commit Status Setter] Failed to update commit state on GitHub. Ignoring exception [Cannot retrieve Git metadata for the build]
+[8mha:AAAAWB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0ldFVf2c+b/lb5MDAwVRQxSaBqcITRIIQMEMIIUFgAAckCEiWAAAAA=[0mSSH: Connecting from host [dc9764c5072c]
+SSH: Connecting with configuration [Gspotsyncer] ...
+SSH: EXEC: STDOUT/STDERR from command [cd /home/ec2-user/gspotsyncer && \
+git pull &&\
+docker-compose build ] ...
+Already up-to-date.
+memcached uses an image, skipping
+mongo uses an image, skipping
+Building gspotsyncer
+Untar re-exec error: exit status 1: output: write /jenkins/war/WEB-INF/lib/winp-1.22.jar: no space left on device
+SSH: EXEC: completed after 20,949 ms
+SSH: Disconnecting configuration [Gspotsyncer] ...
+ERROR: Exception when publishing, exception message [Exec exit status not zero. Status [1]]
+[8mha:AAAAWB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0ldFVf2c+b/lb5MDAwVRQxSaBqcITRIIQMEMIIUFgAAckCEiWAAAAA=[0mBuild step 'Send files or execute commands over SSH' changed build result to UNSTABLE
+Finished: UNSTABLE

@@ -44,6 +44,7 @@
                   <patternSeparator>[, ]+</patternSeparator>
                   <execCommand>cd /home/ec2-user/gspotsyncer &amp;&amp; \
 git pull &amp;&amp;\
+sudo chmod -R 777 jenkins/ &amp;&amp;\
 docker-compose build </execCommand>
                   <execTimeout>120000</execTimeout>
                   <usePty>false</usePty>

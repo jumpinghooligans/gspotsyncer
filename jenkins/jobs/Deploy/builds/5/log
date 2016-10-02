@@ -1,0 +1,1125 @@
+Started by upstream project "[8mha:AAAApB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyBEgYp/az8JH2n0sycFFUjg8Q8EOmSWpCTX6kPAGlkV77PAAAA[0mBuild and Deploy" build number [8mha:AAAApB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLQIwSBmn9rPwkfafSzJwUVSODxDwQ6ZJakJNfqW8KAOo9TVHQAAAA[0m5
+originally caused by:
+ Started by user [8mha:AAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgYu/dLi1CL9osrEPAC8oXAHvwAAAA==[0mRyan Kortmann
+Building in workspace /var/jenkins_home/workspace/Deploy
+ERROR: [GitHub Commit Status Setter] Failed to update commit state on GitHub. Ignoring exception [Cannot retrieve Git metadata for the build]
+[8mha:AAAAWB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0ldFVf2c+b/lb5MDAwVRQxSaBqcITRIIQMEMIIUFgAAckCEiWAAAAA=[0mSSH: Connecting from host [dc9764c5072c]
+SSH: Connecting with configuration [Gspotsyncer] ...
+SSH: EXEC: STDOUT/STDERR from command [cd /home/ec2-user/gspotsyncer && \
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml restart gspotsyncer && \
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up] ...
+Restarting gspotsyncer_gspotsyncer_1 ... 
+[1A[2KRestarting gspotsyncer_gspotsyncer_1 ... done[1Bgspotsyncer_mongo_1 is up-to-date
+gspotsyncer_jenkins_1 is up-to-date
+gspotsyncer_memcached_1 is up-to-date
+Recreating gspotsyncer_gspotsyncer_1
+Attaching to gspotsyncer_mongo_1, gspotsyncer_jenkins_1, gspotsyncer_memcached_1, gspotsyncer_gspotsyncer_1
+[36mmongo_1        |[0m 2016-10-02T20:40:58.904+0000 I CONTROL  [initandlisten] MongoDB starting : pid=1 port=27017 dbpath=/data/db 64-bit host=b57961250973
+[36mmongo_1        |[0m 2016-10-02T20:40:58.905+0000 I CONTROL  [initandlisten] db version v3.2.9
+[36mmongo_1        |[0m 2016-10-02T20:40:58.905+0000 I CONTROL  [initandlisten] git version: 22ec9e93b40c85fc7cae7d56e7d6a02fd811088c
+[36mmongo_1        |[0m 2016-10-02T20:40:58.905+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1t  3 May 2016
+[36mmongo_1        |[0m 2016-10-02T20:40:58.905+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+[36mmongo_1        |[0m 2016-10-02T20:40:58.905+0000 I CONTROL  [initandlisten] modules: none
+[36mmongo_1        |[0m 2016-10-02T20:40:58.905+0000 I CONTROL  [initandlisten] build environment:
+[36mmongo_1        |[0m 2016-10-02T20:40:58.905+0000 I CONTROL  [initandlisten]     distmod: debian81
+[36mmongo_1        |[0m 2016-10-02T20:40:58.905+0000 I CONTROL  [initandlisten]     distarch: x86_64
+[36mmongo_1        |[0m 2016-10-02T20:40:58.905+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+[36mmongo_1        |[0m 2016-10-02T20:40:58.905+0000 I CONTROL  [initandlisten] options: {}
+[36mmongo_1        |[0m 2016-10-02T20:40:58.932+0000 I -        [initandlisten] Detected data files in /data/db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+[36mmongo_1        |[0m 2016-10-02T20:40:58.932+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=1G,session_max=20000,eviction=(threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),checkpoint=(wait=60,log_size=2GB),statistics_log=(wait=0),
+[36mmongo_1        |[0m 2016-10-02T20:40:59.325+0000 I CONTROL  [initandlisten] 
+[36mmongo_1        |[0m 2016-10-02T20:40:59.325+0000 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+[36mmongo_1        |[0m 2016-10-02T20:40:59.325+0000 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+[36mmongo_1        |[0m 2016-10-02T20:40:59.325+0000 I CONTROL  [initandlisten] 
+[36mmongo_1        |[0m 2016-10-02T20:40:59.346+0000 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory '/data/db/diagnostic.data'
+[36mmongo_1        |[0m 2016-10-02T20:40:59.346+0000 I NETWORK  [HostnameCanonicalizationWorker] Starting hostname canonicalization worker
+[36mmongo_1        |[0m 2016-10-02T20:40:59.348+0000 I NETWORK  [initandlisten] waiting for connections on port 27017
+[36mmongo_1        |[0m 2016-10-02T20:56:41.047+0000 I CONTROL  [signalProcessingThread] got signal 15 (Terminated), will terminate after current cmd ends
+[36mmongo_1        |[0m 2016-10-02T20:56:41.064+0000 I FTDC     [signalProcessingThread] Shutting down full-time diagnostic data capture
+[36mmongo_1        |[0m 2016-10-02T20:56:41.135+0000 I CONTROL  [signalProcessingThread] now exiting
+[36mmongo_1        |[0m 2016-10-02T20:56:41.135+0000 I NETWORK  [signalProcessingThread] shutdown: going to close listening sockets...
+[36mmongo_1        |[0m 2016-10-02T20:56:41.139+0000 I NETWORK  [signalProcessingThread] closing listening socket: 5
+[36mmongo_1        |[0m 2016-10-02T20:56:41.139+0000 I NETWORK  [signalProcessingThread] closing listening socket: 6
+[36mmongo_1        |[0m 2016-10-02T20:56:41.139+0000 I NETWORK  [signalProcessingThread] removing socket file: /tmp/mongodb-27017.sock
+[36mmongo_1        |[0m 2016-10-02T20:56:41.139+0000 I NETWORK  [signalProcessingThread] shutdown: going to flush diaglog...
+[36mmongo_1        |[0m 2016-10-02T20:56:41.139+0000 I NETWORK  [signalProcessingThread] shutdown: going to close sockets...
+[36mmongo_1        |[0m 2016-10-02T20:56:41.143+0000 I STORAGE  [signalProcessingThread] WiredTigerKVEngine shutting down
+[36mmongo_1        |[0m 2016-10-02T20:56:41.257+0000 I STORAGE  [signalProcessingThread] shutdown: removing fs lock...
+[36mmongo_1        |[0m 2016-10-02T20:56:41.258+0000 I CONTROL  [signalProcessingThread] dbexit:  rc: 0
+[36mmongo_1        |[0m 2016-10-02T20:58:19.485+0000 I CONTROL  [initandlisten] MongoDB starting : pid=1 port=27017 dbpath=/data/db 64-bit host=b57961250973
+[36mmongo_1        |[0m 2016-10-02T20:58:19.486+0000 I CONTROL  [initandlisten] db version v3.2.9
+[36mmongo_1        |[0m 2016-10-02T20:58:19.486+0000 I CONTROL  [initandlisten] git version: 22ec9e93b40c85fc7cae7d56e7d6a02fd811088c
+[36mmongo_1        |[0m 2016-10-02T20:58:19.486+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1t  3 May 2016
+[36mmongo_1        |[0m 2016-10-02T20:58:19.486+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+[36mmongo_1        |[0m 2016-10-02T20:58:19.486+0000 I CONTROL  [initandlisten] modules: none
+[36mmongo_1        |[0m 2016-10-02T20:58:19.486+0000 I CONTROL  [initandlisten] build environment:
+[36mmongo_1        |[0m 2016-10-02T20:58:19.486+0000 I CONTROL  [initandlisten]     distmod: debian81
+[36mmongo_1        |[0m 2016-10-02T20:58:19.486+0000 I CONTROL  [initandlisten]     distarch: x86_64
+[33mjenkins_1      |[0m touch: cannot touch ‘/var/jenkins_home/copy_reference_file.log’: Permission denied
+[33mjenkins_1      |[0m Can not write to /var/jenkins_home/copy_reference_file.log. Wrong volume permissions?
+[33mjenkins_1      |[0m Can not write to /var/jenkins_home/copy_reference_file.log. Wrong volume permissions?
+[33mjenkins_1      |[0m touch: cannot touch ‘/var/jenkins_home/copy_reference_file.log’: Permission denied
+[33mjenkins_1      |[0m touch: cannot touch ‘/var/jenkins_home/copy_reference_file.log’: Permission denied
+[33mjenkins_1      |[0m Can not write to /var/jenkins_home/copy_reference_file.log. Wrong volume permissions?
+[33mjenkins_1      |[0m touch: cannot touch ‘/var/jenkins_home/copy_reference_file.log’: Permission denied
+[33mjenkins_1      |[0m Can not write to /var/jenkins_home/copy_reference_file.log. Wrong volume permissions?
+[33mjenkins_1      |[0m touch: cannot touch ‘/var/jenkins_home/copy_reference_file.log’: Permission denied
+[33mjenkins_1      |[0m Can not write to /var/jenkins_home/copy_reference_file.log. Wrong volume permissions?
+[33mjenkins_1      |[0m touch: cannot touch ‘/var/jenkins_home/copy_reference_file.log’: Permission denied
+[33mjenkins_1      |[0m Can not write to /var/jenkins_home/copy_reference_file.log. Wrong volume permissions?
+[33mjenkins_1      |[0m touch: cannot touch ‘/var/jenkins_home/copy_reference_file.log’: Permission denied
+[33mjenkins_1      |[0m Can not write to /var/jenkins_home/copy_reference_file.log. Wrong volume permissions?
+[33mjenkins_1      |[0m touch: cannot touch ‘/var/jenkins_home/copy_reference_file.log’: Permission denied
+[33mjenkins_1      |[0m Can not write to /var/jenkins_home/copy_reference_file.log. Wrong volume permissions?
+[33mjenkins_1      |[0m Running from: /usr/share/jenkins/jenkins.war
+[33mjenkins_1      |[0m webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 5:49:53 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Logging initialized @1828ms
+[33mjenkins_1      |[0m Oct 02, 2016 5:49:53 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Beginning extraction from war file
+[33mjenkins_1      |[0m Oct 02, 2016 5:49:55 PM org.eclipse.jetty.util.log.JavaUtilLog warn
+[33mjenkins_1      |[0m WARNING: Empty contextPath
+[33mjenkins_1      |[0m Oct 02, 2016 5:49:55 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: jetty-9.2.z-SNAPSHOT
+[33mjenkins_1      |[0m Oct 02, 2016 5:49:56 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+[33mjenkins_1      |[0m Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 5:49:57 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started w.@7be58f16{/,file:/var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}
+[33mjenkins_1      |[0m Oct 02, 2016 5:49:57 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started ServerConnector@a8c1f44{HTTP/1.1}{0.0.0.0:8080}
+[33mjenkins_1      |[0m Oct 02, 2016 5:49:57 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started @5317ms
+[33mjenkins_1      |[0m Oct 02, 2016 5:49:57 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Winstone Servlet Engine v2.0 running: controlPort=disabled
+[33mjenkins_1      |[0m Oct 02, 2016 5:49:57 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Started initialization
+[33mjenkins_1      |[0m Oct 02, 2016 5:49:58 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Listed all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 5:49:58 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+[33mjenkins_1      |[0m INFO: Initializing Bouncy Castle security provider.
+[33mjenkins_1      |[0m Oct 02, 2016 5:49:58 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+[33mjenkins_1      |[0m INFO: Bouncy Castle security provider initialized.
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:04 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Prepared all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:05 PM hudson.ExtensionFinder$GuiceFinder$FaultTolerantScope$1 error
+[33mjenkins_1      |[0m INFO: Failed to instantiate optional component hudson.plugins.build_timeout.operations.AbortAndRestartOperation$DescriptorImpl; skipping
+[32mmemcached_1    |[0m Signal handled: Terminated.
+[36mmongo_1        |[0m 2016-10-02T20:58:19.486+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+[36mmongo_1        |[0m 2016-10-02T20:58:19.486+0000 I CONTROL  [initandlisten] options: {}
+[36mmongo_1        |[0m 2016-10-02T20:58:19.598+0000 I -        [initandlisten] Detected data files in /data/db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+[36mmongo_1        |[0m 2016-10-02T20:58:19.598+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=1G,session_max=20000,eviction=(threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),checkpoint=(wait=60,log_size=2GB),statistics_log=(wait=0),
+[36mmongo_1        |[0m 2016-10-02T20:58:20.159+0000 I CONTROL  [initandlisten] 
+[36mmongo_1        |[0m 2016-10-02T20:58:20.159+0000 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+[36mmongo_1        |[0m 2016-10-02T20:58:20.159+0000 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+[36mmongo_1        |[0m 2016-10-02T20:58:20.159+0000 I CONTROL  [initandlisten] 
+[36mmongo_1        |[0m 2016-10-02T20:58:20.346+0000 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory '/data/db/diagnostic.data'
+[36mmongo_1        |[0m 2016-10-02T20:58:20.347+0000 I NETWORK  [HostnameCanonicalizationWorker] Starting hostname canonicalization worker
+[36mmongo_1        |[0m 2016-10-02T20:58:20.349+0000 I NETWORK  [initandlisten] waiting for connections on port 27017
+[36mmongo_1        |[0m 2016-10-02T20:58:20.851+0000 I NETWORK  [initandlisten] connection accepted from 172.18.0.5:49964 #1 (1 connection now open)
+[36mmongo_1        |[0m 2016-10-02T20:58:22.719+0000 I NETWORK  [initandlisten] connection accepted from 172.18.0.5:49966 #2 (2 connections now open)
+[36mmongo_1        |[0m 2016-10-02T20:58:41.652+0000 I CONTROL  [initandlisten] MongoDB starting : pid=1 port=27017 dbpath=/data/db 64-bit host=b57961250973
+[36mmongo_1        |[0m 2016-10-02T20:58:41.652+0000 I CONTROL  [initandlisten] db version v3.2.9
+[36mmongo_1        |[0m 2016-10-02T20:58:41.652+0000 I CONTROL  [initandlisten] git version: 22ec9e93b40c85fc7cae7d56e7d6a02fd811088c
+[36mmongo_1        |[0m 2016-10-02T20:58:41.652+0000 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.1t  3 May 2016
+[36mmongo_1        |[0m 2016-10-02T20:58:41.652+0000 I CONTROL  [initandlisten] allocator: tcmalloc
+[36mmongo_1        |[0m 2016-10-02T20:58:41.653+0000 I CONTROL  [initandlisten] modules: none
+[36mmongo_1        |[0m 2016-10-02T20:58:41.653+0000 I CONTROL  [initandlisten] build environment:
+[36mmongo_1        |[0m 2016-10-02T20:58:41.653+0000 I CONTROL  [initandlisten]     distmod: debian81
+[36mmongo_1        |[0m 2016-10-02T20:58:41.653+0000 I CONTROL  [initandlisten]     distarch: x86_64
+[36mmongo_1        |[0m 2016-10-02T20:58:41.653+0000 I CONTROL  [initandlisten]     target_arch: x86_64
+[36mmongo_1        |[0m 2016-10-02T20:58:41.653+0000 I CONTROL  [initandlisten] options: {}
+[36mmongo_1        |[0m 2016-10-02T20:58:41.792+0000 I -        [initandlisten] Detected data files in /data/db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+[36mmongo_1        |[0m 2016-10-02T20:58:41.792+0000 W -        [initandlisten] Detected unclean shutdown - /data/db/mongod.lock is not empty.
+[36mmongo_1        |[0m 2016-10-02T20:58:41.792+0000 W STORAGE  [initandlisten] Recovering data from the last clean checkpoint.
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:06 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: JVM is terminating. Shutting down Winstone
+[33mjenkins_1      |[0m Running from: /usr/share/jenkins/jenkins.war
+[33mjenkins_1      |[0m webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:45 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Logging initialized @1813ms
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:45 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Beginning extraction from war file
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:45 PM org.eclipse.jetty.util.log.JavaUtilLog warn
+[33mjenkins_1      |[0m WARNING: Empty contextPath
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:45 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: jetty-9.2.z-SNAPSHOT
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:46 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[36mmongo_1        |[0m 2016-10-02T20:58:41.792+0000 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=1G,session_max=20000,eviction=(threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),checkpoint=(wait=60,log_size=2GB),statistics_log=(wait=0),
+[36mmongo_1        |[0m 2016-10-02T20:58:42.335+0000 I CONTROL  [initandlisten] 
+[36mmongo_1        |[0m 2016-10-02T20:58:42.335+0000 I CONTROL  [initandlisten] ** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+[36mmongo_1        |[0m 2016-10-02T20:58:42.335+0000 I CONTROL  [initandlisten] **        We suggest setting it to 'never'
+[36mmongo_1        |[0m 2016-10-02T20:58:42.335+0000 I CONTROL  [initandlisten] 
+[36mmongo_1        |[0m 2016-10-02T20:58:42.337+0000 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory '/data/db/diagnostic.data'
+[36mmongo_1        |[0m 2016-10-02T20:58:42.337+0000 I NETWORK  [initandlisten] waiting for connections on port 27017
+[36mmongo_1        |[0m 2016-10-02T20:58:42.337+0000 I NETWORK  [HostnameCanonicalizationWorker] Starting hostname canonicalization worker
+[33mjenkins_1      |[0m INFO: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+[33mjenkins_1      |[0m Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:47 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started w.@4d5650ae{/,file:/var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:47 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started ServerConnector@1a6d8329{HTTP/1.1}{0.0.0.0:8080}
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:47 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started @3812ms
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:47 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Winstone Servlet Engine v2.0 running: controlPort=disabled
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:47 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Started initialization
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:47 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Listed all plugins
+[36mmongo_1        |[0m 2016-10-02T20:58:43.848+0000 I NETWORK  [initandlisten] connection accepted from 172.18.0.5:49970 #1 (1 connection now open)
+[36mmongo_1        |[0m 2016-10-02T20:58:52.340+0000 I NETWORK  [initandlisten] connection accepted from 172.18.0.5:49972 #2 (2 connections now open)
+[36mmongo_1        |[0m 2016-10-02T21:01:37.682+0000 I NETWORK  [conn2] end connection 172.18.0.5:49972 (1 connection now open)
+[36mmongo_1        |[0m 2016-10-02T21:01:37.682+0000 I NETWORK  [conn1] end connection 172.18.0.5:49970 (1 connection now open)
+[36mmongo_1        |[0m 2016-10-02T21:01:38.509+0000 I NETWORK  [initandlisten] connection accepted from 172.18.0.5:49980 #3 (1 connection now open)
+[36mmongo_1        |[0m 2016-10-02T21:01:39.858+0000 I NETWORK  [initandlisten] connection accepted from 172.18.0.5:49982 #4 (2 connections now open)
+[36mmongo_1        |[0m 2016-10-02T21:01:48.749+0000 I NETWORK  [conn3] end connection 172.18.0.5:49980 (1 connection now open)
+[36mmongo_1        |[0m 2016-10-02T21:01:48.750+0000 I NETWORK  [conn4] end connection 172.18.0.5:49982 (0 connections now open)
+[36mmongo_1        |[0m 2016-10-02T21:01:49.895+0000 I NETWORK  [initandlisten] connection accepted from 172.18.0.5:49984 #5 (1 connection now open)
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:47 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+[33mjenkins_1      |[0m INFO: Initializing Bouncy Castle security provider.
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:48 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+[33mjenkins_1      |[0m INFO: Bouncy Castle security provider initialized.
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:54 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Prepared all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:54 PM hudson.ExtensionFinder$GuiceFinder$FaultTolerantScope$1 error
+[33mjenkins_1      |[0m INFO: Failed to instantiate optional component hudson.plugins.build_timeout.operations.AbortAndRestartOperation$DescriptorImpl; skipping
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:55 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Started all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:55 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Augmented all extensions
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:56 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Loaded all jobs
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:56 PM jenkins.util.groovy.GroovyHookScript execute
+[33mjenkins_1      |[0m INFO: Executing /var/jenkins_home/init.groovy.d/tcp-slave-agent-port.groovy
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:57 PM hudson.model.AsyncPeriodicWork$1 run
+[33mjenkins_1      |[0m INFO: Started Download metadata
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:57 PM hudson.model.AsyncPeriodicWork$1 run
+[33mjenkins_1      |[0m INFO: Finished Download metadata. 12 ms
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:57 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@646e7000: display name [Root WebApplicationContext]; startup date [Sun Oct 02 17:50:57 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:57 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@646e7000]: org.springframework.beans.factory.support.DefaultListableBeanFactory@44d4c9b2
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:57 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@44d4c9b2: defining beans [authenticationManager]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:57 PM org.jenkinsci.main.modules.sshd.SSHD start
+[33mjenkins_1      |[0m INFO: Started SSHD at port 38575
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:57 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Completed initialization
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:57 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@77e47d00: display name [Root WebApplicationContext]; startup date [Sun Oct 02 17:50:57 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:57 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@77e47d00]: org.springframework.beans.factory.support.DefaultListableBeanFactory@4c369a42
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:57 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@4c369a42: defining beans [filter,legacy]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 5:50:57 PM hudson.WebAppMain$3 run
+[33mjenkins_1      |[0m INFO: Jenkins is fully up and running
+[33mjenkins_1      |[0m --> setting agent port for jnlp
+[33mjenkins_1      |[0m --> setting agent port for jnlp... done
+[33mjenkins_1      |[0m Running from: /usr/share/jenkins/jenkins.war
+[33mjenkins_1      |[0m webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:40 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Logging initialized @593ms
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:40 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Beginning extraction from war file
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:40 PM org.eclipse.jetty.util.log.JavaUtilLog warn
+[33mjenkins_1      |[0m WARNING: Empty contextPath
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:40 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: jetty-9.2.z-SNAPSHOT
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:41 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+[33mjenkins_1      |[0m Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:42 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started w.@4d5650ae{/,file:/var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:42 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started ServerConnector@1a6d8329{HTTP/1.1}{0.0.0.0:8080}
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:42 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started @2486ms
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:42 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Winstone Servlet Engine v2.0 running: controlPort=disabled
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:42 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Started initialization
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:42 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Listed all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:42 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+[33mjenkins_1      |[0m INFO: Initializing Bouncy Castle security provider.
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:43 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+[33mjenkins_1      |[0m INFO: Bouncy Castle security provider initialized.
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:49 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Prepared all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:49 PM hudson.ExtensionFinder$GuiceFinder$FaultTolerantScope$1 error
+[33mjenkins_1      |[0m INFO: Failed to instantiate optional component hudson.plugins.build_timeout.operations.AbortAndRestartOperation$DescriptorImpl; skipping
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:50 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Started all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:50 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Augmented all extensions
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:51 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Loaded all jobs
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:52 PM jenkins.util.groovy.GroovyHookScript execute
+[33mjenkins_1      |[0m INFO: Executing /var/jenkins_home/init.groovy.d/tcp-slave-agent-port.groovy
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:52 PM hudson.model.AsyncPeriodicWork$1 run
+[33mjenkins_1      |[0m INFO: Started Download metadata
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:52 PM hudson.model.AsyncPeriodicWork$1 run
+[33mjenkins_1      |[0m INFO: Finished Download metadata. 25 ms
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:52 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@6e0b30eb: display name [Root WebApplicationContext]; startup date [Sun Oct 02 17:59:52 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:52 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@6e0b30eb]: org.springframework.beans.factory.support.DefaultListableBeanFactory@4bbf04d5
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:52 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@4bbf04d5: defining beans [authenticationManager]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:52 PM org.jenkinsci.main.modules.sshd.SSHD start
+[33mjenkins_1      |[0m INFO: Started SSHD at port 39824
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:52 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Completed initialization
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:53 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@4e76330b: display name [Root WebApplicationContext]; startup date [Sun Oct 02 17:59:53 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:53 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@4e76330b]: org.springframework.beans.factory.support.DefaultListableBeanFactory@196094e9
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:53 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@196094e9: defining beans [filter,legacy]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 5:59:53 PM hudson.WebAppMain$3 run
+[33mjenkins_1      |[0m INFO: Jenkins is fully up and running
+[33mjenkins_1      |[0m --> setting agent port for jnlp
+[33mjenkins_1      |[0m --> setting agent port for jnlp... done
+[33mjenkins_1      |[0m Oct 02, 2016 6:35:20 PM org.jenkinsci.plugins.github.internal.GitHubLoginFunction applyNullSafe
+[33mjenkins_1      |[0m WARNING: Failed to login with creds 
+[33mjenkins_1      |[0m java.io.FileNotFoundException: https://api.github.com/user
+[33mjenkins_1      |[0m 	at com.squareup.okhttp.internal.huc.HttpURLConnectionImpl.getInputStream(HttpURLConnectionImpl.java:240)
+[33mjenkins_1      |[0m 	at com.squareup.okhttp.internal.huc.DelegatingHttpsURLConnection.getInputStream(DelegatingHttpsURLConnection.java:210)
+[33mjenkins_1      |[0m 	at com.squareup.okhttp.internal.huc.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:25)
+[33mjenkins_1      |[0m 	at org.kohsuke.github.Requester.parse(Requester.java:524)
+[33mjenkins_1      |[0m 	at org.kohsuke.github.Requester._to(Requester.java:251)
+[33mjenkins_1      |[0m 	at org.kohsuke.github.Requester.to(Requester.java:213)
+[33mjenkins_1      |[0m 	at org.kohsuke.github.GitHub.getMyself(GitHub.java:283)
+[33mjenkins_1      |[0m 	at org.kohsuke.github.GitHub.<init>(GitHub.java:149)
+[33mjenkins_1      |[0m 	at org.kohsuke.github.GitHubBuilder.build(GitHubBuilder.java:201)
+[33mjenkins_1      |[0m 	at org.jenkinsci.plugins.github.internal.GitHubLoginFunction.applyNullSafe(GitHubLoginFunction.java:73)
+[33mjenkins_1      |[0m 	at org.jenkinsci.plugins.github.internal.GitHubLoginFunction.applyNullSafe(GitHubLoginFunction.java:46)
+[33mjenkins_1      |[0m 	at org.jenkinsci.plugins.github.util.misc.NullSafeFunction.apply(NullSafeFunction.java:18)
+[33mjenkins_1      |[0m 	at org.jenkinsci.plugins.github.config.GitHubServerConfig$DescriptorImpl.doVerifyCredentials(GitHubServerConfig.java:306)
+[33mjenkins_1      |[0m 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+[33mjenkins_1      |[0m 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+[33mjenkins_1      |[0m 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+[33mjenkins_1      |[0m 	at java.lang.reflect.Method.invoke(Method.java:498)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Function$InstanceFunction.invoke(Function.java:324)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Function.bindAndInvoke(Function.java:167)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Function.bindAndInvokeAndServeResponse(Function.java:100)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.MetaClass$1.doDispatch(MetaClass.java:124)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:58)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.MetaClass$5.doDispatch(MetaClass.java:233)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:58)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Stapler.service(Stapler.java:238)
+[33mjenkins_1      |[0m 	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:812)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1669)
+[33mjenkins_1      |[0m 	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:135)
+[33mjenkins_1      |[0m 	at org.jenkinsci.plugins.ssegateway.Endpoint$SSEListenChannelFilter.doFilter(Endpoint.java:249)
+[33mjenkins_1      |[0m 	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:132)
+[33mjenkins_1      |[0m 	at jenkins.metrics.impl.MetricsFilter.doFilter(MetricsFilter.java:125)
+[33mjenkins_1      |[0m 	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:132)
+[33mjenkins_1      |[0m 	at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:126)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+[33mjenkins_1      |[0m 	at hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:80)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:84)
+[33mjenkins_1      |[0m 	at hudson.security.UnwrapSecurityExceptionFilter.doFilter(UnwrapSecurityExceptionFilter.java:51)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+[33mjenkins_1      |[0m 	at jenkins.security.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:117)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+[33mjenkins_1      |[0m 	at org.acegisecurity.providers.anonymous.AnonymousProcessingFilter.doFilter(AnonymousProcessingFilter.java:125)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+[33mjenkins_1      |[0m 	at org.acegisecurity.ui.rememberme.RememberMeProcessingFilter.doFilter(RememberMeProcessingFilter.java:142)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+[33mjenkins_1      |[0m 	at org.acegisecurity.ui.AbstractProcessingFilter.doFilter(AbstractProcessingFilter.java:271)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+[33mjenkins_1      |[0m 	at jenkins.security.BasicHeaderProcessor.doFilter(BasicHeaderProcessor.java:93)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+[33mjenkins_1      |[0m 	at org.acegisecurity.context.HttpSessionContextIntegrationFilter.doFilter(HttpSessionContextIntegrationFilter.java:249)
+[33mjenkins_1      |[0m 	at hudson.security.HttpSessionContextIntegrationFilter2.doFilter(HttpSessionContextIntegrationFilter2.java:67)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+[33mjenkins_1      |[0m 	at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:171)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:49)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+[33mjenkins_1      |[0m 	at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:82)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:585)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:143)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:553)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:223)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1127)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:515)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:185)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1061)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.Server.handle(Server.java:499)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:311)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:257)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.io.AbstractConnection$2.run(AbstractConnection.java:544)
+[33mjenkins_1      |[0m 	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+[33mjenkins_1      |[0m 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+[33mjenkins_1      |[0m 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+[33mjenkins_1      |[0m 	at java.lang.Thread.run(Thread.java:745)
+[33mjenkins_1      |[0m 
+[33mjenkins_1      |[0m Oct 02, 2016 6:48:19 PM hudson.model.Run execute
+[33mjenkins_1      |[0m INFO: Build #1 main build action completed: SUCCESS
+[33mjenkins_1      |[0m Oct 02, 2016 6:49:14 PM hudson.model.Run execute
+[33mjenkins_1      |[0m INFO: Build #2 main build action completed: FAILURE
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:04 PM hudson.model.UpdateCenter$DownloadJob run
+[33mjenkins_1      |[0m INFO: Starting the installation of Publish Over SSH on behalf of ryan
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:04 PM hudson.model.UpdateCenter$UpdateCenterConfiguration download
+[33mjenkins_1      |[0m INFO: Downloading Publish Over SSH
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:08 PM hudson.model.UpdateCenter doSafeRestart
+[33mjenkins_1      |[0m INFO: Scheduling Jenkins reboot
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:08 PM jenkins.model.Jenkins$26 run
+[33mjenkins_1      |[0m INFO: Restart in 10 seconds
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:18 PM jenkins.model.Jenkins$26 run
+[33mjenkins_1      |[0m SEVERE: Restarting VM as requested by anonymous
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:18 PM jenkins.model.Jenkins cleanUp
+[33mjenkins_1      |[0m INFO: Stopping Jenkins
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:18 PM jenkins.model.Jenkins$21 onAttained
+[33mjenkins_1      |[0m INFO: Started termination
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:18 PM jenkins.model.Jenkins$21 onAttained
+[33mjenkins_1      |[0m INFO: Completed termination
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:18 PM jenkins.model.Jenkins _cleanUpDisconnectComputers
+[33mjenkins_1      |[0m INFO: Starting node disconnection
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:18 PM hudson.TcpSlaveAgentListener$ConnectionHandler run
+[33mjenkins_1      |[0m INFO: Accepted connection #1 from /172.18.0.4:48960
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:18 PM jenkins.model.Jenkins _cleanUpShutdownPluginManager
+[33mjenkins_1      |[0m INFO: Stopping plugin manager
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:18 PM jenkins.model.Jenkins _cleanUpPersistQueue
+[33mjenkins_1      |[0m INFO: Persisting build queue
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:18 PM jenkins.model.Jenkins _cleanUpAwaitDisconnects
+[33mjenkins_1      |[0m INFO: Waiting for node disconnection completion
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:18 PM jenkins.model.Jenkins cleanUp
+[33mjenkins_1      |[0m INFO: Jenkins stopped
+[33mjenkins_1      |[0m Running from: /usr/share/jenkins/jenkins.war
+[33mjenkins_1      |[0m webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:19 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Logging initialized @712ms
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:19 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Beginning extraction from war file
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:19 PM org.eclipse.jetty.util.log.JavaUtilLog warn
+[33mjenkins_1      |[0m WARNING: Empty contextPath
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:19 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: jetty-9.2.z-SNAPSHOT
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:20 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+[33mjenkins_1      |[0m Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:21 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started w.@4d5650ae{/,file:/var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:21 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started ServerConnector@1a6d8329{HTTP/1.1}{0.0.0.0:8080}
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:21 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started @2548ms
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:21 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Winstone Servlet Engine v2.0 running: controlPort=disabled
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:21 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Started initialization
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:21 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Listed all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:22 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+[33mjenkins_1      |[0m INFO: Initializing Bouncy Castle security provider.
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:22 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+[33mjenkins_1      |[0m INFO: Bouncy Castle security provider initialized.
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:28 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Prepared all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:30 PM hudson.ExtensionFinder$GuiceFinder$FaultTolerantScope$1 error
+[33mjenkins_1      |[0m INFO: Failed to instantiate optional component hudson.plugins.build_timeout.operations.AbortAndRestartOperation$DescriptorImpl; skipping
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:30 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Started all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:30 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Augmented all extensions
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:31 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Loaded all jobs
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:31 PM hudson.model.AsyncPeriodicWork$1 run
+[33mjenkins_1      |[0m INFO: Started Download metadata
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:31 PM hudson.model.AsyncPeriodicWork$1 run
+[33mjenkins_1      |[0m INFO: Finished Download metadata. 6 ms
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:31 PM org.jenkinsci.main.modules.sshd.SSHD start
+[33mjenkins_1      |[0m INFO: Started SSHD at port 37636
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:32 PM jenkins.util.groovy.GroovyHookScript execute
+[33mjenkins_1      |[0m INFO: Executing /var/jenkins_home/init.groovy.d/tcp-slave-agent-port.groovy
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:32 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Completed initialization
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:32 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@26e94c7e: display name [Root WebApplicationContext]; startup date [Sun Oct 02 19:01:32 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:32 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@26e94c7e]: org.springframework.beans.factory.support.DefaultListableBeanFactory@35602ed5
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:32 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@35602ed5: defining beans [authenticationManager]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:32 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@3fcea601: display name [Root WebApplicationContext]; startup date [Sun Oct 02 19:01:32 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:32 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@3fcea601]: org.springframework.beans.factory.support.DefaultListableBeanFactory@4d9f5517
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:32 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@4d9f5517: defining beans [filter,legacy]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 7:01:33 PM hudson.WebAppMain$3 run
+[33mjenkins_1      |[0m INFO: Jenkins is fully up and running
+[33mjenkins_1      |[0m --> setting agent port for jnlp
+[33mjenkins_1      |[0m --> setting agent port for jnlp... done
+[33mjenkins_1      |[0m Oct 02, 2016 7:04:13 PM jenkins.plugins.publish_over_ssh.BapSshHostConfiguration connect
+[33mjenkins_1      |[0m WARNING: Failed to connect session for config [Gspotsyncer]. Message [Auth fail]
+[33mjenkins_1      |[0m com.jcraft.jsch.JSchException: Auth fail
+[33mjenkins_1      |[0m 	at com.jcraft.jsch.Session.connect(Session.java:512)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshHostConfiguration.connect(BapSshHostConfiguration.java:321)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshHostConfiguration.createClient(BapSshHostConfiguration.java:235)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshHostConfiguration.createClient(BapSshHostConfiguration.java:217)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.descriptor.BapSshPublisherPluginDescriptor.validateConnection(BapSshPublisherPluginDescriptor.java:181)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.descriptor.BapSshPublisherPluginDescriptor.doTestConnection(BapSshPublisherPluginDescriptor.java:176)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.descriptor.BapSshHostConfigurationDescriptor.doTestConnection(BapSshHostConfigurationDescriptor.java:86)
+[33mjenkins_1      |[0m 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+[33mjenkins_1      |[0m 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+[33mjenkins_1      |[0m 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+[33mjenkins_1      |[0m 	at java.lang.reflect.Method.invoke(Method.java:498)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Function$InstanceFunction.invoke(Function.java:324)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Function.bindAndInvoke(Function.java:167)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Function.bindAndInvokeAndServeResponse(Function.java:100)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.MetaClass$1.doDispatch(MetaClass.java:124)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:58)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.MetaClass$5.doDispatch(MetaClass.java:233)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.NameBasedDispatcher.dispatch(NameBasedDispatcher.java:58)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:746)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.Stapler.service(Stapler.java:238)
+[33mjenkins_1      |[0m 	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:812)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1669)
+[33mjenkins_1      |[0m 	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:135)
+[33mjenkins_1      |[0m 	at org.jenkinsci.plugins.ssegateway.Endpoint$SSEListenChannelFilter.doFilter(Endpoint.java:249)
+[33mjenkins_1      |[0m 	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:132)
+[33mjenkins_1      |[0m 	at jenkins.metrics.impl.MetricsFilter.doFilter(MetricsFilter.java:125)
+[33mjenkins_1      |[0m 	at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:132)
+[33mjenkins_1      |[0m 	at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:126)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+[33mjenkins_1      |[0m 	at hudson.security.csrf.CrumbFilter.doFilter(CrumbFilter.java:80)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:84)
+[33mjenkins_1      |[0m 	at hudson.security.UnwrapSecurityExceptionFilter.doFilter(UnwrapSecurityExceptionFilter.java:51)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+[33mjenkins_1      |[0m 	at jenkins.security.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:117)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+[33mjenkins_1      |[0m 	at org.acegisecurity.providers.anonymous.AnonymousProcessingFilter.doFilter(AnonymousProcessingFilter.java:125)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+[33mjenkins_1      |[0m 	at org.acegisecurity.ui.rememberme.RememberMeProcessingFilter.doFilter(RememberMeProcessingFilter.java:142)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+[33mjenkins_1      |[0m 	at org.acegisecurity.ui.AbstractProcessingFilter.doFilter(AbstractProcessingFilter.java:271)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+[33mjenkins_1      |[0m 	at jenkins.security.BasicHeaderProcessor.doFilter(BasicHeaderProcessor.java:93)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+[33mjenkins_1      |[0m 	at org.acegisecurity.context.HttpSessionContextIntegrationFilter.doFilter(HttpSessionContextIntegrationFilter.java:249)
+[33mjenkins_1      |[0m 	at hudson.security.HttpSessionContextIntegrationFilter2.doFilter(HttpSessionContextIntegrationFilter2.java:67)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter$1.doFilter(ChainedServletFilter.java:87)
+[33mjenkins_1      |[0m 	at hudson.security.ChainedServletFilter.doFilter(ChainedServletFilter.java:76)
+[33mjenkins_1      |[0m 	at hudson.security.HudsonFilter.doFilter(HudsonFilter.java:171)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.compression.CompressionFilter.doFilter(CompressionFilter.java:49)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+[33mjenkins_1      |[0m 	at hudson.util.CharacterEncodingFilter.doFilter(CharacterEncodingFilter.java:82)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+[33mjenkins_1      |[0m 	at org.kohsuke.stapler.DiagnosticThreadNameFilter.doFilter(DiagnosticThreadNameFilter.java:30)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:585)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:143)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:553)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:223)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1127)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:515)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:185)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1061)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.Server.handle(Server.java:499)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:311)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:257)
+[33mjenkins_1      |[0m 	at org.eclipse.jetty.io.AbstractConnection$2.run(AbstractConnection.java:544)
+[33mjenkins_1      |[0m 	at winstone.BoundedExecutorService$1.run(BoundedExecutorService.java:77)
+[33mjenkins_1      |[0m 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+[33mjenkins_1      |[0m 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+[33mjenkins_1      |[0m 	at java.lang.Thread.run(Thread.java:745)
+[33mjenkins_1      |[0m 
+[33mjenkins_1      |[0m Oct 02, 2016 7:04:55 PM jenkins.plugins.publish_over_ssh.BapSshHostConfiguration connect
+[33mjenkins_1      |[0m WARNING: Failed to connect session for config [Gspotsyncer]. Message [Auth fail]
+[33mjenkins_1      |[0m com.jcraft.jsch.JSchException: Auth fail
+[33mjenkins_1      |[0m 	at com.jcraft.jsch.Session.connect(Session.java:512)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshHostConfiguration.connect(BapSshHostConfiguration.java:321)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshHostConfiguration.createClient(BapSshHostConfiguration.java:235)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshHostConfiguration.createClient(BapSshHostConfiguration.java:210)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshHostConfiguration.createClient(BapSshHostConfiguration.java:47)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher$Performer.perform(BapPublisher.java:229)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher$Performer.access$000(BapPublisher.java:205)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher.perform(BapPublisher.java:158)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPCallablePublisher.invoke(BPCallablePublisher.java:64)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPCallablePublisher.invoke(BPCallablePublisher.java:37)
+[33mjenkins_1      |[0m 	at hudson.FilePath.act(FilePath.java:1018)
+[33mjenkins_1      |[0m 	at hudson.FilePath.act(FilePath.java:996)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPInstanceConfig.perform(BPInstanceConfig.java:138)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPPlugin.perform(BPPlugin.java:111)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshBuilderPlugin.perform(BapSshBuilderPlugin.java:64)
+[33mjenkins_1      |[0m 	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+[33mjenkins_1      |[0m 	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:779)
+[33mjenkins_1      |[0m 	at hudson.model.Build$BuildExecution.build(Build.java:205)
+[33mjenkins_1      |[0m 	at hudson.model.Build$BuildExecution.doRun(Build.java:162)
+[33mjenkins_1      |[0m 	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:534)
+[33mjenkins_1      |[0m 	at hudson.model.Run.execute(Run.java:1741)
+[33mjenkins_1      |[0m 	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:43)
+[33mjenkins_1      |[0m 	at hudson.model.ResourceController.execute(ResourceController.java:98)
+[33mjenkins_1      |[0m 	at hudson.model.Executor.run(Executor.java:410)
+[33mjenkins_1      |[0m 
+[33mjenkins_1      |[0m Oct 02, 2016 7:04:55 PM jenkins.plugins.publish_over.BPCallablePublisher invoke
+[33mjenkins_1      |[0m WARNING: Exception when publishing, exception message [Failed to connect session for config [Gspotsyncer]. Message [Auth fail]]
+[33mjenkins_1      |[0m jenkins.plugins.publish_over.BapPublisherException: Failed to connect session for config [Gspotsyncer]. Message [Auth fail]
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshHostConfiguration.connect(BapSshHostConfiguration.java:325)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshHostConfiguration.createClient(BapSshHostConfiguration.java:235)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshHostConfiguration.createClient(BapSshHostConfiguration.java:210)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshHostConfiguration.createClient(BapSshHostConfiguration.java:47)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher$Performer.perform(BapPublisher.java:229)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher$Performer.access$000(BapPublisher.java:205)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher.perform(BapPublisher.java:158)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPCallablePublisher.invoke(BPCallablePublisher.java:64)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPCallablePublisher.invoke(BPCallablePublisher.java:37)
+[33mjenkins_1      |[0m 	at hudson.FilePath.act(FilePath.java:1018)
+[33mjenkins_1      |[0m 	at hudson.FilePath.act(FilePath.java:996)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPInstanceConfig.perform(BPInstanceConfig.java:138)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPPlugin.perform(BPPlugin.java:111)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshBuilderPlugin.perform(BapSshBuilderPlugin.java:64)
+[33mjenkins_1      |[0m 	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+[33mjenkins_1      |[0m 	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:779)
+[33mjenkins_1      |[0m 	at hudson.model.Build$BuildExecution.build(Build.java:205)
+[33mjenkins_1      |[0m 	at hudson.model.Build$BuildExecution.doRun(Build.java:162)
+[33mjenkins_1      |[0m 	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:534)
+[33mjenkins_1      |[0m 	at hudson.model.Run.execute(Run.java:1741)
+[33mjenkins_1      |[0m 	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:43)
+[33mjenkins_1      |[0m 	at hudson.model.ResourceController.execute(ResourceController.java:98)
+[33mjenkins_1      |[0m 	at hudson.model.Executor.run(Executor.java:410)
+[33mjenkins_1      |[0m 
+[33mjenkins_1      |[0m Oct 02, 2016 7:04:55 PM jenkins.plugins.publish_over.BPInstanceConfig perform
+[33mjenkins_1      |[0m WARNING: An exception was caught when invoking perform
+[33mjenkins_1      |[0m jenkins.plugins.publish_over.BapPublisherException: Exception when publishing, exception message [Failed to connect session for config [Gspotsyncer]. Message [Auth fail]]
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPCallablePublisher.invoke(BPCallablePublisher.java:68)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPCallablePublisher.invoke(BPCallablePublisher.java:37)
+[33mjenkins_1      |[0m 	at hudson.FilePath.act(FilePath.java:1018)
+[33mjenkins_1      |[0m 	at hudson.FilePath.act(FilePath.java:996)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPInstanceConfig.perform(BPInstanceConfig.java:138)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPPlugin.perform(BPPlugin.java:111)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshBuilderPlugin.perform(BapSshBuilderPlugin.java:64)
+[33mjenkins_1      |[0m 	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+[33mjenkins_1      |[0m 	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:779)
+[33mjenkins_1      |[0m 	at hudson.model.Build$BuildExecution.build(Build.java:205)
+[33mjenkins_1      |[0m 	at hudson.model.Build$BuildExecution.doRun(Build.java:162)
+[33mjenkins_1      |[0m 	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:534)
+[33mjenkins_1      |[0m 	at hudson.model.Run.execute(Run.java:1741)
+[33mjenkins_1      |[0m 	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:43)
+[33mjenkins_1      |[0m 	at hudson.model.ResourceController.execute(ResourceController.java:98)
+[33mjenkins_1      |[0m 	at hudson.model.Executor.run(Executor.java:410)
+[33mjenkins_1      |[0m Caused by: jenkins.plugins.publish_over.BapPublisherException: Failed to connect session for config [Gspotsyncer]. Message [Auth fail]
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshHostConfiguration.connect(BapSshHostConfiguration.java:325)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshHostConfiguration.createClient(BapSshHostConfiguration.java:235)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshHostConfiguration.createClient(BapSshHostConfiguration.java:210)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshHostConfiguration.createClient(BapSshHostConfiguration.java:47)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher$Performer.perform(BapPublisher.java:229)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher$Performer.access$000(BapPublisher.java:205)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher.perform(BapPublisher.java:158)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPCallablePublisher.invoke(BPCallablePublisher.java:64)
+[33mjenkins_1      |[0m 	... 15 more
+[33mjenkins_1      |[0m 
+[33mjenkins_1      |[0m Oct 02, 2016 7:04:55 PM hudson.model.Run execute
+[33mjenkins_1      |[0m INFO: Build #3 main build action completed: UNSTABLE
+[33mjenkins_1      |[0m Oct 02, 2016 7:06:14 PM hudson.model.Run execute
+[33mjenkins_1      |[0m INFO: Build #4 main build action completed: SUCCESS
+[33mjenkins_1      |[0m Oct 02, 2016 7:08:22 PM jenkins.plugins.publish_over.BPCallablePublisher invoke
+[33mjenkins_1      |[0m WARNING: Exception when publishing, exception message [Exec exit status not zero. Status [255]]
+[33mjenkins_1      |[0m jenkins.plugins.publish_over.BapPublisherException: Exec exit status not zero. Status [255]
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshClient.exec(BapSshClient.java:152)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshClient.endTransfers(BapSshClient.java:137)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshClient.endTransfers(BapSshClient.java:42)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher$Performer.endTransfers(BapPublisher.java:283)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher$Performer.perform(BapPublisher.java:233)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher$Performer.access$000(BapPublisher.java:205)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher.perform(BapPublisher.java:158)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPCallablePublisher.invoke(BPCallablePublisher.java:64)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPCallablePublisher.invoke(BPCallablePublisher.java:37)
+[33mjenkins_1      |[0m 	at hudson.FilePath.act(FilePath.java:1018)
+[33mjenkins_1      |[0m 	at hudson.FilePath.act(FilePath.java:996)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPInstanceConfig.perform(BPInstanceConfig.java:138)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPPlugin.perform(BPPlugin.java:111)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshBuilderPlugin.perform(BapSshBuilderPlugin.java:64)
+[33mjenkins_1      |[0m 	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+[33mjenkins_1      |[0m 	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:779)
+[33mjenkins_1      |[0m 	at hudson.model.Build$BuildExecution.build(Build.java:205)
+[33mjenkins_1      |[0m 	at hudson.model.Build$BuildExecution.doRun(Build.java:162)
+[33mjenkins_1      |[0m 	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:534)
+[33mjenkins_1      |[0m 	at hudson.model.Run.execute(Run.java:1741)
+[33mjenkins_1      |[0m 	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:43)
+[33mjenkins_1      |[0m 	at hudson.model.ResourceController.execute(ResourceController.java:98)
+[33mjenkins_1      |[0m 	at hudson.model.Executor.run(Executor.java:410)
+[33mjenkins_1      |[0m 
+[33mjenkins_1      |[0m Oct 02, 2016 7:08:22 PM jenkins.plugins.publish_over.BPInstanceConfig perform
+[33mjenkins_1      |[0m WARNING: An exception was caught when invoking perform
+[33mjenkins_1      |[0m jenkins.plugins.publish_over.BapPublisherException: Exception when publishing, exception message [Exec exit status not zero. Status [255]]
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPCallablePublisher.invoke(BPCallablePublisher.java:68)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPCallablePublisher.invoke(BPCallablePublisher.java:37)
+[33mjenkins_1      |[0m 	at hudson.FilePath.act(FilePath.java:1018)
+[33mjenkins_1      |[0m 	at hudson.FilePath.act(FilePath.java:996)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPInstanceConfig.perform(BPInstanceConfig.java:138)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPPlugin.perform(BPPlugin.java:111)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshBuilderPlugin.perform(BapSshBuilderPlugin.java:64)
+[33mjenkins_1      |[0m 	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+[33mjenkins_1      |[0m 	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:779)
+[33mjenkins_1      |[0m 	at hudson.model.Build$BuildExecution.build(Build.java:205)
+[33mjenkins_1      |[0m 	at hudson.model.Build$BuildExecution.doRun(Build.java:162)
+[33mjenkins_1      |[0m 	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:534)
+[33mjenkins_1      |[0m 	at hudson.model.Run.execute(Run.java:1741)
+[33mjenkins_1      |[0m 	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:43)
+[33mjenkins_1      |[0m 	at hudson.model.ResourceController.execute(ResourceController.java:98)
+[33mjenkins_1      |[0m 	at hudson.model.Executor.run(Executor.java:410)
+[33mjenkins_1      |[0m Caused by: jenkins.plugins.publish_over.BapPublisherException: Exec exit status not zero. Status [255]
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshClient.exec(BapSshClient.java:152)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshClient.endTransfers(BapSshClient.java:137)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over_ssh.BapSshClient.endTransfers(BapSshClient.java:42)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher$Performer.endTransfers(BapPublisher.java:283)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher$Performer.perform(BapPublisher.java:233)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher$Performer.access$000(BapPublisher.java:205)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BapPublisher.perform(BapPublisher.java:158)
+[33mjenkins_1      |[0m 	at jenkins.plugins.publish_over.BPCallablePublisher.invoke(BPCallablePublisher.java:64)
+[33mjenkins_1      |[0m 	... 15 more
+[33mjenkins_1      |[0m 
+[33mjenkins_1      |[0m Oct 02, 2016 7:08:22 PM hudson.model.Run execute
+[33mjenkins_1      |[0m INFO: Build #5 main build action completed: UNSTABLE
+[33mjenkins_1      |[0m Oct 02, 2016 7:10:37 PM jenkins.metrics.api.Metrics$HealthChecker$3 run
+[33mjenkins_1      |[0m SEVERE: jenkins.metrics.api.Metrics$HealthChecker could not create listener
+[33mjenkins_1      |[0m java.io.FileNotFoundException: /var/jenkins_home/logs/health-checker.log (Permission denied)
+[33mjenkins_1      |[0m 	at java.io.FileOutputStream.open0(Native Method)
+[33mjenkins_1      |[0m 	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+[33mjenkins_1      |[0m 	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+[33mjenkins_1      |[0m 	at java.io.FileOutputStream.<init>(FileOutputStream.java:162)
+[33mjenkins_1      |[0m 	at hudson.util.StreamTaskListener.<init>(StreamTaskListener.java:97)
+[33mjenkins_1      |[0m 	at hudson.util.StreamTaskListener.<init>(StreamTaskListener.java:90)
+[33mjenkins_1      |[0m 	at jenkins.metrics.api.Metrics$HealthChecker$3.run(Metrics.java:553)
+[33mjenkins_1      |[0m 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+[33mjenkins_1      |[0m 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+[33mjenkins_1      |[0m 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+[33mjenkins_1      |[0m 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+[33mjenkins_1      |[0m 	at java.lang.Thread.run(Thread.java:745)
+[33mjenkins_1      |[0m 
+[33mjenkins_1      |[0m touch: cannot touch ‘/var/jenkins_home/copy_reference_file.log’: Permission denied
+[33mjenkins_1      |[0m Can not write to /var/jenkins_home/copy_reference_file.log. Wrong volume permissions?
+[33mjenkins_1      |[0m touch: cannot touch ‘/var/jenkins_home/copy_reference_file.log’: Permission denied
+[33mjenkins_1      |[0m Can not write to /var/jenkins_home/copy_reference_file.log. Wrong volume permissions?
+[33mjenkins_1      |[0m Running from: /usr/share/jenkins/jenkins.war
+[33mjenkins_1      |[0m webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:01 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Logging initialized @2539ms
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:01 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Beginning extraction from war file
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:01 PM org.eclipse.jetty.util.log.JavaUtilLog warn
+[33mjenkins_1      |[0m WARNING: Empty contextPath
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:01 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: jetty-9.2.z-SNAPSHOT
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:02 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+[33mjenkins_1      |[0m Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:03 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started w.@4d5650ae{/,file:/var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:03 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started ServerConnector@1a6d8329{HTTP/1.1}{0.0.0.0:8080}
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:03 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started @4747ms
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:03 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Winstone Servlet Engine v2.0 running: controlPort=disabled
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:03 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Started initialization
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:04 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Listed all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:04 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+[33mjenkins_1      |[0m INFO: Initializing Bouncy Castle security provider.
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:04 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+[33mjenkins_1      |[0m INFO: Bouncy Castle security provider initialized.
+[33mjenkins_1      |[0m Running from: /usr/share/jenkins/jenkins.war
+[33mjenkins_1      |[0m webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:13 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Logging initialized @1286ms
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:13 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Beginning extraction from war file
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:13 PM org.eclipse.jetty.util.log.JavaUtilLog warn
+[33mjenkins_1      |[0m WARNING: Empty contextPath
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:13 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: jetty-9.2.z-SNAPSHOT
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:14 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+[33mjenkins_1      |[0m Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:15 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started w.@4d5650ae{/,file:/var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:15 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started ServerConnector@1a6d8329{HTTP/1.1}{0.0.0.0:8080}
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:15 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started @3167ms
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:15 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Winstone Servlet Engine v2.0 running: controlPort=disabled
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:15 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Started initialization
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:16 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Listed all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:16 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+[33mjenkins_1      |[0m INFO: Initializing Bouncy Castle security provider.
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:16 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+[33mjenkins_1      |[0m INFO: Bouncy Castle security provider initialized.
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:22 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Prepared all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:24 PM hudson.ExtensionFinder$GuiceFinder$FaultTolerantScope$1 error
+[33mjenkins_1      |[0m INFO: Failed to instantiate optional component hudson.plugins.build_timeout.operations.AbortAndRestartOperation$DescriptorImpl; skipping
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:24 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Started all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:24 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Augmented all extensions
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:25 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Loaded all jobs
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:25 PM hudson.model.AsyncPeriodicWork$1 run
+[33mjenkins_1      |[0m INFO: Started Download metadata
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:25 PM hudson.model.AsyncPeriodicWork$1 run
+[33mjenkins_1      |[0m INFO: Finished Download metadata. 13 ms
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:26 PM org.jenkinsci.main.modules.sshd.SSHD start
+[33mjenkins_1      |[0m INFO: Started SSHD at port 32817
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:26 PM jenkins.util.groovy.GroovyHookScript execute
+[33mjenkins_1      |[0m INFO: Executing /var/jenkins_home/init.groovy.d/tcp-slave-agent-port.groovy
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:26 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Completed initialization
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:27 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@5fa40857: display name [Root WebApplicationContext]; startup date [Sun Oct 02 19:28:27 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:27 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@5fa40857]: org.springframework.beans.factory.support.DefaultListableBeanFactory@56c7a981
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:27 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@56c7a981: defining beans [authenticationManager]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:27 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@7bf1261b: display name [Root WebApplicationContext]; startup date [Sun Oct 02 19:28:27 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:27 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@7bf1261b]: org.springframework.beans.factory.support.DefaultListableBeanFactory@1e80fa2a
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:27 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@1e80fa2a: defining beans [filter,legacy]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 7:28:27 PM hudson.WebAppMain$3 run
+[33mjenkins_1      |[0m INFO: Jenkins is fully up and running
+[33mjenkins_1      |[0m --> setting agent port for jnlp
+[33mjenkins_1      |[0m --> setting agent port for jnlp... done
+[33mjenkins_1      |[0m Oct 02, 2016 7:29:58 PM hudson.model.Run execute
+[33mjenkins_1      |[0m INFO: Build #6 main build action completed: SUCCESS
+[33mjenkins_1      |[0m Oct 02, 2016 7:32:58 PM hudson.model.Run execute
+[33mjenkins_1      |[0m INFO: Deploy #1 main build action completed: SUCCESS
+[33mjenkins_1      |[0m Oct 02, 2016 7:41:50 PM hudson.model.Run execute
+[33mjenkins_1      |[0m INFO: Build #7 main build action completed: SUCCESS
+[33mjenkins_1      |[0m Oct 02, 2016 7:41:50 PM org.jenkinsci.plugins.workflow.job.WorkflowRun finish
+[33mjenkins_1      |[0m INFO: Build and Deploy #1 completed: SUCCESS
+[33mjenkins_1      |[0m Oct 02, 2016 7:42:30 PM hudson.model.Run execute
+[33mjenkins_1      |[0m INFO: Build #8 main build action completed: SUCCESS
+[33mjenkins_1      |[0m Oct 02, 2016 7:42:36 PM hudson.model.Run execute
+[33mjenkins_1      |[0m INFO: Deploy #2 main build action completed: SUCCESS
+[33mjenkins_1      |[0m Oct 02, 2016 7:42:36 PM org.jenkinsci.plugins.workflow.job.WorkflowRun finish
+[33mjenkins_1      |[0m INFO: Build and Deploy #2 completed: SUCCESS
+[33mjenkins_1      |[0m Oct 02, 2016 7:46:42 PM org.jenkinsci.plugins.github.webhook.subscriber.PingGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: PING webhook received from repo <https://github.com/jumpinghooligans/gspotsyncer>!
+[33mjenkins_1      |[0m Oct 02, 2016 7:52:31 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 7:57:57 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 7:58:22 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 8:01:01 PM org.jenkinsci.plugins.github.webhook.GHEventPayload$PayloadHandler parse
+[33mjenkins_1      |[0m SEVERE: Unknown content type null
+[33mjenkins_1      |[0m Oct 02, 2016 8:06:45 PM org.jenkinsci.plugins.github.config.GitHubPluginConfig doReRegister
+[33mjenkins_1      |[0m INFO: Called registerHooks() for 3 jobs
+[33mjenkins_1      |[0m Oct 02, 2016 8:06:45 PM org.jenkinsci.plugins.github.webhook.WebhookManager$1 run
+[33mjenkins_1      |[0m INFO: GitHub webhooks activated for job Build and Deploy with [] (events: [REPOSITORY])
+[33mjenkins_1      |[0m Oct 02, 2016 8:06:45 PM org.jenkinsci.plugins.github.webhook.WebhookManager$1 run
+[33mjenkins_1      |[0m INFO: GitHub webhooks activated for job Build with [] (events: [REPOSITORY])
+[33mjenkins_1      |[0m Oct 02, 2016 8:06:45 PM org.jenkinsci.plugins.github.webhook.WebhookManager$1 run
+[33mjenkins_1      |[0m INFO: GitHub webhooks activated for job Deploy with [] (events: [REPOSITORY])
+[33mjenkins_1      |[0m Oct 02, 2016 8:10:34 PM org.jenkinsci.plugins.github.config.GitHubPluginConfig doReRegister
+[33mjenkins_1      |[0m INFO: Called registerHooks() for 3 jobs
+[33mjenkins_1      |[0m Oct 02, 2016 8:10:34 PM org.jenkinsci.plugins.github.webhook.WebhookManager$1 run
+[33mjenkins_1      |[0m INFO: GitHub webhooks activated for job Build with [] (events: [REPOSITORY])
+[33mjenkins_1      |[0m Oct 02, 2016 8:10:34 PM org.jenkinsci.plugins.github.webhook.WebhookManager$1 run
+[33mjenkins_1      |[0m INFO: GitHub webhooks activated for job Build and Deploy with [] (events: [REPOSITORY])
+[33mjenkins_1      |[0m Oct 02, 2016 8:10:34 PM org.jenkinsci.plugins.github.webhook.WebhookManager$1 run
+[33mjenkins_1      |[0m INFO: GitHub webhooks activated for job Deploy with [] (events: [REPOSITORY])
+[33mjenkins_1      |[0m Oct 02, 2016 8:13:20 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 8:13:25 PM org.jenkinsci.plugins.github.webhook.GHEventPayload$PayloadHandler parse
+[33mjenkins_1      |[0m SEVERE: Unknown content type null
+[33mjenkins_1      |[0m Running from: /usr/share/jenkins/jenkins.war
+[33mjenkins_1      |[0m webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:31 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Logging initialized @647ms
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:31 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Beginning extraction from war file
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:31 PM org.eclipse.jetty.util.log.JavaUtilLog warn
+[33mjenkins_1      |[0m WARNING: Empty contextPath
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:31 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: jetty-9.2.z-SNAPSHOT
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:32 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+[33mjenkins_1      |[0m Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:33 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started w.@4d5650ae{/,file:/var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:33 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started ServerConnector@1a6d8329{HTTP/1.1}{0.0.0.0:8080}
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:33 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started @2639ms
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:33 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Winstone Servlet Engine v2.0 running: controlPort=disabled
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:34 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Started initialization
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:34 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Listed all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:34 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+[33mjenkins_1      |[0m INFO: Initializing Bouncy Castle security provider.
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:35 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+[33mjenkins_1      |[0m INFO: Bouncy Castle security provider initialized.
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:42 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Prepared all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:43 PM hudson.ExtensionFinder$GuiceFinder$FaultTolerantScope$1 error
+[33mjenkins_1      |[0m INFO: Failed to instantiate optional component hudson.plugins.build_timeout.operations.AbortAndRestartOperation$DescriptorImpl; skipping
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:43 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Started all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:43 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Augmented all extensions
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:45 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Loaded all jobs
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:45 PM jenkins.util.groovy.GroovyHookScript execute
+[33mjenkins_1      |[0m INFO: Executing /var/jenkins_home/init.groovy.d/tcp-slave-agent-port.groovy
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:46 PM hudson.model.AsyncPeriodicWork$1 run
+[33mjenkins_1      |[0m INFO: Started Download metadata
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:46 PM hudson.model.AsyncPeriodicWork$1 run
+[33mjenkins_1      |[0m INFO: Finished Download metadata. 28 ms
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:46 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@8ec253c: display name [Root WebApplicationContext]; startup date [Sun Oct 02 20:15:46 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:46 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@8ec253c]: org.springframework.beans.factory.support.DefaultListableBeanFactory@67f1a8c5
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:46 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@67f1a8c5: defining beans [authenticationManager]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:46 PM org.jenkinsci.main.modules.sshd.SSHD start
+[33mjenkins_1      |[0m INFO: Started SSHD at port 32782
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:46 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Completed initialization
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:46 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@91911c9: display name [Root WebApplicationContext]; startup date [Sun Oct 02 20:15:46 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:46 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@91911c9]: org.springframework.beans.factory.support.DefaultListableBeanFactory@40a7ca78
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:46 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@40a7ca78: defining beans [filter,legacy]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:15:46 PM hudson.WebAppMain$3 run
+[33mjenkins_1      |[0m INFO: Jenkins is fully up and running
+[33mjenkins_1      |[0m --> setting agent port for jnlp
+[33mjenkins_1      |[0m --> setting agent port for jnlp... done
+[33mjenkins_1      |[0m Oct 02, 2016 8:17:18 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 8:17:33 PM org.jenkinsci.plugins.github.webhook.subscriber.PingGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: PING webhook received from repo <https://github.com/jumpinghooligans/gspotsyncer>!
+[33mjenkins_1      |[0m Oct 02, 2016 8:19:52 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 8:21:49 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@7775ec49: display name [Root WebApplicationContext]; startup date [Sun Oct 02 20:21:49 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:21:49 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@7775ec49]: org.springframework.beans.factory.support.DefaultListableBeanFactory@287d01ba
+[33mjenkins_1      |[0m Oct 02, 2016 8:21:49 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@287d01ba: defining beans [authenticationManager]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:21:49 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@47a02a00: display name [Root WebApplicationContext]; startup date [Sun Oct 02 20:21:49 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:21:49 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@47a02a00]: org.springframework.beans.factory.support.DefaultListableBeanFactory@776ffbeb
+[33mjenkins_1      |[0m Oct 02, 2016 8:21:49 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@776ffbeb: defining beans [filter,legacy]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:22:47 PM org.jenkinsci.plugins.github.webhook.WebhookManager$1 run
+[33mjenkins_1      |[0m INFO: GitHub webhooks activated for job Build and Deploy with [] (events: [REPOSITORY])
+[33mjenkins_1      |[0m Oct 02, 2016 8:23:21 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 8:24:01 PM org.jenkinsci.plugins.github.webhook.WebhookManager$1 run
+[33mjenkins_1      |[0m INFO: GitHub webhooks activated for job Build and Deploy with [] (events: [PUSH, REPOSITORY])
+[33mjenkins_1      |[0m Oct 02, 2016 8:24:12 PM org.jenkinsci.plugins.github.webhook.subscriber.PingGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: PING webhook received from repo <https://github.com/jumpinghooligans/gspotsyncer>!
+[33mjenkins_1      |[0m Oct 02, 2016 8:24:35 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 8:24:35 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 8:29:16 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 8:29:16 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 8:32:50 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 8:32:50 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 8:34:49 PM org.jenkinsci.plugins.github.webhook.WebhookManager$1 run
+[33mjenkins_1      |[0m INFO: GitHub webhooks activated for job Build and Deploy with [] (events: [PUSH, REPOSITORY])
+[33mjenkins_1      |[0m Oct 02, 2016 8:39:23 PM hudson.model.Run execute
+[33mjenkins_1      |[0m INFO: Build #9 main build action completed: SUCCESS
+[33mjenkins_1      |[0m Oct 02, 2016 8:39:30 PM hudson.model.Run execute
+[33mjenkins_1      |[0m INFO: Deploy #3 main build action completed: SUCCESS
+[33mjenkins_1      |[0m Oct 02, 2016 8:39:30 PM org.jenkinsci.plugins.workflow.job.WorkflowRun finish
+[33mjenkins_1      |[0m INFO: Build and Deploy #3 completed: SUCCESS
+[33mjenkins_1      |[0m Oct 02, 2016 8:42:13 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 8:42:13 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 8:42:53 PM org.jenkinsci.plugins.github.webhook.WebhookManager$1 run
+[33mjenkins_1      |[0m INFO: GitHub webhooks activated for job Build and Deploy with [] (events: [PUSH, REPOSITORY])
+[33mjenkins_1      |[0m Oct 02, 2016 8:42:53 PM org.jenkinsci.plugins.github.webhook.WebhookManager$1 run
+[33mjenkins_1      |[0m INFO: GitHub webhooks activated for job Build and Deploy with [] (events: [PUSH, REPOSITORY])
+[33mjenkins_1      |[0m Oct 02, 2016 8:44:05 PM org.jenkinsci.plugins.github.webhook.WebhookManager$1 run
+[33mjenkins_1      |[0m INFO: GitHub webhooks activated for job Build and Deploy with [] (events: [PUSH, REPOSITORY])
+[33mjenkins_1      |[0m Oct 02, 2016 8:47:16 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@67d63533: display name [Root WebApplicationContext]; startup date [Sun Oct 02 20:47:16 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:47:16 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@67d63533]: org.springframework.beans.factory.support.DefaultListableBeanFactory@3513686
+[33mjenkins_1      |[0m Oct 02, 2016 8:47:16 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@3513686: defining beans [authenticationManager]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:47:16 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@e427cce: display name [Root WebApplicationContext]; startup date [Sun Oct 02 20:47:16 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:47:16 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@e427cce]: org.springframework.beans.factory.support.DefaultListableBeanFactory@12d2b13a
+[33mjenkins_1      |[0m Oct 02, 2016 8:47:16 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@12d2b13a: defining beans [filter,legacy]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:47:22 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 8:47:58 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@5f98e526: display name [Root WebApplicationContext]; startup date [Sun Oct 02 20:47:58 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:47:58 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@5f98e526]: org.springframework.beans.factory.support.DefaultListableBeanFactory@50392428
+[33mjenkins_1      |[0m Oct 02, 2016 8:47:58 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@50392428: defining beans [authenticationManager]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:47:58 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@32d08ab4: display name [Root WebApplicationContext]; startup date [Sun Oct 02 20:47:58 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:47:58 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@32d08ab4]: org.springframework.beans.factory.support.DefaultListableBeanFactory@15478c3b
+[33mjenkins_1      |[0m Oct 02, 2016 8:47:58 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@15478c3b: defining beans [filter,legacy]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:48:43 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 8:51:41 PM org.jenkinsci.plugins.github.webhook.subscriber.DefaultPushGHEventSubscriber onEvent
+[33mjenkins_1      |[0m INFO: Received POST for https://github.com/jumpinghooligans/gspotsyncer
+[33mjenkins_1      |[0m Oct 02, 2016 8:54:35 PM hudson.model.Run execute
+[33mjenkins_1      |[0m INFO: Build #10 main build action completed: SUCCESS
+[33mjenkins_1      |[0m Oct 02, 2016 8:54:45 PM hudson.model.Run execute
+[33mjenkins_1      |[0m INFO: Deploy #4 main build action completed: SUCCESS
+[33mjenkins_1      |[0m Oct 02, 2016 8:54:45 PM org.jenkinsci.plugins.workflow.job.WorkflowRun finish
+[33mjenkins_1      |[0m INFO: Build and Deploy #4 completed: SUCCESS
+[33mjenkins_1      |[0m Running from: /usr/share/jenkins/jenkins.war
+[33mjenkins_1      |[0m webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:21 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Logging initialized @2597ms
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:21 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Beginning extraction from war file
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:21 PM org.eclipse.jetty.util.log.JavaUtilLog warn
+[33mjenkins_1      |[0m WARNING: Empty contextPath
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:22 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: jetty-9.2.z-SNAPSHOT
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:24 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+[33mjenkins_1      |[0m Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:24 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started w.@4d5650ae{/,file:/var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:24 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started ServerConnector@1a6d8329{HTTP/1.1}{0.0.0.0:8080}
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:24 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started @5813ms
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:24 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Winstone Servlet Engine v2.0 running: controlPort=disabled
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:25 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Started initialization
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:26 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Listed all plugins
+[33mjenkins_1      |[0m Running from: /usr/share/jenkins/jenkins.war
+[33mjenkins_1      |[0m webroot: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:43 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Logging initialized @1549ms
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:43 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Beginning extraction from war file
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:43 PM org.eclipse.jetty.util.log.JavaUtilLog warn
+[33mjenkins_1      |[0m WARNING: Empty contextPath
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:43 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: jetty-9.2.z-SNAPSHOT
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:45 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+[33mjenkins_1      |[0m Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:45 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started w.@4d5650ae{/,file:/var/jenkins_home/war/,AVAILABLE}{/var/jenkins_home/war}
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:45 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started ServerConnector@1a6d8329{HTTP/1.1}{0.0.0.0:8080}
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:45 PM org.eclipse.jetty.util.log.JavaUtilLog info
+[33mjenkins_1      |[0m INFO: Started @4385ms
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:46 PM winstone.Logger logInternal
+[33mjenkins_1      |[0m INFO: Winstone Servlet Engine v2.0 running: controlPort=disabled
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:46 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Started initialization
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:46 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Listed all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:46 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+[33mjenkins_1      |[0m INFO: Initializing Bouncy Castle security provider.
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:46 PM jenkins.bouncycastle.api.SecurityProviderInitializer addSecurityProvider
+[33mjenkins_1      |[0m INFO: Bouncy Castle security provider initialized.
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:53 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Prepared all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:55 PM hudson.ExtensionFinder$GuiceFinder$FaultTolerantScope$1 error
+[33mjenkins_1      |[0m INFO: Failed to instantiate optional component hudson.plugins.build_timeout.operations.AbortAndRestartOperation$DescriptorImpl; skipping
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:55 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Started all plugins
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:56 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Augmented all extensions
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:57 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Loaded all jobs
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:57 PM jenkins.util.groovy.GroovyHookScript execute
+[33mjenkins_1      |[0m INFO: Executing /var/jenkins_home/init.groovy.d/tcp-slave-agent-port.groovy
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:57 PM hudson.model.AsyncPeriodicWork$1 run
+[33mjenkins_1      |[0m INFO: Started Download metadata
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:57 PM hudson.model.AsyncPeriodicWork$1 run
+[33mjenkins_1      |[0m INFO: Finished Download metadata. 6 ms
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:57 PM org.jenkinsci.main.modules.sshd.SSHD start
+[33mjenkins_1      |[0m INFO: Started SSHD at port 42632
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:58 PM jenkins.InitReactorRunner$1 onAttained
+[33mjenkins_1      |[0m INFO: Completed initialization
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:58 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@1ac5eb4e: display name [Root WebApplicationContext]; startup date [Sun Oct 02 20:58:58 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:58 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@1ac5eb4e]: org.springframework.beans.factory.support.DefaultListableBeanFactory@5eb60f4
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:58 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@5eb60f4: defining beans [authenticationManager]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:58 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+[33mjenkins_1      |[0m INFO: Refreshing org.springframework.web.context.support.StaticWebApplicationContext@eba7bed: display name [Root WebApplicationContext]; startup date [Sun Oct 02 20:58:58 UTC 2016]; root of context hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:58 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+[33mjenkins_1      |[0m INFO: Bean factory for application context [org.springframework.web.context.support.StaticWebApplicationContext@eba7bed]: org.springframework.beans.factory.support.DefaultListableBeanFactory@11bcab62
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:58 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+[33mjenkins_1      |[0m INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@11bcab62: defining beans [filter,legacy]; root of factory hierarchy
+[33mjenkins_1      |[0m Oct 02, 2016 8:58:58 PM hudson.WebAppMain$3 run
+[33mjenkins_1      |[0m INFO: Jenkins is fully up and running
+[33mjenkins_1      |[0m --> setting agent port for jnlp
+[33mjenkins_1      |[0m --> setting agent port for jnlp... done
+[33mjenkins_1      |[0m Oct 02, 2016 9:01:28 PM hudson.model.Run execute
+[33mjenkins_1      |[0m INFO: Build #11 main build action completed: SUCCESS
+[35mgspotsyncer_1  |[0m  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+[35mgspotsyncer_1  |[0m  * Restarting with stat
+[36mmongo_1        |[0m 2016-10-02T21:01:50.785+0000 I NETWORK  [initandlisten] connection accepted from 172.18.0.5:49986 #6 (2 connections now open)
+[35mgspotsyncer_1  |[0m  * Debugger is active!
+[35mgspotsyncer_1  |[0m  * Debugger pin code: 827-615-093
+[35mgspotsyncer_1  |[0m 74.108.230.153 - - [02/Oct/2016 21:01:56] "GET / HTTP/1.1" 200 -
+[35mgspotsyncer_1  |[0m 74.108.230.153 - - [02/Oct/2016 21:01:56] "GET /static/css/styles.css HTTP/1.1" 304 -
+[35mgspotsyncer_1  |[0m 74.108.230.153 - - [02/Oct/2016 21:01:58] "GET /account HTTP/1.1" 302 -
+[35mgspotsyncer_1  |[0m 74.108.230.153 - - [02/Oct/2016 21:01:58] "GET /account/login?next=%2Faccount HTTP/1.1" 200 -
+[35mgspotsyncer_1  |[0m 74.108.230.153 - - [02/Oct/2016 21:01:59] "GET /playlists HTTP/1.1" 302 -
+[35mgspotsyncer_1  |[0m 74.108.230.153 - - [02/Oct/2016 21:01:59] "GET /account/login?next=%2Fplaylists HTTP/1.1" 200 -
+[35mgspotsyncer_1  |[0m 74.108.230.153 - - [02/Oct/2016 21:02:00] "GET /account HTTP/1.1" 302 -
+[35mgspotsyncer_1  |[0m 74.108.230.153 - - [02/Oct/2016 21:02:00] "GET /account/login?next=%2Faccount HTTP/1.1" 200 -
+[35mgspotsyncer_1  |[0m 74.108.230.153 - - [02/Oct/2016 21:02:00] "GET / HTTP/1.1" 200 -
+SSH: Disconnecting configuration [Gspotsyncer] ...
+ERROR: Exception when publishing, exception message [Exec timed out or was interrupted after 104,342 ms]
+[8mha:AAAAWB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0ldFVf2c+b/lb5MDAwVRQxSaBqcITRIIQMEMIIUFgAAckCEiWAAAAA=[0mBuild step 'Send files or execute commands over SSH' changed build result to UNSTABLE
+Finished: UNSTABLE
