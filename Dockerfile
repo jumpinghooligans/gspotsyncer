@@ -16,7 +16,7 @@ RUN pip install --upgrade pip
 RUN pip install -r /tmp/pip.txt
 
 # Took this out since we link using volumes
-# COPY . /opt/gspotsyncer/
+COPY . /opt/gspotsyncer/
 
 # Start server
 WORKDIR /opt/gspotsyncer/
