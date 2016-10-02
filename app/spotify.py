@@ -27,6 +27,8 @@ class Spotify():
 			# update our credentials
 			self.user.spotify_credentials = spotify_auth_response.json()
 
+			app.logger.info(spotify_auth_response.json())
+
 			if self.user.save():
 				self.refresh_user_data()
 				flash('Successfully updated Spotify credentials...')
@@ -51,9 +53,6 @@ class Spotify():
 		if refresh_response.status_code == requests.codes.ok:
 			spotify_credentials = refresh_response.json()
 
-			# spotify doesn't return our refresh token, so let's tack it back on
-			# spotify_credentials['refresh_token'] = self.user.spotify_credentials['refresh_token']
-
 			# update our credentials
 			self.user.spotify_credentials.update(spotify_credentials)
 
@@ -77,7 +76,7 @@ class Spotify():
 		# get my user data
 		data = self.get_me()
 
-		if 'id' in data:
+		if data and 'id' in data:
 			# save it
 			self.user.spotify_data = data
 			return self.user.save()
@@ -87,11 +86,13 @@ class Spotify():
 
 	def get_me(self):
 		res = self.request('get',
-			url='https://api.spotify.com/v1/me',
-			headers={ 'Content-Type' : 'application/json' }
+			url='https://api.spotify.com/v1/me'
 		)
 
-		return res.json()
+		if res:
+			return res.json()
+
+		return False
 
 	def search_songs(self, query):
 		app.logger.info('Searching for song: ' + query)
@@ -238,34 +239,37 @@ class Spotify():
 		return uris
 
 	def request(self, verb, **kwargs):
-		req = getattr(requests, verb)
-
-		# don't overwrite any passed headers
-		if 'headers' not in kwargs:
-			kwargs['headers'] = {}
+		requester = getattr(requests, verb)
 
 		# attach the user credentials
+		if not kwargs.get('headers', None):
+			kwargs['headers'] = {}
+
 		kwargs['headers'].update({ 'Authorization' : self.user.spotify_credentials['token_type'] + ' ' + self.user.spotify_credentials['access_token'] })
 
 		# hacky way of making sure we don't loop on 401s
-		refresh_attempted = kwargs.pop('refresh_attempted', False)
+		refresh_attempted = getattr(self, 'refresh_attempted', False)
 
 		# make the request
-		res = req(**kwargs)
+		res = requester(**kwargs)
 
 		# if we get a 401 - attempt a refresh
 		if res.status_code == 401 and not refresh_attempted:
 			app.logger.info("User " + str(self.user._id) + " Received 401 - Refreshing Token")
 
 			# Don't get stuck in a unauthorized loop
-			kwargs['refresh_attempted'] = True
+			self.refresh_attempted = True
 
 			if self.refresh_token():
+				# update the kwargs
+				kwargs['headers'] = { 'Authorization' : self.user.spotify_credentials['token_type'] + ' ' + self.user.spotify_credentials['access_token'] }
+
 				# try this request again
 				return self.request(verb, **kwargs)
 			else:
 				# we tried to refresh but failed, there's probably
 				# some real issue, return the original request
+				self.disconnect()
 				return res
 		else:
 			# request is not a 401 - pass on through

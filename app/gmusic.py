@@ -11,7 +11,6 @@ class GoogleMusic():
 
 	def get_api(self):
 		if hasattr(self, 'api'):
-			app.logger.info('Loaded cached Google API')
 			return self.api
 
 		api = Mobileclient()

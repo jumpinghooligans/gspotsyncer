@@ -3,7 +3,7 @@ from app import app, mongo, cache, user, gmusic, spotify
 from flask import flash
 from bson.objectid import ObjectId
 
-import urllib, json, md5
+import urllib, json, md5, re
 
 def get_user_playlists(user):
 	cursor = mongo.db.playlists.find({
@@ -80,10 +80,9 @@ class Playlist():
 		s = spotify.Spotify(u)
 
 		for idx, track in enumerate(self.tracks):
-			query = track['title'].partition('(')[0] + ' ' + track['artists'][0]['name'] + ' ' + track['album']['name']
 
 			if not track['google_id']:
-				matching_tracks = g.search_songs(query)
+				matching_tracks = self.search_songs(g, track)
 
 				# real dumb right now
 				if matching_tracks:
@@ -98,6 +97,37 @@ class Playlist():
 					self.tracks[idx]['spotify_id'] = matching_tracks[0]['uri']
 
 		return True
+
+	def search_songs(self, service, track):
+		matching_tracks = []
+
+		# start complex and get more basics
+		queries = []
+
+		base_query = str(track['title'] + ' ' + track['artists'][0]['name'] + ' ' + track['album']['name'])
+
+		# everything
+		queries.append(base_query)
+
+		# only alpha numeric
+		queries.append(re.sub(r'([^\s\w]|_)+', '', base_query))
+
+		simple_base_query = str(track['title'] + ' ' + track['artists'][0]['name'])
+
+		queries.append(simple_base_query)
+		queries.append(re.sub(r'([^\s\w]|_)+', '', simple_base_query))
+
+		queries.append(track['title'].partition('(')[0] + ' ' + track['artists'][0]['name'].partition('(')[0] + ' ' + track['album']['name'].partition('(')[0])
+		queries.append(track['title'].partition('(')[0] + ' ' + track['artists'][0]['name'].partition('(')[0])
+
+		for query in queries:
+			matching_tracks += service.search_songs(query)
+			if len(matching_tracks) > 0:
+				app.logger.info('Found ' + str(len(matching_tracks)) + ' results, breaking...')
+				break
+
+		return matching_tracks
+
 
 	def get_track_ids(self, tracks, service):
 		# Id location varies by service...
