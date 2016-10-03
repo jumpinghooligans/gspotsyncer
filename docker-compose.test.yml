@@ -8,3 +8,4 @@ services:
      - .:/opt/gspotsyncer
     environment:
      - DB_ENV=TEST_MONGO
+    command: python gspotsyncer_tests.py
