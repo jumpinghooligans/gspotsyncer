@@ -5,6 +5,7 @@ flask-wtf
 flask-babel
 flask-pymongo
 flask-caching
+flask-testing
 coverage
 gmusicapi
 python-memcached

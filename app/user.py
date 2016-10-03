@@ -28,7 +28,7 @@ def register(user_obj):
 
 		if exists:
 			flash('Username already exists')
-			return
+			return False
 
 		insert_result = mongo.db.users.insert_one({
 			'username' : user_obj['username'],
@@ -38,8 +38,12 @@ def register(user_obj):
 		new_user = mongo.db.users.find_one({ '_id' : insert_result.inserted_id })
 		login_user(User(new_user))
 
+		return True
+
 	except Exception, e:
 		flash(e.message)
+
+	return False
 
 def login(username, password):
 	# Check the user password combination
