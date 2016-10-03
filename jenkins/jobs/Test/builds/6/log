@@ -1,0 +1,14 @@
+Started by upstream project "[8mha:AAAApB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyBEgYp/az8JH2n0sycFFUjg8Q8EOmSWpCTX6kPAGlkV77PAAAA[0mBuild and Deploy" build number [8mha:AAAAph+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAymEgYZ/az8JH2n0sycFFUjg8Q8EOmSWpCTX6lvaAwAxgxJctEAAAA=[0m13
+originally caused by:
+ Started by user [8mha:AAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgYu/dLi1CL9osrEPAC8oXAHvwAAAA==[0mRyan Kortmann
+Building in workspace /var/jenkins_home/workspace/Test
+ERROR: [GitHub Commit Status Setter] Failed to update commit state on GitHub. Ignoring exception [Cannot retrieve Git metadata for the build]
+[8mha:AAAAWB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0ldFVf2c+b/lb5MDAwVRQxSaBqcITRIIQMEMIIUFgAAckCEiWAAAAA=[0mSSH: Connecting from host [cb34900d5300]
+SSH: Connecting with configuration [Gspotsyncer] ...
+SSH: EXEC: STDOUT/STDERR from command [echo 'lol'] ...
+lol
+SSH: EXEC: completed after 205 ms
+SSH: Disconnecting configuration [Gspotsyncer] ...
+SSH: Transferred 0 file(s)
+Build step 'Send files or execute commands over SSH' changed build result to SUCCESS
+Finished: SUCCESS

@@ -1,0 +1,13 @@
+Started by user [8mha:AAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgYu/dLi1CL9osrEPAC8oXAHvwAAAA==[0mRyan Kortmann
+Building in workspace /var/jenkins_home/workspace/Test
+ERROR: [GitHub Commit Status Setter] Failed to update commit state on GitHub. Ignoring exception [Cannot retrieve Git metadata for the build]
+[8mha:AAAAWB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0ldFVf2c+b/lb5MDAwVRQxSaBqcITRIIQMEMIIUFgAAckCEiWAAAAA=[0mSSH: Connecting from host [cb34900d5300]
+SSH: Connecting with configuration [Gspotsyncer] ...
+SSH: EXEC: STDOUT/STDERR from command [cd /home/ec2-user/gspotsyncer &&\
+docker-compose -f docker-compose.yml -f docker-compose.test.yml run gspotsyncer] ...
+.IOError: [Errno 2] No such file or directory: u'./docker-compose.test.yml'
+SSH: EXEC: completed after 400 ms
+SSH: Disconnecting configuration [Gspotsyncer] ...
+ERROR: Exception when publishing, exception message [Exec exit status not zero. Status [1]]
+[8mha:AAAAWB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0ldFVf2c+b/lb5MDAwVRQxSaBqcITRIIQMEMIIUFgAAckCEiWAAAAA=[0mBuild step 'Send files or execute commands over SSH' changed build result to UNSTABLE
+Finished: UNSTABLE

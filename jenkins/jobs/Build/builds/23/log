@@ -1,0 +1,216 @@
+Started by upstream project "[8mha:AAAApB+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAyBEgYp/az8JH2n0sycFFUjg8Q8EOmSWpCTX6kPAGlkV77PAAAA[0mBuild and Deploy" build number [8mha:AAAAph+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAymEgYZ/az8JH2n0sycFFUjg8Q8EOmSWpCTX6lvaAoA86kqm9EAAAA=[0m15
+originally caused by:
+ Started by user [8mha:AAAAlh+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzeEgYu/dLi1CL9osrEPAC8oXAHvwAAAA==[0mRyan Kortmann
+Building in workspace /var/jenkins_home/workspace/Build
+ERROR: [GitHub Commit Status Setter] Failed to update commit state on GitHub. Ignoring exception [Cannot retrieve Git metadata for the build]
+[8mha:AAAAWB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0ldFVf2c+b/lb5MDAwVRQxSaBqcITRIIQMEMIIUFgAAckCEiWAAAAA=[0mSSH: Connecting from host [cb34900d5300]
+SSH: Connecting with configuration [Gspotsyncer] ...
+SSH: EXEC: STDOUT/STDERR from command [cd /home/ec2-user/gspotsyncer &&\
+git pull &&\
+sudo chmod -R 777 jenkins/ &&\
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml build] ...
+Already up-to-date.
+memcached uses an image, skipping
+mongo uses an image, skipping
+jenkins uses an image, skipping
+Building gspotsyncer
+Step 1 : FROM ubuntu:latest
+ ---> c73a085dc378
+Step 2 : MAINTAINER Ryan Kortmann "ryankortmann@gmail.com"
+ ---> Using cache
+ ---> abd9e8bc4dd3
+Step 3 : RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+ ---> Using cache
+ ---> 7ed231320159
+Step 4 : RUN echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+ ---> Using cache
+ ---> 89dc903c3671
+Step 5 : ADD docker/packages.txt /tmp/packages.txt
+ ---> Using cache
+ ---> 4483717de679
+Step 6 : RUN apt-get update -y
+ ---> Using cache
+ ---> 29b50cb4d40e
+Step 7 : RUN cat /tmp/packages.txt | xargs apt-get install -y
+ ---> Using cache
+ ---> 69b93935cbe7
+Step 8 : ADD docker/pip.txt /tmp/pip.txt
+ ---> Using cache
+ ---> 8a730f7b7a4b
+Step 9 : RUN pip install --upgrade pip
+ ---> Using cache
+ ---> acb8c12d4b34
+Step 10 : RUN pip install -r /tmp/pip.txt
+ ---> Running in 35080211ada3
+Collecting flask (from -r /tmp/pip.txt (line 1))
+  Downloading Flask-0.11.1-py2.py3-none-any.whl (80kB)
+Collecting flask-login (from -r /tmp/pip.txt (line 2))
+  Downloading Flask-Login-0.3.2.tar.gz
+Collecting flask-mail (from -r /tmp/pip.txt (line 3))
+  Downloading Flask-Mail-0.9.1.tar.gz (45kB)
+Collecting flask-wtf (from -r /tmp/pip.txt (line 4))
+  Downloading Flask-WTF-0.13.tar.gz (252kB)
+Collecting flask-babel (from -r /tmp/pip.txt (line 5))
+  Downloading Flask-Babel-0.11.1.tar.gz (40kB)
+Collecting flask-pymongo (from -r /tmp/pip.txt (line 6))
+  Downloading Flask_PyMongo-0.4.1-py2-none-any.whl
+Collecting flask-caching (from -r /tmp/pip.txt (line 7))
+  Downloading Flask_Caching-1.0.1-py2.py3-none-any.whl
+Collecting flask-testing (from -r /tmp/pip.txt (line 8))
+  Downloading Flask-Testing-0.6.1.tar.gz (42kB)
+Collecting coverage (from -r /tmp/pip.txt (line 9))
+  Downloading coverage-4.2.tar.gz (359kB)
+Collecting gmusicapi (from -r /tmp/pip.txt (line 10))
+  Downloading gmusicapi-10.0.1.tar.gz (154kB)
+Collecting python-memcached (from -r /tmp/pip.txt (line 11))
+  Downloading python-memcached-1.58.tar.gz
+Collecting requests (from -r /tmp/pip.txt (line 12))
+  Downloading requests-2.11.1-py2.py3-none-any.whl (514kB)
+Collecting itsdangerous>=0.21 (from flask->-r /tmp/pip.txt (line 1))
+  Downloading itsdangerous-0.24.tar.gz (46kB)
+Collecting click>=2.0 (from flask->-r /tmp/pip.txt (line 1))
+  Downloading click-6.6.tar.gz (283kB)
+Collecting Werkzeug>=0.7 (from flask->-r /tmp/pip.txt (line 1))
+  Downloading Werkzeug-0.11.11-py2.py3-none-any.whl (306kB)
+Collecting Jinja2>=2.4 (from flask->-r /tmp/pip.txt (line 1))
+  Downloading Jinja2-2.8-py2.py3-none-any.whl (263kB)
+Collecting blinker (from flask-mail->-r /tmp/pip.txt (line 3))
+  Downloading blinker-1.4.tar.gz (111kB)
+Collecting WTForms (from flask-wtf->-r /tmp/pip.txt (line 4))
+  Downloading WTForms-2.1.zip (553kB)
+Collecting Babel>=2.3 (from flask-babel->-r /tmp/pip.txt (line 5))
+  Downloading Babel-2.3.4-py2.py3-none-any.whl (7.1MB)
+Collecting PyMongo>=2.4 (from flask-pymongo->-r /tmp/pip.txt (line 6))
+  Downloading pymongo-3.3.0-cp27-cp27mu-manylinux1_x86_64.whl (339kB)
+Collecting validictory!=0.9.2,>=0.8.0 (from gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading validictory-1.0.2-py2.py3-none-any.whl
+Collecting decorator>=3.3.1 (from gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading decorator-4.0.10-py2.py3-none-any.whl
+Collecting mutagen>=1.18 (from gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading mutagen-1.34.1.tar.gz (872kB)
+Collecting python-dateutil!=2.0,>=1.3 (from gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading python_dateutil-2.5.3-py2.py3-none-any.whl (201kB)
+Collecting proboscis>=1.2.5.1 (from gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading proboscis-1.2.6.0.tar.gz
+Collecting oauth2client>=1.1 (from gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading oauth2client-3.0.0.tar.gz (77kB)
+Collecting mock>=0.7.0 (from gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading mock-2.0.0-py2.py3-none-any.whl (56kB)
+Collecting appdirs>=1.1.0 (from gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading appdirs-1.4.0-py2.py3-none-any.whl
+Collecting gpsoauth>=0.2.0 (from gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading gpsoauth-0.4.0.tar.gz
+Collecting MechanicalSoup>=0.4.0 (from gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading MechanicalSoup-0.5.0-py2.py3-none-any.whl
+Collecting pyopenssl (from gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading pyOpenSSL-16.1.0-py2.py3-none-any.whl (43kB)
+Collecting ndg-httpsclient (from gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading ndg_httpsclient-0.4.2.tar.gz
+Collecting pyasn1 (from gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading pyasn1-0.1.9-py2.py3-none-any.whl
+Collecting six>=1.9.0 (from gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading six-1.10.0-py2.py3-none-any.whl
+Collecting future (from gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading future-0.15.2.tar.gz (1.6MB)
+Collecting protobuf<=3.0.0b2,>=2.6.1 (from gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading protobuf-3.0.0b2-py2.py3-none-any.whl (326kB)
+Collecting MarkupSafe (from Jinja2>=2.4->flask->-r /tmp/pip.txt (line 1))
+  Downloading MarkupSafe-0.23.tar.gz
+Collecting pytz>=0a (from Babel>=2.3->flask-babel->-r /tmp/pip.txt (line 5))
+  Downloading pytz-2016.6.1-py2.py3-none-any.whl (481kB)
+Collecting httplib2>=0.9.1 (from oauth2client>=1.1->gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading httplib2-0.9.2.zip (210kB)
+Collecting pyasn1-modules>=0.0.5 (from oauth2client>=1.1->gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading pyasn1_modules-0.0.8-py2.py3-none-any.whl
+Collecting rsa>=3.1.4 (from oauth2client>=1.1->gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading rsa-3.4.2-py2.py3-none-any.whl (46kB)
+Collecting funcsigs>=1; python_version < "3.3" (from mock>=0.7.0->gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading funcsigs-1.0.2-py2.py3-none-any.whl
+Collecting pbr>=0.11 (from mock>=0.7.0->gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading pbr-1.10.0-py2.py3-none-any.whl (96kB)
+Collecting pycryptodomex>=3.0 (from gpsoauth>=0.2.0->gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading pycryptodomex-3.4.2.tar.gz (6.5MB)
+Collecting beautifulsoup4 (from MechanicalSoup>=0.4.0->gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading beautifulsoup4-4.5.1-py2-none-any.whl (83kB)
+Collecting cryptography>=1.3.4 (from pyopenssl->gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading cryptography-1.5.2.tar.gz (400kB)
+Requirement already satisfied (use --upgrade to upgrade): setuptools in /usr/lib/python2.7/dist-packages (from protobuf<=3.0.0b2,>=2.6.1->gmusicapi->-r /tmp/pip.txt (line 10))
+Collecting idna>=2.0 (from cryptography>=1.3.4->pyopenssl->gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading idna-2.1-py2.py3-none-any.whl (54kB)
+Collecting enum34 (from cryptography>=1.3.4->pyopenssl->gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading enum34-1.1.6-py2-none-any.whl
+Collecting ipaddress (from cryptography>=1.3.4->pyopenssl->gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading ipaddress-1.0.17-py2-none-any.whl
+Collecting cffi>=1.4.1 (from cryptography>=1.3.4->pyopenssl->gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading cffi-1.8.3-cp27-cp27mu-manylinux1_x86_64.whl (386kB)
+Collecting pycparser (from cffi>=1.4.1->cryptography>=1.3.4->pyopenssl->gmusicapi->-r /tmp/pip.txt (line 10))
+  Downloading pycparser-2.14-py2.py3-none-any.whl (196kB)
+Building wheels for collected packages: flask-login, flask-mail, flask-wtf, flask-babel, flask-testing, coverage, gmusicapi, python-memcached, itsdangerous, click, blinker, WTForms, mutagen, proboscis, oauth2client, gpsoauth, ndg-httpsclient, future, MarkupSafe, httplib2, pycryptodomex, cryptography
+  Running setup.py bdist_wheel for flask-login: started
+  Running setup.py bdist_wheel for flask-login: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/87/fe/9e/b88482e88c4cc95c91614eb13225740b4d9e21f1fbcd098b58
+  Running setup.py bdist_wheel for flask-mail: started
+  Running setup.py bdist_wheel for flask-mail: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/b5/f8/fb/a2c4ba26c9e4a56d034b410deea2c3bfb9b1a21fed2e245f76
+  Running setup.py bdist_wheel for flask-wtf: started
+  Running setup.py bdist_wheel for flask-wtf: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/49/ee/0a/fe012f42fb4611fdf8956a6e36bfa512f78f8c19998565c104
+  Running setup.py bdist_wheel for flask-babel: started
+  Running setup.py bdist_wheel for flask-babel: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/99/65/6c/927249178edfdc24c9cb2d9fcea27f598a73b323a1b5e3a8fc
+  Running setup.py bdist_wheel for flask-testing: started
+  Running setup.py bdist_wheel for flask-testing: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/0b/aa/99/831b81265eef1b5dadefcc41ff8980bb967500683832402104
+  Running setup.py bdist_wheel for coverage: started
+  Running setup.py bdist_wheel for coverage: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/6f/54/a5/e7629c41b30061b18f0ccbe4be643ed4cf5329f7b2459cf9ae
+  Running setup.py bdist_wheel for gmusicapi: started
+  Running setup.py bdist_wheel for gmusicapi: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/96/00/25/45595835191e5a5c84e9754a01179b26b6232098de75f99d92
+  Running setup.py bdist_wheel for python-memcached: started
+  Running setup.py bdist_wheel for python-memcached: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/16/75/11/86f65dfdcfcfbdaee336d5a3c125b5ac1c53973c4515c77ef5
+  Running setup.py bdist_wheel for itsdangerous: started
+  Running setup.py bdist_wheel for itsdangerous: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/fc/a8/66/24d655233c757e178d45dea2de22a04c6d92766abfb741129a
+  Running setup.py bdist_wheel for click: started
+  Running setup.py bdist_wheel for click: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/b0/6d/8c/cf5ca1146e48bc7914748bfb1dbf3a40a440b8b4f4f0d952dd
+  Running setup.py bdist_wheel for blinker: started
+  Running setup.py bdist_wheel for blinker: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/7b/8a/eb/5a4f4444f366c515073db8a129c92d4727ad945e5e64b9e8bd
+  Running setup.py bdist_wheel for WTForms: started
+  Running setup.py bdist_wheel for WTForms: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/36/35/f3/7452cd24daeeaa5ec5b2ea13755316abc94e4e7702de29ba94
+  Running setup.py bdist_wheel for mutagen: started
+  Running setup.py bdist_wheel for mutagen: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/91/43/2c/fc21ec7298ec0aa69f5cd09ee3b450862b02ddacbbf41ed123
+  Running setup.py bdist_wheel for proboscis: started
+  Running setup.py bdist_wheel for proboscis: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/bc/8d/3a/04d46fd440a15072b05fafcd77f841b5b549fb4533ed02afe6
+  Running setup.py bdist_wheel for oauth2client: started
+  Running setup.py bdist_wheel for oauth2client: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/b3/44/e9/e56c5a2ca8869305f38254df012fb16b2807eb9d5d55291e8b
+  Running setup.py bdist_wheel for gpsoauth: started
+  Running setup.py bdist_wheel for gpsoauth: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/96/87/ab/9486b26536859b295991d8e491bdbcb8164a19942d0366875d
+  Running setup.py bdist_wheel for ndg-httpsclient: started
+  Running setup.py bdist_wheel for ndg-httpsclient: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/44/6b/b1/eef816d523c0aa93f350fd2a78d74769e010e2f26623921b76
+  Running setup.py bdist_wheel for future: started
+  Running setup.py bdist_wheel for future: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/11/c5/d2/ad287de27d0f0d646f119dcffb921f4e63df128f28ab0a1bda
+  Running setup.py bdist_wheel for MarkupSafe: started
+  Running setup.py bdist_wheel for MarkupSafe: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/a3/fa/dc/0198eed9ad95489b8a4f45d14dd5d2aee3f8984e46862c5748
+  Running setup.py bdist_wheel for httplib2: started
+  Running setup.py bdist_wheel for httplib2: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/c7/67/60/e0be8ccfc1e08f8ff1f50d99ea5378e204580ea77b0169fb55
+  Running setup.py bdist_wheel for pycryptodomex: started
+  Running setup.py bdist_wheel for pycryptodomex: finished with status 'done'
+  Stored in directory: /root/.cache/pip/wheels/68/ab/79/ccf5b816e234c3c5fc1ce31edc2ff4ee23f0b64117e03c267c
+  Running setup.py bdist_wheel for cryptography: started
+SSH: Disconnecting configuration [Gspotsyncer] ...
+ERROR: Exception when publishing, exception message [Exec timed out or was interrupted after 120,020 ms]
+[8mha:AAAAWB+LCAAAAAAAAP9b85aBtbiIQSmjNKU4P08vOT+vOD8nVc8DzHWtSE4tKMnMz/PLL0ldFVf2c+b/lb5MDAwVRQxSaBqcITRIIQMEMIIUFgAAckCEiWAAAAA=[0mBuild step 'Send files or execute commands over SSH' changed build result to UNSTABLE
+Finished: UNSTABLE
