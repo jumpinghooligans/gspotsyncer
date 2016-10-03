@@ -10,6 +10,7 @@ services:
       - jenkins
     links:
       - jenkins
+    command: python runp.py
   jenkins:
     image: jenkins
     ports:
