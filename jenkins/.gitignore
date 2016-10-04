@@ -1,0 +1,10 @@
+.ssh/
+.java/
+jobs/*/builds/
+jobs/*/workspace/
+jobs/*/lastStable
+jobs/*/lastSuccessful
+jobs/*/nextBuildNumber
+jobs/*/modules/
+jobs/*/*.log
+logs/

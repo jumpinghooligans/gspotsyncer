@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: abayer
+Build-Jdk: 1.7.0_79
+Extension-Name: pipeline-model-definition
+Specification-Title: An opinionated, declarative Pipeline
+Implementation-Title: pipeline-model-definition
+Implementation-Version: 0.2
+Group-Id: org.jenkinsci.plugins
+Short-Name: pipeline-model-definition
+Long-Name: Pipeline: Model Definition
+Url: https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Model+Defini
+ tion+Plugin
+Plugin-Version: 0.2
+Hudson-Version: 2.7.1
+Jenkins-Version: 2.7.1
+Plugin-Dependencies: docker-workflow:1.8,workflow-cps:2.15,workflow-ba
+ sic-steps:2.1,workflow-durable-task-step:2.4,script-security:1.22,wor
+ kflow-scm-step:2.2,workflow-multibranch:2.8,structs:1.5,pipeline-stag
+ e-step:2.2
+Plugin-Developers: Andrew Bayer:abayer:
+
