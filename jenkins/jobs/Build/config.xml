@@ -4,7 +4,7 @@
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.21.1">
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.22.1">
       <projectUrl>https://github.com/jumpinghooligans/gspotsyncer/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
@@ -17,7 +17,7 @@
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <com.cloudbees.jenkins.GitHubSetCommitStatusBuilder plugin="github@1.21.1">
+    <com.cloudbees.jenkins.GitHubSetCommitStatusBuilder plugin="github@1.22.1">
       <statusMessage>
         <content></content>
       </statusMessage>
@@ -46,7 +46,7 @@
 git pull &amp;&amp;\
 sudo chmod -R 777 jenkins/ &amp;&amp;\
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml build</execCommand>
-                  <execTimeout>120000</execTimeout>
+                  <execTimeout>300000</execTimeout>
                   <usePty>false</usePty>
                 </jenkins.plugins.publish__over__ssh.BapSshTransfer>
               </transfers>
@@ -63,5 +63,7 @@ docker-compose -f docker-compose.yml -f docker-compose.prod.yml build</execComma
     </jenkins.plugins.publish__over__ssh.BapSshBuilderPlugin>
   </builders>
   <publishers/>
-  <buildWrappers/>
+  <buildWrappers>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.8.6"/>
+  </buildWrappers>
 </project>

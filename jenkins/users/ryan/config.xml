@@ -16,7 +16,9 @@
       <triggers/>
     </hudson.plugins.emailext.watching.EmailExtWatchAction_-UserProperty>
     <hudson.plugins.favorite.user.FavoriteUserProperty plugin="favorite@1.16">
-      <favorites/>
+      <favorites>
+        <string>Build and Deploy</string>
+      </favorites>
     </hudson.plugins.favorite.user.FavoriteUserProperty>
     <jenkins.security.LastGrantedAuthoritiesProperty>
       <roles>

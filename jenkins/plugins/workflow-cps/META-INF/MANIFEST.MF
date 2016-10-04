@@ -6,17 +6,17 @@ Build-Jdk: 1.8.0_92
 Extension-Name: workflow-cps
 Specification-Title: The Jenkins Plugins Parent POM Project
 Implementation-Title: workflow-cps
-Implementation-Version: 2.17
+Implementation-Version: 2.18
 Group-Id: org.jenkins-ci.plugins.workflow
 Short-Name: workflow-cps
 Long-Name: Pipeline: Groovy
 Url: https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Groovy+Plugin
-Plugin-Version: 2.17
+Plugin-Version: 2.18
 Hudson-Version: 1.642.3
 Jenkins-Version: 1.642.3
-Plugin-Dependencies: workflow-scm-step:1.15,jquery-detached:1.2.1,supp
- ort-core:2.32;resolution:=optional,scm-api:1.1,workflow-step-api:2.3,
- structs:1.5,workflow-support:2.1,script-security:1.21,ace-editor:1.0.
- 1,workflow-api:2.3
+Plugin-Dependencies: scm-api:1.1,workflow-support:2.6,script-security:
+ 1.23,workflow-scm-step:1.15,workflow-step-api:2.4,structs:1.5,workflo
+ w-api:2.3,jquery-detached:1.2.1,support-core:2.32;resolution:=optiona
+ l,ace-editor:1.0.1
 Plugin-Developers: 
 

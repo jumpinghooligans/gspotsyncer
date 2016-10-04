@@ -5638,17 +5638,39 @@ var HandlebarsCompiler = require('jenkins-handlebars-rt/runtimes/handlebars3_rt'
 module.exports = HandlebarsCompiler.template({"1":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = (depth0 != null ? depth0._links : depth0)) != null ? stack1.log : stack1)) != null ? stack1.href : stack1),{"name":"if","hash":{},"fn":this.program(2, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "");
+  return ((stack1 = (helpers.ifCond || (depth0 && depth0.ifCond) || helpers.helperMissing).call(depth0,(depth0 != null ? depth0.status : depth0),"!=","NOT_EXECUTED",{"name":"ifCond","hash":{},"fn":this.program(2, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "");
 },"2":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return ((stack1 = helpers['if'].call(depth0,((stack1 = ((stack1 = (depth0 != null ? depth0._links : depth0)) != null ? stack1.log : stack1)) != null ? stack1.href : stack1),{"name":"if","hash":{},"fn":this.program(3, data, 0),"inverse":this.program(6, data, 0),"data":data})) != null ? stack1 : "");
+},"3":function(depth0,helpers,partials,data) {
     var stack1, alias1=this.lambda, alias2=this.escapeExpression;
 
   return "        <div class=\"node-log-frame "
     + alias2(alias1((depth0 != null ? depth0.status : depth0), depth0))
     + "\" cbwf-controller=\"node-log\" objectUrl=\""
     + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0._links : depth0)) != null ? stack1.log : stack1)) != null ? stack1.href : stack1), depth0))
-    + "\">\n            <div class=\"node-name\"><span class=\"glyphicon glyphicon-collapse-down\" title=\"Expand\"></span><span class=\"glyphicon glyphicon-collapse-up\" title=\"Collapse\"></span> "
+    + "\">\n            <div class=\"node-name\"><span class=\"glyphicon glyphicon-collapse-down\" title=\"Expand\"></span><span class=\"glyphicon glyphicon-collapse-up\" title=\"Collapse\"></span>\n                "
     + alias2(alias1((depth0 != null ? depth0.name : depth0), depth0))
-    + "</div>\n            <div class=\"log-details\"></div>\n        </div>\n";
+    + "  "
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.durationMillis : depth0),{"name":"if","hash":{},"fn":this.program(4, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\n            </div>\n            <div class=\"log-details\"></div>\n        </div>\n";
+},"4":function(depth0,helpers,partials,data) {
+    return "(self time "
+    + this.escapeExpression((helpers.formatTime || (depth0 && depth0.formatTime) || helpers.helperMissing).call(depth0,(depth0 != null ? depth0.durationMillis : depth0),{"name":"formatTime","hash":{},"data":data}))
+    + ")";
+},"6":function(depth0,helpers,partials,data) {
+    var stack1, alias1=this.lambda, alias2=this.escapeExpression;
+
+  return "        <div class=\"node-log-frame "
+    + alias2(alias1((depth0 != null ? depth0.status : depth0), depth0))
+    + "\" objectUrl=\""
+    + alias2(alias1(((stack1 = ((stack1 = (depth0 != null ? depth0._links : depth0)) != null ? stack1.self : stack1)) != null ? stack1.href : stack1), depth0))
+    + "\">\n            <div class=\"node-name\">"
+    + alias2(alias1((depth0 != null ? depth0.name : depth0), depth0))
+    + "  "
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.durationMillis : depth0),{"name":"if","hash":{},"fn":this.program(4, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "</div>\n        </div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1;
 

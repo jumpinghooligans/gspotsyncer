@@ -2,16 +2,16 @@ Manifest-Version: 1.0
 Archiver-Version: Plexus Archiver
 Created-By: Apache Maven
 Built-By: andresrc
-Build-Jdk: 1.8.0_66
+Build-Jdk: 1.8.0_92
 Extension-Name: ldap
 Specification-Title: Adds LDAP authentication to Jenkins
 Implementation-Title: ldap
-Implementation-Version: 1.12
+Implementation-Version: 1.13
 Group-Id: org.jenkins-ci.plugins
 Short-Name: ldap
 Long-Name: LDAP Plugin
 Url: http://wiki.jenkins-ci.org/display/JENKINS/LDAP+Plugin
-Plugin-Version: 1.12
+Plugin-Version: 1.13
 Hudson-Version: 1.566
 Jenkins-Version: 1.566
 Plugin-Dependencies: mailer:1.8

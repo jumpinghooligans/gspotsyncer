@@ -18,7 +18,7 @@
 
     <artifactId>email-ext</artifactId>
     <packaging>hpi</packaging>
-    <version>2.47</version>
+    <version>2.51</version>
     <name>Email Extension Plugin</name>
     <description>EMail Extension Plugin</description>
     <url>http://wiki.jenkins-ci.org/display/JENKINS/Email-ext+plugin</url>
@@ -114,6 +114,12 @@
             <artifactId>analysis-core</artifactId>
             <version>1.54</version>
             <optional>true</optional>
+            <exclusions>
+                <exclusion>
+                    <groupId>asm</groupId>
+                    <artifactId>asm</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.jenkins-ci.plugins</groupId>
@@ -124,7 +130,7 @@
         <dependency>
             <groupId>org.jenkins-ci.plugins</groupId>
             <artifactId>token-macro</artifactId>
-            <version>1.12.1</version>
+            <version>2.0</version>
         </dependency>
 
         <!-- workflow stuff -->
@@ -216,7 +222,6 @@
             <scope>test</scope>
         </dependency>
 
-
         <!-- static analysys -->
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
@@ -230,7 +235,7 @@
     <scm>
         <connection>scm:git:https://github.com/jenkinsci/email-ext-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/email-ext-plugin.git</developerConnection>
-        <tag>email-ext-2.47</tag>
+        <tag>email-ext-2.51</tag>
     </scm>
 
     <repositories>
@@ -267,6 +272,12 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <arguments>-DskipTests=true</arguments>
+                </configuration>
             </plugin>
         </plugins>
     </build>

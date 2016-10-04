@@ -9,7 +9,7 @@
       <remoteRootDir>/home/ec2-user</remoteRootDir>
       <port>22</port>
       <commonConfig class="jenkins.plugins.publish_over_ssh.BapSshCommonConfiguration">
-        <secretPassphrase>LCWN8HtV5L519Sh6BJkfGg==</secretPassphrase>
+        <secretPassphrase>EJldTPgboxzPlcRlw0kFfFRlvf+TN2+6m+dtenBPCdA=</secretPassphrase>
         <key>-----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEA7EGUPyhlng5KpbgyP2OZS+228+fQ+T4azkM1zFZnJ+BmymfJy5Ysq+9MJy5C
 i+8Samby1tAb2l73bCUbNOQrUk0ZZ5y1Hn/O5E9Vys+kp3xQCgA/DztGrjIF/bOxbqGCl5pA81rm

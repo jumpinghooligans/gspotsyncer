@@ -1,24 +1,24 @@
 Manifest-Version: 1.0
 Archiver-Version: Plexus Archiver
 Created-By: Apache Maven
-Built-By: david
-Build-Jdk: 1.8.0_101
+Built-By: root
+Build-Jdk: 1.8.0_91
 Extension-Name: email-ext
 Specification-Title: EMail Extension Plugin
 Implementation-Title: email-ext
-Implementation-Version: 2.47
+Implementation-Version: 2.51
 Plugin-Class: hudson.plugins.emailext.EmailExtensionPlugin
 Group-Id: org.jenkins-ci.plugins
 Short-Name: email-ext
 Long-Name: Email Extension Plugin
 Url: http://wiki.jenkins-ci.org/display/JENKINS/Email-ext+plugin
-Plugin-Version: 2.47
+Plugin-Version: 2.51
 Hudson-Version: 1.609.2
 Jenkins-Version: 1.609.2
-Plugin-Dependencies: junit:1.2,config-file-provider:2.7.1;resolution:=
- optional,workflow-job:1.10;resolution:=optional,token-macro:1.12.1,ma
- iler:1.5,analysis-core:1.54;resolution:=optional,workflow-step-api:1.
- 10;resolution:=optional,matrix-project:1.4
+Plugin-Dependencies: config-file-provider:2.7.1;resolution:=optional,m
+ atrix-project:1.4,junit:1.2,analysis-core:1.54;resolution:=optional,m
+ ailer:1.5,workflow-step-api:1.10;resolution:=optional,workflow-job:1.
+ 10;resolution:=optional,token-macro:2.0
 Plugin-Developers: David van Laatum:davidvanlaatum:david@vanlaatum.id.
  au,Alex Earl:slide:slide.o.mix@gmail.com,Ash Lux:ashlux:ashlux@gmail.
  com,Kyle Sweeney:kdsweeney:,K. R. Walker:krwalker:krwalker@stellarsci
