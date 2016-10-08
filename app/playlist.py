@@ -101,25 +101,47 @@ class Playlist():
 	def search_songs(self, service, track):
 		matching_tracks = []
 
+		title = track['title']
+		primary_artist = track['artists'][0]['name']
+		album = track['album']['name']
+
 		# start complex and get more basics
 		queries = []
 
-		base_query = str(track['title'] + ' ' + track['artists'][0]['name'] + ' ' + track['album']['name'])
+		# base query
+		base_query = ' '.join(
+			(title, primary_artist, album)
+		).encode('utf-8').strip()
 
-		# everything
+		# simpler base query
+		simple_base_query = ' '.join(
+			(title, primary_artist)
+		).encode('utf-8').strip()
+
+		# split on first paren (seems to work fairly well)
+		part_paren = lambda x: x.partition('(')[0]
+
+		split_query = ' '.join(map(
+			part_paren, (title, primary_artist, album)
+		)).encode('utf-8').strip()
+
+		simple_split_query = ' '.join(map(
+			part_paren, (title, primary_artist)
+		)).encode('utf-8').strip()
+
+		# full query, then alpha numeric only
 		queries.append(base_query)
-
-		# only alpha numeric
 		queries.append(re.sub(r'([^\s\w]|_)+', '', base_query))
 
-		simple_base_query = str(track['title'] + ' ' + track['artists'][0]['name'])
-
+		# simple query, then alpha numeric only
 		queries.append(simple_base_query)
 		queries.append(re.sub(r'([^\s\w]|_)+', '', simple_base_query))
 
-		queries.append(track['title'].partition('(')[0] + ' ' + track['artists'][0]['name'].partition('(')[0] + ' ' + track['album']['name'].partition('(')[0])
-		queries.append(track['title'].partition('(')[0] + ' ' + track['artists'][0]['name'].partition('(')[0])
+		queries.append(split_query)
+		queries.append(simple_split_query)
 
+		# should probably be checking search 'scores'
+		# and doing some better sorting here
 		for query in queries:
 			matching_tracks += service.search_songs(query)
 			if len(matching_tracks) > 0:

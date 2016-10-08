@@ -295,6 +295,8 @@ def get_connect_url(url):
 
 def get_return_url(request_url):
 	url = urlparse(request_url)
-	hostname = url.hostname
 
-	return 'http://' + hostname + '/spotify/return'
+	hostname = url.hostname
+	port = str(url.port)
+
+	return 'http://' + hostname + ':' + port + '/spotify/return'

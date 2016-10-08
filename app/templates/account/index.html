@@ -1,20 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
-	<form method="POST" name="account">
-		{{ form.hidden_tag() }}
-		<h2>Account</h2>
-		<p>
-			Account page for {{ current_user.username }}
-		</p>
-		<p>
-			Set Password:
-			<br />
-			{{ form.password( size=40, value=current_user.password )}}
-		</p>
-		<h2>Credentials</h2>
-		<h3>Google</h3>
+<div class="row">
+	<div class="col s12 l6">
+		<form method="POST" name="account">
+			{{ form.hidden_tag() }}
+			<h4>Account</h4>
+			<p>
+				Account page for {{ current_user.username }}
+			</p>
+			<p>
+				Change Password: {{ form.password( size=40, value=current_user.password )}}
+			</p>
+			<p>
+				<input type="submit" value="Update" />
+			</p>
+		</form>
+	</div>
+	<div class="col s12 l6">
+		<h5>Google</h5>
 		{% if current_user.google_credentials %}
-			<h4>Google credentials okay</h4>
+			<strong>Google credentials okay</strong>
 			<a href="/google/disconnect">Clear</a>
 		{% else %}
 			<p>
@@ -28,21 +33,15 @@
 				{{ form.google_password( size=40 )}}
 			</p>
 		{% endif %}
-		<h3>Spotify</h3>
+		<h5>Spotify</h5>
 		{% if current_user.spotify_credentials %}
-			<h4>Spotify connected okay</h4>
+			<strong>Spotify connected okay</strong>
 			<a href="/spotify/disconnect">Clear</a>
 		{% else %}
 			<p>
 				<a href="/spotify/connect">Connect Spotify</a>
 			</p>
 		{% endif %}
-		<p>
-			<input type="submit" value="Update" />
-		</p>
-	</form>
-	<hr />
-	<p>
-		<a href="/logout">Logout</a>
-	</p>
+	</div>
+</div class="row">
 {% endblock %}

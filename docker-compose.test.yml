@@ -7,5 +7,6 @@ services:
     volumes:
      - .:/opt/gspotsyncer
     environment:
+     - APP_ENV=TEST
      - DB_ENV=TEST_MONGO
     command: python gspotsyncer_tests.py

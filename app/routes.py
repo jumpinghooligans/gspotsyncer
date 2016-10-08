@@ -266,6 +266,10 @@ def spotify_disconnect():
 @app.route('/test')
 @user.login_required
 def test_method():
-	s = spotify.Spotify(user.current_user)
+	str1 = 'ab(cd'
+	str2 = 'asdf'
 
-	return str(s.get_me())
+	part_paren = lambda x: x.partition('(')[0]
+	return ' '.join(map(
+		part_paren, (str1, str2)
+	)).encode('utf-8').strip()

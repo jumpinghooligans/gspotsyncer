@@ -1,7 +1,6 @@
 <html>
 	<head>
 		<title>gspot syncer</title>
-		<link rel="stylesheet" type="text/css" href="/static/css/styles.css"></style>
 		<script>
 			if (document.location.hostname.search('gspotsyncer.com') !== -1) {
 				(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -13,40 +12,102 @@
 				ga('send', 'pageview');
 			}
 		</script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+		<!-- http://materializecss.com -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+		<link rel="stylesheet" type="text/css" href="/static/css/styles.css"></style>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	</head>
 	<body>
-		<div class="container" style="width:80%; margin:auto">
-			<div>
-				<h1>gspot syncer</h1>
-				<a href="/">Home</a> | 
-				<a href="/account">Account</a> | 
-				<a href="/playlists">Playlists</a>
-			</div>
-			<hr>
-			<div class="flash">
+		<header>
+			<nav class="deep-purple lighten-1" role="navigation">
+				<div class="nav-wrapper container">
+					<a id="logo-container" href="/" class="brand-logo">gspotsyncer</a>
+
+					<ul class="right hide-on-med-and-down">
+						<li><a href="/playlists">playlists</a></li>
+						<li><a href="/account">{{ current_user.username if current_user.is_authenticated else 'account' }}</a></li>
+					</ul>
+
+					<ul id="nav-mobile" class="side-nav">
+						<li><a href="/">Home</a></li>
+						<li><a href="/account">{{ current_user.username + "'s account" if current_user.is_authenticated else 'account' }}</a></li>
+						<li><a href="/playlists">playlists</a></li>
+					</ul>
+					<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+				</div>
+			</nav>
+
 			{% with messages = get_flashed_messages() %}
 				{% if messages %}
-					<ul>
-					{% for message in messages %}
-						<li>{{ message }} </li>
-					{% endfor %}
-					</ul>
+				<div class="flash container">
+					<div class="card blue-grey darken-1">
+						<div class="card-content white-text">
+							{% for message in messages %}
+							<p>{{ message }}</p>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
 				{% endif %}
 			{% endwith %}
+
 			{% if form and form.errors %}
-				<ul class="errors">
-				{% for field_name, field_errors in form.errors|dictsort if field_errors %}
-					{% for error in field_errors %}
-						<li>{{ form[field_name].label }}: {{ error }}</li>
-					{% endfor %}
-				{% endfor %}
-				</ul>
+				<div class="flash container">
+					<div class="card red darken-1">
+						<div class="card-content white-text">
+						{% for field_name, field_errors in form.errors|dictsort if field_errors %}
+							{% for error in field_errors %}
+								<p><strong>{{ form[field_name].name }}</strong> {{ error }}</p>
+							{% endfor %}
+						{% endfor %}
+						</div>
+					</div>
+				</div>
 			{% endif %}
+		</header>
+
+		<main>
+			<div class="container">
+				<div>
+				</div>
+				<div class="content">
+					{% block content %}{% endblock %}
+				</div>
+
 			</div>
-			<div class="content">
-				{% block content %}{% endblock %}
+		</main>
+
+		<footer class="deep-purple page-footer">
+			<div class="container">
+				<div class="row">
+					<div class="col l6 s12">
+						<h5 class="white-text">gspotsyncer takes zero responsibility</h5>
+						<p class="grey-text text-lighten-4">The code is available <a href="">on github</a> and gspotsyncer takes no responsibility for any action taken by Google or Spotify</p>
+					</div>
+					<div class="col l4 offset-l2 s12">
+						<ul>
+							<li><a class="grey-text text-lighten-3" href="/">Home</a></li>
+							<li><a class="grey-text text-lighten-3" href="/account">Account</a></li>
+							<li><a class="grey-text text-lighten-3" href="/account/logout">Logout</a></li>
+						</ul>
+					</div>
+				</div>
 			</div>
-		</div>
+			<div class="footer-copyright">
+				<div class="container">
+				© 2016 Ryan Kortmann
+				</div>
+			</div>
+		</footer>
+
+		<!-- 3rd Party Scripts -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+		<script type="text/javascript" src="/static/js/init.js"></script>
+
 	</body>
 </html>
