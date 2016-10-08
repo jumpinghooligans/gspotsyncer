@@ -8,6 +8,7 @@ services:
     links:
       - mongo
       - memcached
+    restart: always
   mongo:
     image: mongo
     ports:

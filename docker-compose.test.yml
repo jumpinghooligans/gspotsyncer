@@ -10,3 +10,4 @@ services:
      - APP_ENV=TEST
      - DB_ENV=TEST_MONGO
     command: python gspotsyncer_tests.py
+    restart: 'no'
