@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
 	<a href="/playlists/create" style="float:right">Create a Playlist Link</a>
-	<h2>Synced Playlists</h2>
+	<h5>Synced Playlists</h5>
+	<div class="seperator"></div>
 	{% if playlists %}
 		{% for playlist in playlists %}
 			<p>Playlist ID: <a href="/playlists/{{ playlist._id }}">{{ playlist._id }}</a></p>
 			<p>Playlist Master: {{ playlist.master }}</p>
 			<p>Spotify Playlist: {{ playlist.spotify_playlist_data.name }}</p>
 			<p>Google Playlist: {{ playlist.google_playlist_data.name }}</p>
-
 			<br />
 		{% endfor %}
 	{% endif %}

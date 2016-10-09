@@ -1,29 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
-
-	<h1>Login</h1>
-	<form method="POST" name="login">
-		{{ form.hidden_tag() }}
-		<p>
-			Username:
+<div class="row">
+	<div class="col s6 offset-s3">
+		<h5>Login</h5>
+		<div class="divider"></div>
+	</div>
+</div>
+<div class="row">
+	<div class="col s6 offset-s3">
+		<form method="POST" name="login">
+			{{ form.hidden_tag() }}
+			Username: {{ form.username( size=40 )}}
+			<div class="seperator"></div>
+			Password: {{ form.password( size=40 )}}
 			<br />
-			{{ form.username( size=40 )}}
-		</p>
-		<p>
-			Password:
-			<br />
-			{{ form.password( size=40 )}}
-		</p>
-		<p>{{ form.remember_me }} Remember Me</p>
-		<p>
-			<input type="submit">
-		</p>
-	</form>
+			{{ form.remember_me }} Remember Me
+			<div class="seperator"></div>
 
-	<hr />
-
-	<p>
-		<a href="/account/create">Create an Account</a>
-	</p>
-
+			<button class="btn waves-effect waves-light" type="submit">Login</button>
+			<button href="/account/create" class="waves-effect waves-light btn">Create an Account</button>
+		</form>
+	</div>
+</div>
 {% endblock %}
