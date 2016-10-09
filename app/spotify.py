@@ -297,8 +297,7 @@ def get_return_url(request_url):
 	url = urlparse(request_url)
 
 	hostname = url.hostname
-	port = str(url.port)
-	if port:
-		hostname += ':' + port
+	if url.port:
+		hostname += ':' + str(url.port)
 
 	return 'http://' + hostname + '/spotify/return'
