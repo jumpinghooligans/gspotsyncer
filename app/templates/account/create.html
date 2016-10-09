@@ -1,27 +1,41 @@
 {% extends "layout.html" %}
 {% block content %}
 
-	<h1>Create Account</h1>
-	<form method="POST" name="create">
-		{{ form.hidden_tag() }}
-		<p>
-			Username:
-			<br />
-			{{ form.username( size=40 )}}
-		</p>
-		<p>
-			Password:
-			<br />
-			{{ form.password( size=40 )}}
-		</p>
-		<p>
-			Confirm Password:
-			<br />
-			{{ form.password_confirm( size=40 )}}
-		</p>
-		<p>
-			<input type="submit">
-		</p>
-	</form>
+<div class="row">
+	<div class="col s12 l6 offset-l3">
+		<h4>Register</h4>
+	</div>
+</div>
 
+<form method="POST" name="create" class="create-account">
+
+{{ form.hidden_tag() }}
+<div class="row">
+	<div class="input-field col s12 l6 offset-l3">
+		{{ form.username( size=40 )}}
+		{{ form.username.label }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="input-field col s12 l6 offset-l3">
+		{{ form.password( size=40 )}}
+		{{ form.password.label }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="input-field col s12 l6 offset-l3">
+		{{ form.password_confirm( size=40 )}}
+		{{ form.password_confirm.label }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="input-field col s12 l6 offset-l3">
+		<button class="btn deep-orange lighten-2 waves-effect waves-light" type="submit">Register</button>
+	</div>
+</div>
+
+</form>
 {% endblock %}

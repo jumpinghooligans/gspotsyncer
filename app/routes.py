@@ -2,7 +2,7 @@
 from flask import render_template, request, flash, redirect
 
 # Forms
-from .forms import CreateForm, LoginForm, UserAccountForm, CreatePlaylistForm
+from .forms import CreateForm, LoginForm, UserAccountForm, GoogleCredentialsForm, CreatePlaylistForm
 
 # Service Manipulation
 from app import app, gmusic, spotify, user, playlist
@@ -63,40 +63,35 @@ def create_user():
 @app.route('/account', methods=['GET', 'POST'])
 @user.login_required
 def account():
-	form = UserAccountForm()
+	account_form = UserAccountForm()
+	google_credentials_form = GoogleCredentialsForm()
 
-	if form.validate_on_submit():
+	if account_form.validate_on_submit() and account_form.update_account.data:
+
 		# logged in user
 		u = user.current_user
+		u.password = user.hash_hex(account_form.password.data)
+		u.save()
 
-		# clear out the password key if nothing was passed
-		# else hash it
-		if form.password.data:
-			form.password.data = user.hash_hex(form.password.data)
-		else:
-			del(form.password)
+		return redirect('/account')
+
+	if google_credentials_form.validate_on_submit() and google_credentials_form.update_google.data:
+
+		google_id = google_credentials_form.google_id.data
+		google_password =google_credentials_form.google_password.data
 
 		# connect if we have values
-		if form.google_id.data and form.google_password.data:
+		if google_id and google_password:
 			g = gmusic.GoogleMusic(user.current_user)
-			g.connect(form.google_id.data, form.google_password.data)
-
-		# delete them so we don't store them flat on the user doc
-		del(form.google_id)
-		del(form.google_password)
-
-		# overwrite with the form data
-		form.populate_obj(u)
-
-		# save the user
-		u.save()
+			g.connect(google_id, google_password)
 
 		return redirect('/account')
 
 
 	return render_template('account/index.html',
 							title='Account',
-							form=form)
+							account_form=account_form,
+							google_credentials_form=google_credentials_form)
 
 @app.route('/google/disconnect')
 @user.login_required

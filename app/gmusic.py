@@ -1,4 +1,5 @@
 from app import app, cache
+from flask import flash
 from gmusicapi import Mobileclient
 from uuid import getnode as get_mac
 
@@ -34,7 +35,10 @@ class GoogleMusic():
 			app.logger.info('Succesfully connected google account ID: ' + google_id)
 			return self.user.save()
 		else:
+			app.logger.info('Failed to connect google account ID: ' + google_id)
 			flash('Unable to validate Google ID and password')
+
+			# make sure we clear out anything that was there
 			self.disconnect()
 			return False
 

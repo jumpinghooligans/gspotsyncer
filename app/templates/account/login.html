@@ -1,25 +1,37 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="row">
-	<div class="col s6 offset-s3">
-		<h5>Login</h5>
-		<div class="divider"></div>
-	</div>
-</div>
-<div class="row">
-	<div class="col s6 offset-s3">
-		<form method="POST" name="login">
-			{{ form.hidden_tag() }}
-			Username: {{ form.username( size=40 )}}
-			<div class="seperator"></div>
-			Password: {{ form.password( size=40 )}}
-			<br />
-			{{ form.remember_me }} Remember Me
-			<div class="seperator"></div>
 
-			<button class="btn waves-effect waves-light" type="submit">Login</button>
-			<button href="/account/create" class="waves-effect waves-light btn">Create an Account</button>
-		</form>
+<div class="row">
+	<div class="col s12 l6 offset-l3">
+		<h4>Login</h4>
 	</div>
 </div>
+
+<form method="POST" name="login" class="login">
+{{ form.hidden_tag() }}
+
+<div class="row">
+	<div class="input-field col s12 l6 offset-l3">
+		{{ form.username( size=40 )}}
+		{{ form.username.label }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="input-field col s12 l6 offset-l3">
+		{{ form.password( size=40 )}}
+		{{ form.password.label }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="input-field col s12 l3 offset-l3">
+		<button class="btn deep-orange lighten-2 waves-effect waves-light" type="submit">Login</button>
+	</div>
+	<div class="input-field col s12 l3">
+		<a class="btn deep-orange lighten-2 waves-effect waves-light" href="/account/create">Register</a>
+	</div>
+</div>
+
+</form>
 {% endblock %}

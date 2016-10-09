@@ -2,46 +2,79 @@
 {% block content %}
 <div class="row">
 	<div class="col s12 l6">
-		<form method="POST" name="account">
-			{{ form.hidden_tag() }}
-			<h4>Account</h4>
-			<p>
-				Account page for {{ current_user.username }}
-			</p>
-			<p>
-				Change Password: {{ form.password( size=40, value=current_user.password )}}
-			</p>
-			<p>
-				<input type="submit" value="Update" />
-			</p>
-		</form>
+		<h4>Account</h4>
+		<p>
+			Account page for {{ current_user.username }}
+		</p>
+		<p>
+			<a class="waves-effect waves-light btn deep-orange lighten-2 modal-trigger" href="#change-password">Change Password</a>
+		</p>
 	</div>
+
 	<div class="col s12 l6">
-		<h5>Google</h5>
+		<h5>Google Music</h5>
 		{% if current_user.google_credentials %}
-			<strong>Google credentials okay</strong>
-			<a href="/google/disconnect">Clear</a>
+			<a class="btn orange waves-effect waves-light" href="/google/disconnect">Clear Google Credentials</a>
 		{% else %}
 			<p>
-				Google Account (email):
-				<br />
-				{{ form.google_id( size=40 )}}
-			</p>
-			<p>
-				Google Password (generate an <a href="https://security.google.com/settings/security/apppasswords" target="_blank">app password</a>):
-				<br />
-				{{ form.google_password( size=40 )}}
+				<a class="btn orange waves-effect waves-light modal-trigger" href="#update-google">Connect Google Music</a>
 			</p>
 		{% endif %}
 		<h5>Spotify</h5>
 		{% if current_user.spotify_credentials %}
-			<strong>Spotify connected okay</strong>
-			<a href="/spotify/disconnect">Clear</a>
+			<a class="btn green waves-effect waves-light" href="/spotify/disconnect">Clear Spotify Credentials</a>
 		{% else %}
 			<p>
-				<a href="/spotify/connect">Connect Spotify</a>
+				<a class="btn green waves-effect waves-light" href="/spotify/connect">Connect Spotify</a>
 			</p>
 		{% endif %}
 	</div>
 </div class="row">
+
+
+<div id="change-password" class="modal">
+	<div class="modal-content">
+		<h4>Save Google Credentials</h4>
+		<form method="POST" name="account">
+			{{ account_form.hidden_tag() }}
+			<div class="input-field">
+				Change Password: {{ account_form.password( size=40, value=current_user.password )}}
+			</div>
+			<div>
+				{{ account_form.update_account( class_="btn deep-orange lighten-2" ) }}
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat">Close</a>
+	</div>
+</div>
+
+<div id="update-google" class="modal">
+	<div class="modal-content">
+		<h4>Change Password</h4>
+		<form method="POST" name="google_credentials">
+			{{ google_credentials_form.hidden_tag() }}
+
+			<div class="input-field">
+				Google Account (email):
+				<br />
+				{{ google_credentials_form.google_id( size=40 )}}
+			</div>
+
+			<div class="input-field">
+				Google Password (generate an <a href="https://security.google.com/settings/security/apppasswords" target="_blank" tabindex="999">app password</a>):
+				<br />
+				{{ google_credentials_form.google_password( size=40 )}}
+			</div>
+
+			<div class="input-field">
+				{{ google_credentials_form.update_google( class_="btn deep-orange lighten-2" ) }}
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat">Close</a>
+	</div>
+</div>
 {% endblock %}
