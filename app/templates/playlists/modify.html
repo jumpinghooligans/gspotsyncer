@@ -126,12 +126,12 @@
 	</div>
 </div>
 {% endfor %}
+{% endif %}
 
 <div class="row">
-	<div class="col s12">
-		<a class="btn deep-orange lighten-2 right" href="/playlists/{{ playlist._id }}/process">Publish Playlists</a>
+	<div class="col s12 right-align">
+		<a class="btn-flat lighten-2" href="/playlists/{{ playlist._id }}">Cancel Editing</a>
+		<a class="btn deep-orange lighten-2" href="/playlists/{{ playlist._id }}/process">Publish Playlists</a>
 	</div>
 </div>
-
-{% endif %}
 {% endblock %}

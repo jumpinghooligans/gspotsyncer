@@ -64,8 +64,11 @@ class Playlist():
 				# insert whats in local and not on the remote
 				insert_ids = list(set(local_track_ids) - set(remote_track_ids))
 
+				# reorder insert ids
+				order_insert_ids = [ o for o in local_track_ids if o in insert_ids]
+
 				service.playlist_remove(self, delete_ids)
-				service.playlist_add(self, insert_ids)
+				service.playlist_add(self, order_insert_ids)
 
 				return True
 

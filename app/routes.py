@@ -193,20 +193,29 @@ def modify_playlist(playlist_id):
 	if not user.current_user.can_modify_playlist(p):
 		return redirect('/account')
 
-	# refresh name - just in case
-	p.name = p.spotify_playlist_data.get('name') + ' / ' + p.google_playlist_data.get('name')
-
-	# refresh from the internet
-	p.refresh_external_tracks()
-	p.generate_track_list()
-	p.save()
-
 	# shortcuts for external data
 	p.attach_external_track_data()
 
 	return render_template('playlists/modify.html',
 							title='Modify Playlist',
 							playlist=p)
+
+@app.route('/playlists/<string:playlist_id>/refresh')
+@user.login_required
+def refresh_playlist(playlist_id):
+	p = playlist.Playlist(str(playlist_id))
+
+	# refresh name - just in case
+	p.name = p.spotify_playlist_data.get('name') + ' / ' + p.google_playlist_data.get('name')
+
+	# refresh from the internet
+	p.refresh_external_tracks()
+	p.generate_track_list()
+
+	if p.save():
+		flash('Successfully refreshed playlist data')
+
+	return redirect('/playlists/' + str(playlist_id))
 
 @app.route('/playlists/<string:playlist_id>/process', methods=['GET', 'POST'])
 @user.login_required

@@ -47,12 +47,13 @@
 	</div>
 
 </div>
+{% endif %}
 
 <div class="row">
-	<div class="col s12">
-		<a href="/playlists/{{ playlist._id }}/modify" class="right btn deep-orange lighten-2 waves-effect waves-light">Modify this Playlist</a>
+	<div class="col s12 right-align">
+		<a href="/playlists/{{ playlist._id }}/refresh" class="btn-flat waves-effect waves-light">Refresh</a>
+		<a href="/playlists/{{ playlist._id }}/modify" class="btn deep-orange lighten-2 waves-effect waves-light">Modify and Publish</a>
 	</div>
 </div>
-{% endif %}
 
 {% endblock %}
