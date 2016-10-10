@@ -45,7 +45,7 @@
                   <execCommand>cd /home/ec2-user/gspotsyncer &amp;&amp;\
 git pull &amp;&amp;\
 sudo chmod -R 777 jenkins/ &amp;&amp;\
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml build</execCommand>
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml build gspotsyncer</execCommand>
                   <execTimeout>300000</execTimeout>
                   <usePty>false</usePty>
                 </jenkins.plugins.publish__over__ssh.BapSshTransfer>
