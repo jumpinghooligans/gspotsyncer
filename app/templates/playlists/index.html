@@ -21,8 +21,25 @@
 			</div>
 			{% endif %}
 			<div class="card-content">
-				<p>Spotify Playlist: {{ playlist.spotify_playlist_data.name }}</p>
-				<p>Google Playlist: {{ playlist.google_playlist_data.name }}</p>
+				<div class="row">
+					<div class="col s12 l6">
+						<strong class="grey-text">Spotify Playlist</strong>
+						<br />
+						{{ playlist.spotify_playlist_data.name }}
+					</div>
+					<div class="col s12 l6">
+						<strong class="grey-text">Google Playlist</strong>
+						<br />
+						{{ playlist.google_playlist_data.name }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<p>
+							<strong>master</strong> {{ playlist.master }}
+						</p>
+					</div>
+				</div>
 			</div>
 			<div class="card-action">
 				<a href="/playlists/{{ playlist._id }}">View</a>

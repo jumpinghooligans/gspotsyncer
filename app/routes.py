@@ -65,6 +65,7 @@ def create_user():
 def account():
 	account_form = UserAccountForm()
 	google_credentials_form = GoogleCredentialsForm()
+	playlists = playlist.get_user_playlists(user.current_user)
 
 	if account_form.validate_on_submit() and account_form.update_account.data:
 
@@ -92,6 +93,7 @@ def account():
 
 	return render_template('account/index.html',
 							title='Account',
+							playlists=playlists,
 							account_form=account_form,
 							google_credentials_form=google_credentials_form)
 
@@ -153,7 +155,11 @@ def create_playlist():
 				p.google_playlist_data = dict(full_playlist)
 				break
 
+		# master of the master / slave
 		p.master = form.master.data
+
+		# shorthand name for the playlist
+		p.name = p.spotify_playlist_data.get('name') + ' / ' + p.google_playlist_data.get('name')
 
 		# get get track lists
 		p.refresh_external_tracks()

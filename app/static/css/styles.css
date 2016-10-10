@@ -36,6 +36,10 @@ footer a {
 	/*font-size: 0.5em;*/
 }
 
+.track-list {
+	width: 100%;
+}
+
 .track-list .table-image {
 	min-width: 60px;
 	max-width: 100px;

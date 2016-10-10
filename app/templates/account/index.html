@@ -9,7 +9,6 @@
 <div class="row">
 	<div class="col s12 m6">
 		<strong>Account Info</strong>
-		<div class="divider"></div>
 		<p>
 			Account page for {{ current_user.username }}
 		</p>
@@ -20,10 +19,19 @@
 
 	<div class="col s12 m6">
 		<strong>Playlists</strong>
-		<div class="divider"></div>
-		<p>
-			List of playlist data
-		</p>
+		{% if playlists %}
+			<div class="collection">
+			{% for playlist in playlists %}
+				<div class="collection-item">
+					<a href="/playlists/{{ playlist._id }}">{{ playlist.name }}</a>
+					<br />
+					<span class="grey-text">master: {{ playlist.master }}</span>
+				</div>
+			{% endfor %}
+			</div>
+		{% else %}
+			<p class="grey-text"><em>No playlists yet...</em></p>
+		{% endif %}
 		<p>
 			<a class="waves-effect waves-light btn deep-orange lighten-2" href="/playlists/create">Create a Playlist</a>
 	</div>
