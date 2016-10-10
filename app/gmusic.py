@@ -176,7 +176,7 @@ class GoogleMusic():
 		album_image = None
 
 		if len(track_data.get('albumArtRef', [])) > 0:
-			album_image = track_data.get('albumArtRef', [None]).pop(0)
+			album_image = track_data.get('albumArtRef', [ {} ])[0].get('url', None)
 
 		return {
 			'name' : track_data.get('album'),

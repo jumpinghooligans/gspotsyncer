@@ -91,7 +91,7 @@ class Playlist():
 					self.tracks[idx]['google_id'] = matching_tracks[0]['track']['nid']
 
 			if not track['spotify_id']:
-				matching_tracks = s.search_songs(query)
+				matching_tracks = self.search_songs(s, track)
 
 				# still dumb
 				if matching_tracks:
@@ -214,6 +214,7 @@ class Playlist():
 
 		return formatted_tracks
 
+	# not random yet
 	def attach_random_album_art(self):
 		if len(self.tracks) > 0:
 			for t in self.tracks:

@@ -9,7 +9,6 @@ from app import app, gmusic, spotify, user, playlist
 
 # General imports
 import urllib, json, time
-from random import randint
 
 @app.route('/', methods=['GET', 'POST'])
 def index():

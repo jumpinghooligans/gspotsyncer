@@ -7,8 +7,12 @@
 </div>
 
 {% if playlists %}
-<div class="row">
 {% for playlist in playlists %}
+
+{% if loop.index % 2 == 1 %}
+<div class="row">
+{% endif %}
+
 	<div class="col s12 m6">
 		<div class="card">
 			{% if playlist.random_album_art %}
@@ -26,8 +30,13 @@
 			</div>
 		</div>
 	</div>
-{% endfor %}
+
+{% if loop.index % 2 == 0 %}
 </div>
+{% endif %}
+
+{% endfor %}
+
 {% else %}
 <div class="row">
 	<div class="col s12">

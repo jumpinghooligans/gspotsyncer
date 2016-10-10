@@ -195,8 +195,7 @@ class Spotify():
 	# track - spotify track
 	# existing_tracks - generic tracks
 	def format_generic_track(self, track, existing_tracks=None):
-		if 'track' not in track:
-			app.logger.info(track)
+		if not track:
 			return None
 
 		track = track['track']
