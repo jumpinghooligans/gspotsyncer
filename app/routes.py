@@ -131,8 +131,10 @@ def create_playlist():
 	spotify_choices = s.get_playlists_select()
 	google_choices = g.get_playlists_select()
 
-	form.spotify_playlist.choices = spotify_choices
-	form.google_playlist.choices = google_choices
+	if spotify_choices:
+		form.spotify_playlist.choices = spotify_choices
+	if google_choices:
+		form.google_playlist.choices = google_choices
 
 	if form.validate_on_submit():
 		p = playlist.Playlist({})
@@ -222,6 +224,10 @@ def refresh_playlist(playlist_id):
 def process_playlist(playlist_id):
 	p = playlist.Playlist(str(playlist_id))
 
+	# Make sure we have the most up to date
+	# track lists from google and spotify
+	p.refresh_external_tracks()
+
 	# Using the type of playlist, and both sets of
 	# playlist data, generate a master list
 	p.generate_track_list()
@@ -242,7 +248,8 @@ def process_playlist(playlist_id):
 	p.refresh_external_tracks()
 
 	# Save all of our changes
-	res = p.save()
+	if p.save():
+		flash('Successfully processed and published tracks to Spotify and Google Play Music')
 
 	return redirect('/playlists/' + playlist_id)
 
@@ -287,10 +294,9 @@ def spotify_disconnect():
 @app.route('/test')
 @user.login_required
 def test_method():
-	str1 = 'ab(cd'
-	str2 = 'asdf'
 
-	part_paren = lambda x: x.partition('(')[0]
-	return ' '.join(map(
-		part_paren, (str1, str2)
-	)).encode('utf-8').strip()
+	playlist = 'https://play.google.com/music/playlist/AMaBXyn732m1o4YP7KmBOx57c3QN32tO5dnGYMRwgevzKv9rIKOvwHUC0cQOd5oeOX3pcwq012pSG6PdFTu9paE93KEauol5HA=='
+
+	playlist_id = playlist.rsplit('/').pop()
+
+	return str(playlist_id)

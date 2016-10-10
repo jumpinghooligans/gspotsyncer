@@ -48,12 +48,18 @@ class CreatePlaylistForm(FlaskForm):
 		choices=[ ( 'masterslave', 'Master / Slave' )]
 	)
 	spotify_playlist = SelectField(
-		label='Spotify Playlist',
+		label='My Spotify Playlists',
 		choices=[ ( 'n', 'None' )]
 	)
+	public_spotify_playlist = StringField(
+		label='Public Spotify Playlist (Optional)'
+	)
 	google_playlist = SelectField(
-		label='Google Music Playlist',
+		label='My Google Music Playlists',
 		choices=[ ( 'n', 'None' )]
+	)
+	public_google_playlist = StringField(
+		label='Public Google Music Playlist (Optional)'
 	)
 	master = RadioField(
 		label='Master',
