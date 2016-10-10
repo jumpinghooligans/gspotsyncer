@@ -124,13 +124,22 @@ class Playlist():
 
 		# split on first paren (seems to work fairly well)
 		part_paren = lambda x: x.partition('(')[0]
+		part_dash = lambda x: x.partition('-')[0]
 
-		split_query = ' '.join(map(
+		split_paren_query = ' '.join(map(
 			part_paren, (title, primary_artist, album)
 		)).encode('utf-8').strip()
 
-		simple_split_query = ' '.join(map(
+		simple_split_paren_query = ' '.join(map(
 			part_paren, (title, primary_artist)
+		)).encode('utf-8').strip()
+		
+		split_dash_query = ' '.join(map(
+			part_dash, (title, primary_artist, album)
+		)).encode('utf-8').strip()
+
+		simple_split_dash_query = ' '.join(map(
+			part_dash, (title, primary_artist)
 		)).encode('utf-8').strip()
 
 		# full query, then alpha numeric only
@@ -141,8 +150,11 @@ class Playlist():
 		queries.append(simple_base_query)
 		queries.append(re.sub(r'([^\s\w]|_)+', '', simple_base_query))
 
-		queries.append(split_query)
-		queries.append(simple_split_query)
+		queries.append(split_paren_query)
+		queries.append(simple_split_paren_query)
+		
+		queries.append(split_dash_query)
+		queries.append(simple_split_dash_query)
 
 		# should probably be checking search 'scores'
 		# and doing some better sorting here
