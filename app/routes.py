@@ -193,6 +193,9 @@ def modify_playlist(playlist_id):
 	if not user.current_user.can_modify_playlist(p):
 		return redirect('/account')
 
+	# refresh name - just in case
+	p.name = p.spotify_playlist_data.get('name') + ' / ' + p.google_playlist_data.get('name')
+
 	# refresh from the internet
 	p.refresh_external_tracks()
 	p.generate_track_list()

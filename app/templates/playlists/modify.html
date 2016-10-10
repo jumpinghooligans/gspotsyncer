@@ -2,7 +2,7 @@
 {% block content %}
 <div class="row">
 	<div class="col s12">
-		<h5>Modify Playlist {{ playlist._id }}</h5>
+		<h5>{{ playlist.name }}</h5>
 	</div>
 </div>
 
@@ -57,7 +57,7 @@
 					{% if track.spotify_data %}
 						<div class="col s4">
 							<div class="img-dec">
-								<img src="{{ track.album.art }}" class="responsive-img" />
+								<img src="{{ track.spotify_data.album.art }}" class="responsive-img" />
 							</div>
 						</div>
 						<div class="col s8">
@@ -94,7 +94,7 @@
 					{% if track.google_data %}
 						<div class="col s4">
 							<div class="img-dec">
-								<img src="{{ track.album.art }}" class="responsive-img" />
+								<img src="{{ track.google_data.album.art }}" class="responsive-img" />
 							</div>
 						</div>
 						<div class="col s8">
