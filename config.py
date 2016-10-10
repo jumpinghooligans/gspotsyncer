@@ -1,5 +1,5 @@
 WTF_CSRF_ENABLED = True
-SECRET_KEY = 'cf030653cc244fcdac4d7e91bcb634e7'
+SECRET_KEY = 'csrf-key'
 
 MONGO_HOST = 'mongo'
 MONGO_DBNAME = 'gspotsyncer'
@@ -7,8 +7,8 @@ MONGO_DBNAME = 'gspotsyncer'
 TEST_MONGO_HOST = 'mongo'
 TEST_MONGO_DBNAME = 'gspotsyncer_test'
 
-SPOTIFY_CLIENT_ID = 'cf030653cc244fcdac4d7e91bcb634e7'
-SPOTIFY_CLIENT_SECRET = 'd060d23fae3741c2851597a412a51bbc'
+SPOTIFY_CLIENT_ID = 'spotify-client-id'
+SPOTIFY_CLIENT_SECRET = 'spotify-client-secret'
 
 CACHE_TYPE = 'memcached'
 CACHE_MEMCACHED_SERVERS = ['memcached']
