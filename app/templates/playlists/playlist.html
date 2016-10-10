@@ -1,44 +1,56 @@
 {% extends "layout.html" %}
 {% block content %}
-	<a href="/playlists/{{ playlist._id }}/modify" style="float:right">Edit</a>
-	<h2>Playlist {{ playlist._id }}</h2>
+<div class="row center-align">
+	<div class="col s12 m6">
+		<h6 class="grey-text text-lighten-1">Spotify Playlist</h6>
+		<h5>{{ playlist.spotify_playlist_data.name }}</h5>
+	</div>
+	<div class="col s12 m6">
+		<h6 class="grey-text text-lighten-1">Google Play Music Playlist</h6>
+		<h5>{{ playlist.google_playlist_data.name }}</h5>
+	</div>
+</div>
 
-	{% if playlist %}
+{% if playlist.tracks %}
+<div class="row">
 
-		<p>Playlist Master: {{ playlist.master }}</p>
-
-		<div class="spotify track-list">
-			<h3>Spotify Playlist: {{ playlist.spotify_playlist_data.name }}</h3>
-			{% if playlist.spotify_tracks %}
-			<div class="tracks">
-				<ul>
-				{% for item in playlist.spotify_tracks %}
-				<li>
-					<div class="name"><strong>{{ item.track.name }}</strong></div>
-					<div class="artist">{{ item.track.artists[0].name }}</div>
-				</li>
-				{% endfor %}
-				</ul>
-			</div>
-			{% endif %}
-		</div>
-
-		<div class="google track-list">
-			<h3>Google Playlist: {{ playlist.google_playlist_data.name }}</h3>
-			{% if playlist.google_tracks %}
-			<div class="tracks">
-				<ul>
-				{% for item in playlist.google_tracks %}
-				{% if item.track %}
-					<li>
-						<div class="name"><strong>{{ item.track.title }}</strong></div>
-						<div class="artist">{{ item.track.artist }}</div>
-					</li>
+	<table class="responsive-table track-list">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Title</th>
+				<th>Artist</th>
+				<th>Album</th>
+				<th>Spotify</th>
+				<th>Google</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for track in playlist.tracks %}
+			<tr>
+				<td class="table-image">
+				{% if track.album.art %}
+					<img class="responsive-img" src="{{ track.album.art }}" />
+				{% else %}
+					<i class="material-icons">library_music</i></td>
 				{% endif %}
-				{% endfor %}
-				</ul>
-			</div>
-			{% endif %}
-		</div>
-	{% endif %}
+				<td>{{ track.title }}</td>
+				<td>{{ track.artists[0].name }}</td>
+				<td>{{ track.album.name }}</td>
+				<td style="text-align:center"><i class="material-icons {{ 'green-text' if track.spotify_id else 'red-text' }}">{{ 'done' if track.spotify_id else 'error' }}</i></td>
+				<td style="text-align:center"><i class="material-icons {{ 'green-text' if track.google_id else 'red-text' }}">{{ 'done' if track.google_id else 'error' }}</i></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+</div>
+
+<div class="row">
+	<div class="col s12">
+		<a href="/playlists/{{ playlist._id }}/modify" class="right btn deep-orange lighten-2 waves-effect waves-light">Modify this Playlist</a>
+	</div>
+</div>
+{% endif %}
+
 {% endblock %}

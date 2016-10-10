@@ -9,6 +9,7 @@ from app import app, gmusic, spotify, user, playlist
 
 # General imports
 import urllib, json, time
+from random import randint
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -73,6 +74,8 @@ def account():
 		u.password = user.hash_hex(account_form.password.data)
 		u.save()
 
+		flash('Successfully updated your account!')
+
 		return redirect('/account')
 
 	if google_credentials_form.validate_on_submit() and google_credentials_form.update_google.data:
@@ -105,6 +108,9 @@ def google_disconnect():
 @user.login_required
 def playlists():
 	playlists = playlist.get_user_playlists(user.current_user)
+
+	for p in playlists:
+		p.attach_random_album_art()
 
 	return render_template('playlists/index.html',
 							title='Playlists',

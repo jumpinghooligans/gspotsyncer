@@ -36,8 +36,19 @@ footer a {
 	/*font-size: 0.5em;*/
 }
 
-.track-list {
-	float: left;
-	width: 48%;
-	margin: 1%;
+.track-list .table-image {
+	width: 75px;
+	text-align: center;
+}
+
+@media only screen and (max-width: 992px) {
+	.track-list .table-image {
+		width: 250px;
+		text-align: center;
+	}
+
+	.track-list tbody tr {
+		width: 250px;
+		white-space: normal;
+	}
 }

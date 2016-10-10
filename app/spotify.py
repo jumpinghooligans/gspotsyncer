@@ -221,8 +221,14 @@ class Spotify():
 		return formatted_artists
 
 	def format_generic_album(self, album):
+		album_image = None
+
+		if len(album.get('images', [])) > 0:
+			album_image = album.get('images').pop(0).get('url')
+
 		return {
-			'name' : album['name']
+			'name' : album.get('name', ''),
+			'art' : album_image
 		}
 
 	def get_uris_from_ids(self, tracks, ids):

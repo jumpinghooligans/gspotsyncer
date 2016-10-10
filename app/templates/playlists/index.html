@@ -1,16 +1,46 @@
 {% extends "layout.html" %}
 {% block content %}
-	<a href="/playlists/create" style="float:right">Create a Playlist Link</a>
-	<h5>Synced Playlists</h5>
-	<div class="seperator"></div>
-	{% if playlists %}
-		{% for playlist in playlists %}
-			<p>Playlist ID: <a href="/playlists/{{ playlist._id }}">{{ playlist._id }}</a></p>
-			<p>Playlist Master: {{ playlist.master }}</p>
-			<p>Spotify Playlist: {{ playlist.spotify_playlist_data.name }}</p>
-			<p>Google Playlist: {{ playlist.google_playlist_data.name }}</p>
-			<br />
-		{% endfor %}
-	{% endif %}
+<div class="row">
+	<div class="col s12">
+		<h5>Playlists</h5>
+	</div>
+</div>
 
+{% if playlists %}
+<div class="row">
+{% for playlist in playlists %}
+	<div class="col s12 m6">
+		<div class="card">
+			{% if playlist.random_album_art %}
+			<div class="card-image">
+				<img class="responsive-img" src="{{ playlist.random_album_art }}" />
+			</div>
+			{% endif %}
+			<div class="card-content">
+				<p>Spotify Playlist: {{ playlist.spotify_playlist_data.name }}</p>
+				<p>Google Playlist: {{ playlist.google_playlist_data.name }}</p>
+			</div>
+			<div class="card-action">
+				<a href="/playlists/{{ playlist._id }}">View</a>
+				<a href="/playlists/{{ playlist._id }}/modify">Modify</a>
+			</div>
+		</div>
+	</div>
+{% endfor %}
+</div>
+{% else %}
+<div class="row">
+	<div class="col s12">
+		<p class="grey-text">
+			<em>You don't seem to have any playlists yet...</em>
+		</p>
+	</div>
+</div>
+{% endif %}
+
+<div class="row">
+	<div class="col s12">
+		<a href="/playlists/create" class="btn deep-orange lighten-2 right">Create a Playlist</a>
+	</div>
+</div>
 {% endblock %}

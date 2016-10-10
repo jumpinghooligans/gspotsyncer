@@ -32,7 +32,9 @@ class GoogleMusic():
 
 		# attempt a api verification
 		if self.get_api():
-			app.logger.info('Succesfully connected google account ID: ' + google_id)
+			app.logger.info('Successfully connected google account ID: ' + google_id)
+			flash('Successfully connected your Google Play Music account')
+
 			return self.user.save()
 		else:
 			app.logger.info('Failed to connect google account ID: ' + google_id)
@@ -168,7 +170,8 @@ class GoogleMusic():
 
 	def format_generic_album(self, track_data):
 		return {
-			'name' : track_data['album']
+			'name' : track_data.get('album'),
+			'art' : track_data.get('albumArtRef', {}).get('url', None)
 		}
 
 	def get_nids_from_ids(self, tracks, track_ids):

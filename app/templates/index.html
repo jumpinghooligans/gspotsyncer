@@ -1,16 +1,31 @@
 {% extends "layout.html" %}
 {% block content %}
-
-	<h4>what is <span class="deep-orange-text text-lighten-2">gspot</span>syncer?</h4>
-	<p>
-		gspotsyncer is a simple utility to <span class="deep-orange-text text-lighten-2">sync</span> a public or private <span class="deep-orange-text text-lighten-2">google</span> music and <span class="deep-orange-text text-lighten-2">spotify</span> playlist together.  add a song to one, it shows up on the other and vice versa.
-	</p>
-	<ul>
-		<li><a href="/account/create">Create</a> an account</li>
-		<li><a href="/account">Attach</a> Google Music credentials</li>
-		<li><a href="/spotify/connect">Authorize</a> Spotify</li>
-		<li><a href="/playlists/create">Create</a> a playlist link</li>
-	</ul>
-
-
+<div class="row flow-text">
+	<div class="col s12">
+		<h4>what is <span class="deep-orange-text text-lighten-2">gspot</span>syncer?</h4>
+		<p>
+			gspotsyncer is a simple utility to <span class="deep-orange-text text-lighten-2">sync</span> a public or private <span class="deep-orange-text text-lighten-2">google</span> music and <span class="deep-orange-text text-lighten-2">spotify</span> playlist together.  add a song to one, it shows up on the other and vice versa.
+		</p>
+	</div>
+</div>
+<div class="row flow-text">
+	<div class="col s12 l4 center-align">
+		<h4><i class="material-icons large">perm_identity</i></h4>
+		<p>
+			<a href="/account/create">Create</a> an account
+		</p>
+	</div>
+	<div class="col s12 l4 center-align">
+		<h4><i class="material-icons large">vpn_key</i></h4>
+		<p>
+			Connect Spotify and Google Play Music credentials to your <a href="/account">account</a>
+		</p>
+	</div>
+	<div class="col s12 l4 center-align">
+		<h4><i class="material-icons large">settings_ethernet</i></h4>
+		<p>
+			Pick two playlists and <a href="/playlists/create">create</a> a link
+		</p>
+	</div>
+</div>
 {% endblock %}

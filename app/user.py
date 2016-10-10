@@ -60,8 +60,6 @@ def login(username, password):
 		attempted_pw = md5.new(password)
 		current_pw = user_data.get('password')
 
-		app.logger.info(current_pw)
-
 		if attempted_pw.hexdigest() == current_pw:
 			# Password matches, we can return a user
 			app.logger.info('Successful login for ' + username)

@@ -213,6 +213,13 @@ class Playlist():
 
 		return formatted_tracks
 
+	def attach_random_album_art(self):
+		if len(self.tracks) > 0:
+			for t in self.tracks:
+				if t.get('album').get('art'):
+					self.random_album_art = t.get('album').get('art')
+					break
+
 	def save(self):
 		playlist = {}
 
