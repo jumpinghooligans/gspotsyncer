@@ -131,8 +131,10 @@ def create_playlist():
 	spotify_choices = s.get_playlists_select()
 	google_choices = g.get_playlists_select()
 
-	form.spotify_playlist.choices = spotify_choices
-	form.google_playlist.choices = google_choices
+	if spotify_choices:
+		form.spotify_playlist.choices = spotify_choices
+	if google_choices:
+		form.google_playlist.choices = google_choices
 
 	if form.validate_on_submit():
 		p = playlist.Playlist({})
@@ -222,6 +224,10 @@ def refresh_playlist(playlist_id):
 def process_playlist(playlist_id):
 	p = playlist.Playlist(str(playlist_id))
 
+	# Make sure we have the most up to date
+	# track lists from google and spotify
+	p.refresh_external_tracks()
+
 	# Using the type of playlist, and both sets of
 	# playlist data, generate a master list
 	p.generate_track_list()
@@ -242,7 +248,8 @@ def process_playlist(playlist_id):
 	p.refresh_external_tracks()
 
 	# Save all of our changes
-	res = p.save()
+	if p.save():
+		flash('Successfully processed and published tracks to Spotify and Google Play Music')
 
 	return redirect('/playlists/' + playlist_id)
 
