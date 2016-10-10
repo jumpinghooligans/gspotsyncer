@@ -57,6 +57,7 @@ class Playlist():
 
 			# as long as we have something to do
 			if local_track_ids:
+
 				# delete, whats on the remote and not in local
 				delete_ids = list(set(remote_track_ids) - set(local_track_ids))
 
@@ -219,6 +220,17 @@ class Playlist():
 				if t.get('album').get('art'):
 					self.random_album_art = t.get('album').get('art')
 					break
+
+	def attach_external_track_data(self):
+		if len(self.tracks) > 0:
+			u = user.User(str(self.user_id))
+
+			g = gmusic.GoogleMusic(u)
+			s = spotify.Spotify(u)
+
+			for t in self.tracks:
+				t['google_data'] = g.format_generic_track(g.get_track_from_id(self.google_tracks, t.get('google_id')))
+				t['spotify_data'] = s.format_generic_track(s.get_track_from_uri(self.spotify_tracks, t.get('spotify_id')))
 
 	def save(self):
 		playlist = {}

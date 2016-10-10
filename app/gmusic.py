@@ -141,13 +141,17 @@ class GoogleMusic():
 
 		return []
 
-	def format_generic_track(self, track, existing_tracks):
+	def format_generic_track(self, track, existing_tracks=None):
+		if not track:
+			return None
+
 		track_data = track['track']
 
 		# if this spotify id already exists in our existing
 		# tracks we can just return that element
-		for existing in existing_tracks:
-			if existing['google_id'] == track['trackId']:
+		if existing_tracks:
+			existing = self.get_existing_track(track, existing_tracks)
+			if existing:
 				return existing
 
 		# if we don't have it already, generate it
@@ -169,10 +173,31 @@ class GoogleMusic():
 		return formatted_artists
 
 	def format_generic_album(self, track_data):
+		album_image = None
+
+		if len(track_data.get('albumArtRef', [])) > 0:
+			album_image = track_data.get('albumArtRef', [None]).pop(0)
+
 		return {
 			'name' : track_data.get('album'),
-			'art' : track_data.get('albumArtRef', {}).get('url', None)
+			'art' : album_image
 		}
+
+	def get_existing_track(self, track, tracks):
+		for existing in tracks:
+			if existing['google_id'] == track['trackId']:
+				return existing
+
+		return None
+
+	# tracks - spotify tracks
+	# uri - uri
+	def get_track_from_id(self, tracks, track_id):
+		for track in tracks:
+			if track.get('trackId', None) == track_id:
+				return track
+
+		return None
 
 	def get_nids_from_ids(self, tracks, track_ids):
 		entry_ids = []

@@ -1,66 +1,137 @@
 {% extends "layout.html" %}
 {% block content %}
-
-	<a href="/playlists/{{ playlist._id }}/process" style="float:right">Process</a>
-	<h2>Modify Playlist {{ playlist._id }}</h2>
-
-	<p>Playlist Master: {{ playlist.master }}</p>
-
-	<div class="generic track-table">
-		{% if playlist.tracks %}
-		<table style="width:100%">
-			<tr>
-				<th>Spotify ID</th>
-				<th>Google ID</th>
-				<th class="name">Title</th>
-				<th class="artist">Artist</th>
-				<th class="artist">Album</th>
-			</tr>
-			{% for track in playlist.tracks %}
-			<tr>
-				<td>{{ track.spotify_id }}</td>
-				<td>{{ track.google_id }}</td>
-				<td class="name"><strong>{{ track.title }}</strong></td>
-				<td class="artist">{{ track.artists[0].name }}</td>
-				<td class="artist">{{ track.album.name }}</td>
-			</tr>
-			{% endfor %}
-		</table>
-		{% endif %}
+<div class="row">
+	<div class="col s12">
+		<h5>Modify Playlist {{ playlist._id }}</h5>
 	</div>
+</div>
 
-	<div class="spotify track-list">
-		<h3>Spotify Playlist: {{ playlist.spotify_playlist_data.name }}</h3>
-		{% if playlist.spotify_tracks %}
-		<div class="tracks">
-			<ul>
-			{% for item in playlist.spotify_tracks %}
+<div class="row">
+	<div class="col s12"
+		<p>Playlist Master: {{ playlist.master }}</p>
+	</div>
+</div>
+
+{% if playlist.tracks %}
+{% for track in playlist.tracks %}
+<div class="row">
+	<div class="col s12">
+		<ul class="collapsible" data-collapsible="expandable">
 			<li>
-				<div class="name"><strong>{{ item.track.name }}</strong></div>
-				<div class="artist">{{ item.track.artists[0].name }}</div>
+				<div class="collapsible-header active">
+					<strong>Track Information</strong>
+				</div>
+				<div class="collapsible-body">
+					<div class="row">
+						<div class="col s4">
+							<div class="img-dec">
+								<img src="{{ track.album.art }}" class="responsive-img" />
+							</div>
+						</div>
+						<div class="col s8">
+							<div class="section">
+								<span class="grey-text">title</span>
+								<div class="seperator"></div>
+								<strong>{{ track.title }}</strong>
+							</div>
+							<div class="section">
+								<span class="grey-text">artist</span>
+								<div class="seperator"></div>
+								<strong>{{ track.artists[0].name }}</strong>
+							</div>
+							<div class="section">
+								<span class="grey-text">album</span>
+								<div class="seperator"></div>
+								<strong>{{ track.album.name }}</strong>
+							</div>
+						</div>
+					</div>
+				</div>
 			</li>
-			{% endfor %}
-			</ul>
-		</div>
-		{% endif %}
+			<li>
+				<div class="collapsible-header">
+					<strong>Spotify Track Information</strong>
+				</div>
+				<div class="collapsible-body">
+					<div class="row">
+					{% if track.spotify_data %}
+						<div class="col s4">
+							<div class="img-dec">
+								<img src="{{ track.album.art }}" class="responsive-img" />
+							</div>
+						</div>
+						<div class="col s8">
+							<div class="section">
+								<span class="grey-text">title</span>
+								<div class="seperator"></div>
+								<strong>{{ track.spotify_data.title }}</strong>
+							</div>
+							<div class="section">
+								<span class="grey-text">artist</span>
+								<div class="seperator"></div>
+								<strong>{{ track.spotify_data.artists[0].name }}</strong>
+							</div>
+							<div class="section">
+								<span class="grey-text">album</span>
+								<div class="seperator"></div>
+								<strong>{{ track.spotify_data.album.name }}</strong>
+							</div>
+						</div>
+					{% else %}
+						<div class="col s12">
+							<p class="grey-text"><em>No Spotify Track data yet...</em></p>
+						</div>
+					{% endif %}
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="collapsible-header">
+					<strong>Google Play Music Track</strong>
+				</div>
+				<div class="collapsible-body">
+					<div class="row">
+					{% if track.google_data %}
+						<div class="col s4">
+							<div class="img-dec">
+								<img src="{{ track.album.art }}" class="responsive-img" />
+							</div>
+						</div>
+						<div class="col s8">
+							<div class="section">
+								<span class="grey-text">title</span>
+								<div class="seperator"></div>
+								<strong>{{ track.google_data.title }}</strong>
+							</div>
+							<div class="section">
+								<span class="grey-text">artist</span>
+								<div class="seperator"></div>
+								<strong>{{ track.google_data.artists[0].name }}</strong>
+							</div>
+							<div class="section">
+								<span class="grey-text">album</span>
+								<div class="seperator"></div>
+								<strong>{{ track.google_data.album.name }}</strong>
+							</div>
+						</div>
+					{% else %}
+						<div class="col s12">
+							<p class="grey-text"><em>No Google Play Music Track data yet...</em></p>
+						</div>
+					{% endif %}
+					</div>
+				</div>
+			</li>
+		</ul>
 	</div>
+</div>
+{% endfor %}
 
-	<div class="google track-list">
-		<h3>Google Playlist: {{ playlist.google_playlist_data.name }}</h3>
-		{% if playlist.google_tracks %}
-		<div class="tracks">
-			<ul>
-			{% for item in playlist.google_tracks %}
-			{% if item.track %}
-				<li>
-					<div class="name"><strong>{{ item.track.title }}</strong></div>
-					<div class="artist">{{ item.track.artist }}</div>
-				</li>
-			{% endif %}
-			{% endfor %}
-			</ul>
-		</div>
-		{% endif %}
+<div class="row">
+	<div class="col s12">
+		<a class="btn deep-orange lighten-2 right" href="/playlists/{{ playlist._id }}/process">Publish Playlists</a>
 	</div>
+</div>
 
+{% endif %}
 {% endblock %}

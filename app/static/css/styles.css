@@ -37,18 +37,13 @@ footer a {
 }
 
 .track-list .table-image {
-	width: 75px;
+	min-width: 50px;
+	max-width: 100px;
 	text-align: center;
 }
 
-@media only screen and (max-width: 992px) {
-	.track-list .table-image {
-		width: 250px;
-		text-align: center;
-	}
-
-	.track-list tbody tr {
-		width: 250px;
-		white-space: normal;
-	}
+.img-dec {
+	margin:1em;
+	padding:4px;
+	border:1px solid #ccc;
 }

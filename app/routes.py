@@ -193,6 +193,9 @@ def modify_playlist(playlist_id):
 	p.generate_track_list()
 	p.save()
 
+	# shortcuts for external data
+	p.attach_external_track_data()
+
 	return render_template('playlists/modify.html',
 							title='Modify Playlist',
 							playlist=p)

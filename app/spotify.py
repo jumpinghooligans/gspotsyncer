@@ -192,13 +192,20 @@ class Spotify():
 
 		return {}
 
-	def format_generic_track(self, track, existing_tracks):
+	# track - spotify track
+	# existing_tracks - generic tracks
+	def format_generic_track(self, track, existing_tracks=None):
+		if 'track' not in track:
+			app.logger.info(track)
+			return None
+
 		track = track['track']
 
 		# if this spotify id already exists in our existing
 		# tracks we can just return that element
-		for existing in existing_tracks:
-			if existing['spotify_id'] == track['uri']:
+		if existing_tracks:
+			existing = self.get_existing_track(track, existing_tracks)
+			if existing:
 				return existing
 
 		# if we don't have it already, generate it
@@ -231,6 +238,13 @@ class Spotify():
 			'art' : album_image
 		}
 
+	def get_existing_track(self, track, tracks):
+		for existing in tracks:
+			if existing['spotify_id'] == track['uri']:
+				return existing
+
+		return None
+
 	def get_uris_from_ids(self, tracks, ids):
 		uris = []
 
@@ -243,6 +257,15 @@ class Spotify():
 					uris.append(uri)
 
 		return uris
+
+	# tracks - spotify tracks
+	# uri - uri
+	def get_track_from_uri(self, tracks, uri):
+		for track in tracks:
+			if track.get('track', {}).get('uri', None) == uri:
+				return track
+
+		return None
 
 	def request(self, verb, **kwargs):
 		requester = getattr(requests, verb)
