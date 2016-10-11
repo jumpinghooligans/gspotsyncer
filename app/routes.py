@@ -238,6 +238,9 @@ def create_playlist():
 		# shorthand name for the playlist
 		p.name = p.spotify_playlist_data.get('name') + ' / ' + p.google_playlist_data.get('name')
 
+		# created timestamp
+		p.created = time.strftime("%d/%m/%Y %H:%M:%S")
+
 		# get get track lists
 		p.refresh_external_tracks()
 
@@ -282,15 +285,15 @@ def modify_playlist(playlist_id):
 def refresh_playlist(playlist_id):
 	p = playlist.Playlist(str(playlist_id))
 
+	if not user.current_user.can_modify_playlist(p):
+		return redirect('/account')
+
 	# refresh name - just in case
 	p.name = p.spotify_playlist_data.get('name') + ' / ' + p.google_playlist_data.get('name')
 
 	# refresh from the internet
 	p.refresh_external_tracks()
 	p.generate_track_list()
-
-	# update last refreshed date
-	p.last_refreshed = time.strftime("%d/%m/%Y %H:%M:%S")
 
 	if p.save():
 		flash('Successfully refreshed playlist data')
@@ -301,6 +304,9 @@ def refresh_playlist(playlist_id):
 @user.login_required
 def process_playlist(playlist_id):
 	p = playlist.Playlist(str(playlist_id))
+
+	if not user.current_user.can_modify_playlist(p):
+		return redirect('/account')
 
 	# Make sure we have the most up to date
 	# track lists from google and spotify
@@ -324,10 +330,6 @@ def process_playlist(playlist_id):
 	# should now reflect any playlist edits
 	# we made above
 	p.refresh_external_tracks()
-
-	# update last published date
-	p.last_refreshed = time.strftime("%d/%m/%Y %H:%M:%S")
-	p.last_published = time.strftime("%d/%m/%Y %H:%M:%S")
 
 	# Save all of our changes
 	if p.save():

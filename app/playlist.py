@@ -2,13 +2,18 @@ from app import app, mongo, cache, user, gmusic, spotify
 
 from flask import flash
 from bson.objectid import ObjectId
+from random import shuffle
 
-import urllib, json, md5, re
+import urllib, json, md5, re, time
 
 def get_user_playlists(user):
 	cursor = mongo.db.playlists.find({
 		'user_id' : user._id
-	})
+	}).sort([
+		('last_published', 1),
+		('last_refreshed', 1),
+		('created', 1)
+	])
 
 	playlists = []
 	for doc in cursor:
@@ -69,6 +74,9 @@ class Playlist():
 
 				service.playlist_remove(self, delete_ids)
 				service.playlist_add(self, order_insert_ids)
+
+				# update last published date
+				self.last_published = time.strftime("%m/%d/%Y %H:%M:%S")
 
 				return True
 
@@ -199,6 +207,9 @@ class Playlist():
 		self.spotify_tracks = s.get_tracks(self.spotify_playlist_data)
 		self.google_tracks = g.get_tracks(self.google_playlist_data)
 
+		# update the last refreshed timestamp
+		self.last_refreshed = time.strftime("%m/%d/%Y %H:%M:%S")
+
 	def generate_track_list(self):
 		if self.type == 'masterslave':
 			# build a track list
@@ -229,10 +240,13 @@ class Playlist():
 
 		return formatted_tracks
 
-	# not random yet
 	def attach_random_album_art(self):
 		if len(self.tracks) > 0:
-			for t in self.tracks:
+			# shuffle them so its random
+			shuffled_tracks = self.tracks
+			shuffle(shuffled_tracks)
+
+			for t in shuffled_tracks:
 				if t.get('album').get('art'):
 					self.random_album_art = t.get('album').get('art')
 					break
