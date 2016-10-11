@@ -31,10 +31,10 @@ class Spotify():
 
 			if self.user.save():
 				self.refresh_user_data()
-				flash('Successfully updated Spotify credentials...')
+				flash('Successfully updated Spotify credentials')
 				return True
 			else:
-				flash('Unknown error updating Spotify credentials...')
+				flash('Unknown error updating Spotify credentials')
 				return False
 		else:
 			flash(spotify_auth_response.json())
@@ -58,10 +58,10 @@ class Spotify():
 
 			if self.user.save():
 				self.refresh_user_data()
-				flash('Successfully refreshed Spotify credentials...')
+				flash('Successfully refreshed Spotify credentials')
 				return True
 			else:
-				flash('Unknown error refreshing Spotify credentials...')
+				flash('Unknown error refreshing Spotify credentials')
 				return False
 		else:
 			flash(refresh_response.json())

@@ -161,7 +161,7 @@ class Playlist():
 		for query in queries:
 			matching_tracks += service.search_songs(query)
 			if len(matching_tracks) > 0:
-				app.logger.info('Found ' + str(len(matching_tracks)) + ' results, breaking...')
+				app.logger.info('Found ' + str(len(matching_tracks)) + ' results - moving to next song')
 				break
 
 		return matching_tracks
