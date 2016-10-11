@@ -10,41 +10,154 @@
 {{ form.hidden_tag() }}
 
 <div class="row">
-	<div class="input-field col s12">
-		{{ form.playlist_type() }}
-		<label>Playlist Link Type</label>
-	</div>
-</div>
-
-<div class="row">
-	<div class="input-field col s12 l6">
+	<div class="col s12 l6">
 		<div class="input-field">
-			{{ form.spotify_playlist() }}
-			{{ form.spotify_playlist.label }}
+			{{ form.playlist_type() }}
+			{{ form.playlist_type.label }}
 		</div>
 	</div>
-
-	<div class="input-field col s12 l6">
+	<div class="col s12 l6">
 		<div class="input-field">
-			{{ form.google_playlist() }}
-			{{ form.google_playlist.label }}
+			{{ form.master() }}
+			{{ form.master.label }}
 		</div>
 	</div>
 </div>
 
-<div class="row">
-	<div class="input-field col s12">
-		Master
-		{{ form.master() }}
+<div id="create-playlist" class="row">
+	<div class="col s12 l6">
+		<h6>Spotify Playlist</h6>
+		<ul>
+			<li>
+				<input class="with-gap" name="spotify-playlist-types" type="radio" id="spotify-existing"  />
+				<label for="spotify-existing">Existing Playlist</label>
+			</li>
+			<li class="existing">
+				<div class="form">
+					<div class="input-field">
+						{{ form.spotify_playlist() }}
+						{{ form.spotify_playlist.label }}
+					</div>
+				</div>
+			</li>
+
+			<li>
+				<input class="with-gap" name="spotify-playlist-types" type="radio" id="spotify-public"  />
+				<label for="spotify-public">Public Playlist</label>
+			</li>
+			<li class="public">
+				<div class="form">
+					<h6 class="grey-text">Coming soon...</h6>
+					<br />
+				</div>
+			</li>
+
+			<li>
+				<input class="with-gap" name="spotify-playlist-types" type="radio" id="spotify-create"  />
+				<label for="spotify-create">New Playlist</label>
+			</li>
+			<li class="create">
+				<div class="form">
+					<div class="input-field">
+						{{ form.spotify_create() }}
+						{{ form.spotify_create.label }}
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="col s12 l6">
+		<h6>Google Playlist</h6>
+		<ul>
+			<li>
+				<input class="with-gap" name="google-playlist-types" type="radio" id="google-existing"  />
+				<label for="google-existing">Existing Playlist</label>
+			</li>
+			<li class="existing">
+				<div class="form">
+					<div class="input-field">
+						{{ form.google_playlist() }}
+						{{ form.google_playlist.label }}
+					</div>
+				</div>
+			</li>
+
+			<li>
+				<input class="with-gap" name="google-playlist-types" type="radio" id="google-public"  />
+				<label for="google-public">Public Playlist</label>
+			</li>
+			<li class="public">
+				<div class="form">
+					<h6 class="grey-text">Coming soon...</h6>
+					<br />
+				</div>
+			</li>
+
+			<li>
+				<input class="with-gap" name="google-playlist-types" type="radio" id="google-create"  />
+				<label for="google-create">New Playlist</label>
+			</li>
+			<li class="create">
+				<div class="form">
+					<div class="input-field">
+						{{ form.google_create() }}
+						{{ form.google_create.label }}
+					</div>
+				</div>
+			</li>
+		</ul>
 	</div>
 </div>
 
-
 <div class="row">
-	<div class="input-field col s12">
-		<button class="btn deep-orange lighten-2 waves-effect waves-light" type="submit">Create a Playlist</button>
+	<div class="col s12">
+		<div class="input-field">
+			<button class="btn deep-orange lighten-2 waves-effect waves-light" type="submit">Create a Playlist</button>
+		</div>
 	</div>
 </div>
 
 </form>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	// overly complex and oh so delicate
+	$('input:radio[name="spotify-playlist-types"]').change(function() {
+		$('input:radio[name="spotify-playlist-types"]').each(function() {
+			$form = $(this).parent().next().find('.form');
+
+			if($(this).is(':checked')) {
+				$form.find('input, .form select').prop('disabled', false);
+				$form.slideDown()
+			} else {
+				$form.find('select option:eq(0)').prop('selected', true);
+				$form.find('input').prop('disabled', true);
+				$form.slideUp();
+			}
+		})
+		$('select').material_select();
+	});
+
+	$('input:radio[name="google-playlist-types"]').change(function() {
+		$('input:radio[name="google-playlist-types"]').each(function() {
+			$form = $(this).parent().next().find('.form');
+
+			if($(this).is(':checked')) {
+				$form.find('input, .form select').prop('disabled', false);
+				$form.slideDown()
+			} else {
+				$form.find('select option:eq(0)').prop('selected', true);
+				$form.find('input').prop('disabled', true);
+				$form.slideUp();
+			}
+		})
+		$('select').material_select();
+	});
+
+	$('input:radio[name="spotify-playlist-types"]').first().click();
+	$('input:radio[name="google-playlist-types"]').first().click();
+});
+</script>
 {% endblock %}

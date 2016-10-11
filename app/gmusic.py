@@ -100,7 +100,18 @@ class GoogleMusic():
 
 		return False
 
-	@cache.memoize(30 * 60)
+	def playlist_create(self, playlist_name):
+		if not playlist_name.strip():
+			return None
+
+		api = self.get_api()
+
+		if api:
+			return api.create_playlist(playlist_name)
+
+		return False
+
+	# @cache.memoize(30 * 60)
 	def get_playlists(self):
 		api = self.get_api()
 		playlists = []
@@ -109,6 +120,19 @@ class GoogleMusic():
 			playlists = api.get_all_playlists()
 
 		return playlists
+
+	# just a pass through, spotify is different
+	def get_allowed_playlist(self, playlist_id):
+		return self.get_my_playlist(playlist_id)
+
+	def get_my_playlist(self, playlist_id):
+		my_playlists = self.get_playlists()
+
+		for playlist in my_playlists:
+			if playlist_id == playlist['id']:
+				return playlist
+
+		return False
 
 	def get_playlists_select(self):
 		formatted_playlists = []

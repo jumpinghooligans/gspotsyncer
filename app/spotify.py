@@ -117,7 +117,7 @@ class Spotify():
 
 		return res.json()
 
-	@cache.memoize(30 * 60)
+	# @cache.memoize(30 * 60)
 	def get_playlists(self):
 		res = self.request('get',
 			url='https://api.spotify.com/v1/me/playlists'
@@ -172,6 +172,22 @@ class Spotify():
 		res = self.request('post',
 			url='https://api.spotify.com/v1/users/' + playlist_data['owner']['id'] +'/playlists/' + playlist_data['id'] + '/tracks',
 			headers={ 'Content-Type' : 'application/json' },
+			data=json.dumps(data)
+		)
+
+		return res.json()
+
+	def playlist_create(self, playlist_name):
+		if not playlist_name.strip():
+			return None
+
+		user_id = self.user.spotify_data.get('id', 'me')
+		data = {
+			'name' : playlist_name
+		}
+
+		res = self.request('post',
+			url='https://api.spotify.com/v1/users/' + user_id + '/playlists',
 			data=json.dumps(data)
 		)
 
@@ -256,6 +272,27 @@ class Spotify():
 					uris.append(uri)
 
 		return uris
+
+	def get_allowed_playlist(self, playlist_id):
+		my_allowed_playlists = self.get_playlists()
+
+		for playlist in my_allowed_playlists:
+			if playlist_id == playlist['id']:
+				return playlist
+
+		return None
+
+	def get_my_playlist(self, playlist_id):
+		user_id = self.user.spotify_data.get('id', 'me')
+
+		return 'https://api.spotify.com/v1/users/' + user_id + '/playlists/' + playlist_id
+		res = self.request('get',
+			url='https://api.spotify.com/v1/users/' + user_id + '/playlists/' + playlist_id
+		)
+
+		res = res.json()
+
+		return res
 
 	# tracks - spotify tracks
 	# uri - uri

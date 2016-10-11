@@ -264,3 +264,9 @@ class Playlist():
 
 		# its stupid this isn't handled by mongo...
 		return mongo.db.playlists.insert_one(playlist)
+
+	def delete(self):
+		if self._id:
+			return mongo.db.playlists.delete_one({ '_id' : self._id })
+
+		return False

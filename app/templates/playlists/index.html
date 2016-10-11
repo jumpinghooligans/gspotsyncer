@@ -34,9 +34,30 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col s12">
+					<div class="col s12 l6">
 						<p>
-							<strong>master</strong> {{ playlist.master }}
+							<strong class="grey-text">type</strong>
+							<br />
+							{{ playlist.type }}
+						</p>
+						<br />
+						<p>
+							<strong class="grey-text">master</strong>
+							<br />
+							{{ playlist.master }}
+						</p>
+					</div>
+					<div class="col s12 l6">
+						<p>
+							<strong class="grey-text">refreshed</strong>
+							<br />
+							{{ playlist.last_refreshed if playlist.last_refreshed else 'never' }}
+						</p>
+						<br />
+						<p>
+							<strong class="grey-text">published</strong>
+							<br />
+							{{ playlist.last_published if playlist.last_published else 'never' }}
 						</p>
 					</div>
 				</div>

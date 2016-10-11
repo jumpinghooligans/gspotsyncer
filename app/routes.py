@@ -65,7 +65,11 @@ def create_user():
 def account():
 	account_form = UserAccountForm()
 	google_credentials_form = GoogleCredentialsForm()
-	playlists = playlist.get_user_playlists(user.current_user)
+	playlists = playlist.get_user_playlists(user.current_user)[0:3]
+
+	# pretty
+	for p in playlists:
+		p.attach_random_album_art()
 
 	if account_form.validate_on_submit() and account_form.update_account.data:
 
@@ -132,8 +136,10 @@ def create_playlist():
 	google_choices = g.get_playlists_select()
 
 	if spotify_choices:
+		spotify_choices.insert(0, ('', 'Select a Playlist'))
 		form.spotify_playlist.choices = spotify_choices
 	if google_choices:
+		google_choices.insert(0, ('', 'Select a Playlist'))
 		form.google_playlist.choices = google_choices
 
 	if form.validate_on_submit():
@@ -143,19 +149,88 @@ def create_playlist():
 
 		p.type = form.playlist_type.data
 
-		p.spotify_playlist_id = form.spotify_playlist.data
-		full_spotify_playlists = s.get_playlists()
-		for full_playlist in full_spotify_playlists:
-			if p.spotify_playlist_id == full_playlist['id']:
-				p.spotify_playlist_data = dict(full_playlist)
-				break
+		# Pull form data
+		spotify_playlist_id = str(form.spotify_playlist.data)
+		spotify_create_name = str(form.spotify_create.data)
 
-		p.google_playlist_id = form.google_playlist.data
-		full_google_playlists = g.get_playlists()
-		for full_playlist in full_google_playlists:
-			if p.google_playlist_id == full_playlist['id']:
-				p.google_playlist_data = dict(full_playlist)
-				break
+		google_playlist_id = str(form.google_playlist.data)
+		google_create_name = str(form.google_create.data)
+
+		# Basic validation
+		if not (spotify_playlist_id or google_playlist_id):
+			flash('You must select at least one existing Google or Spotify playlist')
+			return redirect('/playlists/create')
+
+		if not (spotify_playlist_id or spotify_create_name):
+			flash('Missing a Spotify playlist or new playlist name')
+			return redirect('/playlists/create')
+
+		if not (google_playlist_id or google_create_name):
+			flash('Missing a Google playlist or new playlist name')
+			return redirect('/playlists/create')
+
+		#
+		# Spotify
+		#
+		# Attach the selected playlists data to our new
+		# playlist object - or create a new playlist and
+		# attach that data
+		#
+
+		if spotify_playlist_id:
+
+			# Find an existing playlist
+			p.spotify_playlist_id = spotify_playlist_id
+			p.spotify_playlist_data = s.get_allowed_playlist(spotify_playlist_id)
+
+		else:
+
+			# Create a playlist
+			new_playlist_result = s.playlist_create(spotify_create_name)
+
+			if new_playlist_result.get('id', None):
+				# Get the new ID
+				new_playlist_id = new_playlist_result.get('id', None)
+
+				# attach our new playlist data
+				p.spotify_playlist_id = new_playlist_id
+				p.spotify_playlist_data = s.get_allowed_playlist(new_playlist_id)
+
+			else:
+				flash('Unable to create a playlist named \'' + spotify_create_name + '\'')
+				return redirect('/playlists/create')
+
+		#
+		# Google
+		#
+		# Attach the selected playlists data to our new
+		# playlist object - or create a new playlist and
+		# attach that data
+		#
+
+		if google_playlist_id:
+
+			# Find an existing playlist
+			p.google_playlist_id = google_playlist_id
+			p.google_playlist_data = g.get_allowed_playlist(google_playlist_id)
+
+		else:
+
+			# Create a playlist
+			new_playlist_result = g.playlist_create(google_create_name)
+
+			if new_playlist_result:
+				p.google_playlist_id = new_playlist_result
+				p.google_playlist_data = g.get_allowed_playlist(new_playlist_result)
+
+			else:
+				flash('Unable to create a playlist named \'' + google_create_name + '\'')
+				return redirect('/playlists/create')
+
+		# Make sure we got two valid playlists out of that whole shindig above
+		# if not spotify_create_name:
+		# 	flash('You must select either an existing Spotify playlist or pick a name to create one')
+		# 	return redirect('/playlists/create')
 
 		# master of the master / slave
 		p.master = form.master.data
@@ -168,7 +243,7 @@ def create_playlist():
 
 		save = p.save()
 
-		return redirect('/playlists/' + str(save.inserted_id) + '/modify')
+		return redirect('/playlists/' + str(save.inserted_id) + '/refresh')
 
 
 	return render_template('playlists/create.html',
@@ -214,6 +289,9 @@ def refresh_playlist(playlist_id):
 	p.refresh_external_tracks()
 	p.generate_track_list()
 
+	# update last refreshed date
+	p.last_refreshed = time.strftime("%d/%m/%Y %H:%M:%S")
+
 	if p.save():
 		flash('Successfully refreshed playlist data')
 
@@ -247,12 +325,24 @@ def process_playlist(playlist_id):
 	# we made above
 	p.refresh_external_tracks()
 
+	# update last published date
+	p.last_published = time.strftime("%d/%m/%Y %H:%M:%S")
+
 	# Save all of our changes
 	if p.save():
 		flash('Successfully processed and published tracks to Spotify and Google Play Music')
 
 	return redirect('/playlists/' + playlist_id)
 
+@app.route('/playlists/<string:playlist_id>/delete')
+@user.login_required
+def delete_playlist(playlist_id):
+	p = playlist.Playlist(str(playlist_id))
+
+	if p.delete():
+		flash('Successfully deleted playlist')
+
+	return redirect('/playlists')
 
 @app.route('/spotify/connect')
 @user.login_required

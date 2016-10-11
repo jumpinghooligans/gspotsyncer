@@ -6,7 +6,7 @@
 	</div>
 </div>
 
-<div class="row">
+<div id="account-summary" class="row">
 	<div class="col s12 m6">
 		<strong>Account Info</strong>
 		<p>
@@ -18,14 +18,27 @@
 	</div>
 
 	<div class="col s12 m6">
-		<strong>Playlists</strong>
+		<strong>Latest Playlists</strong>
 		{% if playlists %}
 			<div class="collection">
 			{% for playlist in playlists %}
 				<div class="collection-item">
-					<a href="/playlists/{{ playlist._id }}">{{ playlist.name }}</a>
-					<br />
-					<span class="grey-text">master: {{ playlist.master }}</span>
+					<div class="row">
+						<div class="col s4 l3">
+						{% if playlist.random_album_art %}
+							<img class="responsive-img album-art" src="{{ playlist.random_album_art }}" />
+						{% endif %}
+						</div>
+						<div class="col s8 l9">
+							<strong><a href="/playlists/{{ playlist._id }}">{{ playlist.name }}</a></strong>
+							<br />
+							<span class="grey-text">master</span> {{ playlist.master }}
+							<br />
+							<span class="grey-text">refreshed</span> {{ playlist.last_refreshed if playlist.last_refreshed else 'never' }}
+							<br />
+							<span class="grey-text">published</span> {{ playlist.last_published if playlist.last_published else 'never' }}
+						</div>
+					</div>
 				</div>
 			{% endfor %}
 			</div>
