@@ -61,7 +61,8 @@
 		</p>
 		<p>
 		{% if current_user.google_credentials %}
-			<a class="btn orange waves-effect waves-light" href="/google/disconnect">Clear Google Credentials</a>
+			<p><i class="material-icons green-text">done</i>&nbsp;&nbsp;&nbsp;Google Play Music connected</p>
+			<a class="btn orange lighten-3 grey-text text-lighten-4 waves-effect waves-light" href="/google/disconnect">Clear Google Credentials</a>
 		{% else %}
 			<a class="btn orange waves-effect waves-light modal-trigger" href="#update-google">Connect Google Music</a>
 		{% endif %}
@@ -73,7 +74,8 @@
 		</p>
 		<p>
 		{% if current_user.spotify_credentials %}
-			<a class="btn green waves-effect waves-light" href="/spotify/disconnect">Clear Spotify Credentials</a>
+			<p><i class="material-icons green-text">done</i>&nbsp;&nbsp;&nbsp;Spotify connected</p>
+			<a class="btn green lighten-3 grey-text text-lighten-4 waves-effect waves-light" href="/spotify/disconnect">Clear Spotify Credentials</a>
 		{% else %}
 			<a class="btn green waves-effect waves-light" href="/spotify/connect">Connect Spotify</a>
 		{% endif %}

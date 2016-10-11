@@ -11,6 +11,13 @@
 	</div>
 </div>
 
+<div class="row">
+	<div class="col s12 right-align">
+		<a href="/preload/playlists/{{ playlist._id }}/refresh" class="btn-flat waves-effect waves-light left"><i class="material-icons left">loop</i> Refresh</a>
+		<a href="/playlists/{{ playlist._id }}/modify" class="btn deep-orange lighten-2 waves-effect waves-light"><i class="material-icons left">mode_edit</i> Modify and Publish</a>
+	</div>
+</div>
+
 {% if playlist.tracks %}
 <div class="row">
 
@@ -51,8 +58,8 @@
 
 <div class="row">
 	<div class="col s12 right-align">
-		<a href="/playlists/{{ playlist._id }}/refresh" class="btn-flat waves-effect waves-light">Refresh</a>
-		<a href="/playlists/{{ playlist._id }}/modify" class="btn deep-orange lighten-2 waves-effect waves-light">Modify and Publish</a>
+		<a href="/preload/playlists/{{ playlist._id }}/refresh" class="btn-flat waves-effect waves-light left"><i class="material-icons left">loop</i> Refresh</a>
+		<a href="/playlists/{{ playlist._id }}/modify" class="btn deep-orange lighten-2 waves-effect waves-light"><i class="material-icons left">mode_edit</i> Modify and Publish</a>
 	</div>
 </div>
 

@@ -326,6 +326,7 @@ def process_playlist(playlist_id):
 	p.refresh_external_tracks()
 
 	# update last published date
+	p.last_refreshed = time.strftime("%d/%m/%Y %H:%M:%S")
 	p.last_published = time.strftime("%d/%m/%Y %H:%M:%S")
 
 	# Save all of our changes
@@ -381,9 +382,18 @@ def spotify_disconnect():
 
 	return redirect('/account')
 
+@app.route('/preload/<path:process_url>')
+def preload(process_url):
+	# prepend a slash
+	process_url = '/' + process_url
+	return render_template('loader.html',
+							title='Processing...',
+							process_url=process_url)
+
 @app.route('/test')
 @user.login_required
-def test_method():
+def test_method(args):
+	return request.path
 	str1 = 'ab(cd'
 	str2 = 'asdf'
 

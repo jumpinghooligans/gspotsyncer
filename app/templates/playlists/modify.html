@@ -12,6 +12,13 @@
 	</div>
 </div>
 
+<div class="row">
+	<div class="col s12 right-align">
+		<a class="btn-flat left" href="/playlists/{{ playlist._id }}">Cancel Editing</a>
+		<a class="btn deep-orange lighten-2" href="/preload/playlists/{{ playlist._id }}/process"><i class="material-icons left">language</i> Publish Playlists</a>
+	</div>
+</div>
+
 {% if playlist.tracks %}
 {% for track in playlist.tracks %}
 <div class="row">
@@ -130,9 +137,9 @@
 
 <div class="row">
 	<div class="col s12 right-align">
-		<a class="btn red left" href="/playlists/{{ playlist._id }}/delete">Delete</a>
+		<a class="btn red left" href="/playlists/{{ playlist._id }}/delete">Delete Playlist</a>
 		<a class="btn-flat" href="/playlists/{{ playlist._id }}">Cancel Editing</a>
-		<a class="btn deep-orange lighten-2" href="/playlists/{{ playlist._id }}/process">Publish Playlists</a>
+		<a class="btn deep-orange lighten-2" href="/preload/playlists/{{ playlist._id }}/process">Publish Playlists</a>
 	</div>
 </div>
 {% endblock %}
