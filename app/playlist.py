@@ -10,9 +10,9 @@ def get_user_playlists(user):
 	cursor = mongo.db.playlists.find({
 		'user_id' : user._id
 	}).sort([
-		('last_published', 1),
-		('last_refreshed', 1),
-		('created', 1)
+		('last_published', -1),
+		('last_refreshed', -1),
+		('created', -1)
 	])
 
 	playlists = []
@@ -236,7 +236,12 @@ class Playlist():
 		formatted_tracks = []
 		if service_api:
 			for track in new_tracks:
-				formatted_tracks.append(service_api.format_generic_track(track, self.tracks))
+				formatted_track = service_api.format_generic_track(track, self.tracks)
+
+				if formatted_track:
+					formatted_tracks.append(formatted_track)
+				else:
+					app.logger.error('Cannot format track: ' + str(track))
 
 		return formatted_tracks
 

@@ -166,7 +166,7 @@ class GoogleMusic():
 		return []
 
 	def format_generic_track(self, track, existing_tracks=None):
-		if not track:
+		if not track or 'track' not in track:
 			return None
 
 		track_data = track['track']

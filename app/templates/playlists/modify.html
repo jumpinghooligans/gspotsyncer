@@ -1,8 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="row">
-	<div class="col s12">
-		<h5>{{ playlist.name }}</h5>
+<div class="row center-align">
+	<div class="col s12 m6">
+		<h6 class="grey-text text-lighten-1">Spotify Playlist</h6>
+		<h5>{{ playlist.spotify_playlist_data.name }}</h5>
+	</div>
+	<div class="col s12 m6">
+		<h6 class="grey-text text-lighten-1">Google Play Music Playlist</h6>
+		<h5>{{ playlist.google_playlist_data.name }}</h5>
 	</div>
 </div>
 
@@ -14,7 +19,7 @@
 
 <div class="row">
 	<div class="col s12 right-align">
-		<a class="btn-flat left" href="/playlists/{{ playlist._id }}">Cancel Editing</a>
+		<a class="btn-flat left" href="/playlists/{{ playlist._id }}">Cancel</a>
 		<a class="btn deep-orange lighten-2" href="/preload/playlists/{{ playlist._id }}/process"><i class="material-icons left">language</i> Publish Playlists</a>
 	</div>
 </div>
@@ -138,7 +143,7 @@
 <div class="row">
 	<div class="col s12 right-align">
 		<a class="btn red left" href="/playlists/{{ playlist._id }}/delete">Delete Playlist</a>
-		<a class="btn-flat" href="/playlists/{{ playlist._id }}">Cancel Editing</a>
+		<a class="btn-flat" href="/playlists/{{ playlist._id }}">Cancel</a>
 		<a class="btn deep-orange lighten-2" href="/preload/playlists/{{ playlist._id }}/process">Publish Playlists</a>
 	</div>
 </div>
