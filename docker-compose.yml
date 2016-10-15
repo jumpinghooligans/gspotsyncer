@@ -13,10 +13,15 @@ services:
     restart: always
   mongo:
     image: mongo
+    environment:
+      - VIRTUAL_HOST=mongo
+      - VIRTUAL_PORT=27017
     volumes:
       - ./mongo_data:/data/db
   memcached:
       image: memcached
+      environment:
+        - VIRTUAL_HOST=memcached
   nginx-proxy:
     image: jwilder/nginx-proxy
     ports:

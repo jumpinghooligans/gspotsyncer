@@ -2,8 +2,6 @@ version: '2'
 services:
   gspotsyncer:
     build: .
-    ports:
-     - "5000:5000"
     volumes:
      - .:/opt/gspotsyncer
     environment:

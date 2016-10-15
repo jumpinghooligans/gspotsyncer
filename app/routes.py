@@ -396,12 +396,6 @@ def preload(process_url):
 
 @app.route('/test')
 @user.login_required
-def test_method(args):
-	return request.path
-	str1 = 'ab(cd'
-	str2 = 'asdf'
-
-	part_paren = lambda x: x.partition('(')[0]
-	return ' '.join(map(
-		part_paren, (str1, str2)
-	)).encode('utf-8').strip()
+def test_method():
+	time.sleep(5)
+	return 'a'
