@@ -21,42 +21,59 @@ class TestCase(TestCase):
 		self.app = app
 		self.client = self.app.test_client()
 
+		self.test_user = {
+			'username' : 'asdf',
+			'password' : 'asdf',
+			'google_id' : '',
+			'google_password' : ''
+		}
+
 		return app
 
-	def tearDown(self):
+	@classmethod
+	def setUpClass(cls):
 		# drop our whole database erry test
-		mongo.cx.drop_database(app.config['TEST_MONGO_DBNAME'])
+		with app.app_context():
+			mongo.cx.drop_database(app.config['TEST_MONGO_DBNAME'])
 
 	def test_connection(self):
 		response = self.client.get('/')
 		assert response.status_code is 200
 
-	def test_create(self):
+	def test_create_user(self):
 		response = self.client.post('/account/create', data={
-			'username' : 'asdf',
-			'password' : 'asdf',
-			'password_confirm' : 'asdf'
-		}, follow_redirects=False)
-		# print response.data
-		self.assertRedirects(response, '/account', 'Failed to create account')
-
-	def test_logout_login(self):
-		response = self.client.post('/account/create', data={
-			'username' : 'asdf',
-			'password' : 'asdf',
-			'password_confirm' : 'asdf'
+			'username' : self.test_user.get('username'),
+			'password' : self.test_user.get('password'),
+			'password_confirm' : self.test_user.get('password')
 		}, follow_redirects=False)
 
 		self.assertRedirects(response, '/account', 'Failed to create account')
 
-		response = self.client.get('/account/logout')
-		self.assertRedirects(response, '/', 'Failed to log user out')
-
-		response = self.client.post('/account/login', data={
-			'username' : 'asdf',
-			'password' : 'asdf'
-		}, follow_redirects=False)
+	def test_login_user(self):
+		response = self.login()
 		self.assertRedirects(response, '/account', 'Failed to log user in')
+
+	def test_get_account(self):
+		self.login()
+
+		response = self.client.get('/account', follow_redirects=False)
+
+		# :(
+		assert self.test_user.get('username') + "'s account" in response.data
+
+	def test_get_playlists(self):
+		self.login()
+
+		response = self.client.get('/playlists', follow_redirects=False)
+
+		# :(
+		assert "You don't seem to have any playlists yet..." in response.data
+
+	def login(self):
+		return self.client.post('/account/login', data={
+			'username' : self.test_user.get('username'),
+			'password' : self.test_user.get('password'),
+		}, follow_redirects=False)
 
 if __name__ == '__main__':
 	unittest.main()
