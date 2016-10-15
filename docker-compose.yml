@@ -5,11 +5,9 @@ services:
     depends_on:
       - mongo
       - memcached
-      - nginx-proxy
     links:
       - mongo
       - memcached
-      - nginx-proxy
     restart: always
   mongo:
     image: mongo
@@ -22,9 +20,3 @@ services:
       image: memcached
       environment:
         - VIRTUAL_HOST=memcached
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    ports:
-      - "80:80"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro

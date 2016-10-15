@@ -9,7 +9,9 @@ services:
       - mongo
       - memcached
       - jenkins
+      - nginx-proxy
     links:
+      - nginx-proxy
       - jenkins
     command: python runp.py
   jenkins:
@@ -19,3 +21,9 @@ services:
       - VIRTUAL_PORT=8080
     volumes:
       - ./jenkins:/var/jenkins_home
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
