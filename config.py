@@ -15,4 +15,4 @@ CACHE_MEMCACHED_SERVERS = ['memcached']
 
 TEMPLATES_AUTO_RELOAD = True
 
-REMEMBER_COOKIE_DOMAIN='.gspotsyncer.com'
+SESSION_COOKIE_DOMAIN='.gspotsyncer.com'
