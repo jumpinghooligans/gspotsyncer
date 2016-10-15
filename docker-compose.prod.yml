@@ -2,10 +2,9 @@ version: '2'
 services:
   gspotsyncer:
     build: .
-    ports:
-     - "80:5000"
     environment:
      - APP_ENV=PROD
+     - VIRTUAL_HOST=gspotsyncer.com
     depends_on:
       - mongo
       - memcached
@@ -15,7 +14,8 @@ services:
     command: python runp.py
   jenkins:
     image: jenkins
-    ports:
-     - "49001:8080"
+    environment:
+      - VIRTUAL_HOST=jenkins.gspotsyncer.com
+      - VIRTUAL_PORT=8080
     volumes:
-     - ./jenkins:/var/jenkins_home
+      - ./jenkins:/var/jenkins_home

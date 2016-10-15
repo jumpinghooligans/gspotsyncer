@@ -2,9 +2,10 @@ version: '2'
 services:
   gspotsyncer:
     build: .
+    environment:
+     - APP_ENV=DEV
+     - VIRTUAL_HOST=dev.gspotsyncer.com
     ports:
      - "5000:5000"
     volumes:
      - .:/opt/gspotsyncer
-    environment:
-     - APP_ENV=DEV

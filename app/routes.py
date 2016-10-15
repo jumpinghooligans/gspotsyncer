@@ -65,6 +65,8 @@ def create_user():
 def account():
 	account_form = UserAccountForm()
 	google_credentials_form = GoogleCredentialsForm()
+
+	# get some playlists to show
 	playlists = playlist.get_user_playlists(user.current_user)[0:3]
 
 	# pretty
