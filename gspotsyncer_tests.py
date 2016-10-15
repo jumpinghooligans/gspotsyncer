@@ -17,6 +17,7 @@ class TestCase(TestCase):
 	def create_app(self):
 		app.config['TESTING'] = True
 		app.config['WTF_CSRF_ENABLED'] = False
+		app.config['SESSION_COOKIE_DOMAIN'] = None
 
 		self.app = app
 		self.client = self.app.test_client()
