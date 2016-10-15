@@ -4,7 +4,7 @@ services:
     build: .
     environment:
      - APP_ENV=PROD
-     - VIRTUAL_HOST=gspotsyncer.com
+     - VIRTUAL_HOST=gspotsyncer.com,www.gspotsyncer.com
     depends_on:
       - mongo
       - memcached
