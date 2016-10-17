@@ -58,3 +58,7 @@ footer a {
 .img-dec {
 	margin: 1em 1em 0 1em;
 }
+
+.section.padding {
+	padding:1em;
+}

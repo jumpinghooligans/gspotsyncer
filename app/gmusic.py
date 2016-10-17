@@ -169,7 +169,16 @@ class GoogleMusic():
 		if not track or 'track' not in track:
 			return None
 
-		track_data = track['track']
+		track_id = track.get('trackId', track.get('nid', None))
+		track_data = track.get('track', None)
+
+		# it could be in the track object
+		if track_data and not track_id:
+			track_id = track_data.get('trackId', track_data.get('nid', None))
+
+		if not track_id or not track_data:
+			app.logger.error('Failed to format track: ' + str(track))
+			return None
 
 		# if this spotify id already exists in our existing
 		# tracks we can just return that element
@@ -181,7 +190,7 @@ class GoogleMusic():
 		# if we don't have it already, generate it
 		return {
 			'spotify_id' : None,
-			'google_id' : track['trackId'],
+			'google_id' : track_id,
 			'title' : track_data['title'],
 			'artists' : self.format_generic_artists(track_data),
 			'album' : self.format_generic_album(track_data)
@@ -218,7 +227,10 @@ class GoogleMusic():
 	# uri - uri
 	def get_track_from_id(self, tracks, track_id):
 		for track in tracks:
-			if track.get('trackId', None) == track_id:
+
+			tid = track.get('trackId', track.get('nid', None))
+
+			if tid == track_id:
 				return track
 
 		return None

@@ -98,15 +98,34 @@ class Playlist():
 
 				# real dumb right now
 				if matching_tracks:
+
+					# make it similar to regular playlist tracks
+					for t in matching_tracks:
+						t['trackId'] = t['track']['nid']
+
+					matching_track = matching_tracks.pop()
+
+					# attach other results as 'similar' tracks
+					matching_track['similar_tracks'] = matching_tracks[0:3]
+
 					# trackId is nid in search results
-					self.tracks[idx]['google_id'] = matching_tracks[0]['track']['nid']
+					self.tracks[idx]['google_id'] = matching_track['track']['nid']
+
+					self.google_tracks.append(matching_track)
+					self.google_tracks += matching_tracks
 
 			if not track['spotify_id']:
 				matching_tracks = self.search_songs(s, track)
 
 				# still dumb
 				if matching_tracks:
-					self.tracks[idx]['spotify_id'] = matching_tracks[0]['uri']
+					matching_track = matching_tracks.pop(0)
+
+					matching_track['similar_tracks'] = matching_tracks[0:3]
+
+					self.tracks[idx]['spotify_id'] = matching_track['uri']
+					self.spotify_tracks.append(matching_track)
+					self.spotify_tracks += matching_tracks
 
 		return True
 
@@ -198,14 +217,18 @@ class Playlist():
 
 		return track_ids
 
-	def refresh_external_tracks(self):
+	def refresh_external_tracks(self, overwrite_local=False):
 		u = user.User(str(self.user_id))
 
 		g = gmusic.GoogleMusic(u)
 		s = spotify.Spotify(u)
 
-		self.spotify_tracks = s.get_tracks(self.spotify_playlist_data)
-		self.google_tracks = g.get_tracks(self.google_playlist_data)
+		self.remote_spotify_tracks = s.get_tracks(self.spotify_playlist_data)
+		self.remote_google_tracks = g.get_tracks(self.google_playlist_data)
+
+		if overwrite_local:
+			self.spotify_tracks = self.remote_spotify_tracks
+			self.google_tracks = self.remote_google_tracks
 
 		# update the last refreshed timestamp
 		self.last_refreshed = time.strftime("%m/%d/%Y %H:%M:%S")
@@ -237,6 +260,7 @@ class Playlist():
 		if service_api:
 			for track in new_tracks:
 				formatted_track = service_api.format_generic_track(track, self.tracks)
+				formatted_track['_id'] = ObjectId()
 
 				if formatted_track:
 					formatted_tracks.append(formatted_track)
@@ -264,8 +288,27 @@ class Playlist():
 			s = spotify.Spotify(u)
 
 			for t in self.tracks:
-				t['google_data'] = g.format_generic_track(g.get_track_from_id(self.google_tracks, t.get('google_id')))
+				google_track = g.get_track_from_id(self.google_tracks, t.get('google_id'))
+
+				if google_track:
+					similar_tracks = google_track.get('similar_tracks', [])
+
+					google_track = g.format_generic_track(google_track)
+					google_track['similar_tracks'] = map(g.format_generic_track, similar_tracks)
+
+				t['google_data'] = google_track
+
 				t['spotify_data'] = s.format_generic_track(s.get_track_from_uri(self.spotify_tracks, t.get('spotify_id')))
+
+		return None
+
+	def get_track_by_id(self, track_id):
+		if len(self.tracks) > 0:
+			for t in self.tracks:
+				if str(t.get('_id')) == track_id:
+					return t
+
+		return None
 
 	def save(self):
 		playlist = {}

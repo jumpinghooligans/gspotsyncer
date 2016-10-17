@@ -58,7 +58,7 @@ class Spotify():
 
 			if self.user.save():
 				self.refresh_user_data()
-				flash('Successfully refreshed Spotify credentials')
+				# flash('Successfully refreshed Spotify credentials')
 				return True
 			else:
 				flash('Unknown error refreshing Spotify credentials')
@@ -214,7 +214,8 @@ class Spotify():
 		if not track:
 			return None
 
-		track = track['track']
+		if 'track' in track:
+			track = track['track']
 
 		# if this spotify id already exists in our existing
 		# tracks we can just return that element

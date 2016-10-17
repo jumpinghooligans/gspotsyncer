@@ -339,15 +339,110 @@ def process_playlist(playlist_id):
 
 	return redirect('/playlists/' + playlist_id)
 
+@app.route('/playlists/<string:playlist_id>/autofill', methods=['GET', 'POST'])
+@user.login_required
+def autofill_missing_tracks(playlist_id):
+	p = playlist.Playlist(str(playlist_id))
+
+	if not user.current_user.can_modify_playlist(p):
+		return redirect('/account')
+
+	# Make sure we have the most up to date
+	# track lists from google and spotify
+	p.refresh_external_tracks()
+
+	# Using the type of playlist, and both sets of
+	# playlist data, generate a master list
+	p.generate_track_list()
+
+	# Using track name/artist/album lookup any
+	# missing service track IDs
+	p.find_missing_tracks()
+
+	# Save all of our changes
+	if p.save():
+		flash('Successfully refreshed and autofilled missing tracks')
+
+	return redirect('/playlists/' + playlist_id + '/modify')
+
+@app.route('/playlists/<string:playlist_id>/publish', methods=['GET', 'POST'])
+@user.login_required
+def publish_playlist(playlist_id):
+	p = playlist.Playlist(str(playlist_id))
+
+	if not user.current_user.can_modify_playlist(p):
+		return redirect('/account')
+
+	# Do a diff and publish any tracks that exist
+	# in the master list and don't exist on the
+	# remote playlists - reverse for tracks on the
+	# remote and not on the master list
+	p.publish_tracks()
+
+	# Refresh our external track data, this
+	# should now reflect any playlist edits
+	# we made above
+	p.refresh_external_tracks()
+
+	# Save all of our changes
+	if p.save():
+		flash('Successfully published tracks to Google Play Music and Spotify')
+
+	return redirect('/playlists/' + playlist_id)
+
+@app.route('/playlists/<string:playlist_id>/reset')
+@user.login_required
+def reset_playlist_tracks(playlist_id):
+	p = playlist.Playlist(str(playlist_id))
+
+	if not user.current_user.can_modify_playlist(p):
+		return redirect('/account')
+
+	p.tracks = []
+
+	p.refresh_external_tracks()
+	p.generate_track_list()
+
+	if p.save():
+		flash('Successfully cleared out saved track data')
+
+	return redirect('/playlists/' + playlist_id + '/modify')
+
 @app.route('/playlists/<string:playlist_id>/delete')
 @user.login_required
 def delete_playlist(playlist_id):
 	p = playlist.Playlist(str(playlist_id))
 
+	if not user.current_user.can_modify_playlist(p):
+		return redirect('/account')
+
 	if p.delete():
 		flash('Successfully deleted playlist')
 
 	return redirect('/playlists')
+
+@app.route('/playlists/<string:playlist_id>/tracks/<string:track_id>', methods=['GET', 'POST'])
+@user.login_required
+def modify_track(playlist_id, track_id):
+	p = playlist.Playlist(str(playlist_id))
+
+	if not user.current_user.can_modify_playlist(p):
+		return redirect('/account')
+
+	success = False
+	track = p.get_track_by_id(str(track_id))
+
+	if track:
+		if request.form.get('google_id'):
+			track['google_id'] = request.form.get('google_id')
+
+		if request.form.get('spotify_id'):
+			track['spotify_id'] = request.form.get('spotify_id')
+
+		if p.save():
+			success = True
+
+	return json.dumps({ 'success' : success })
 
 @app.route('/spotify/connect')
 @user.login_required
