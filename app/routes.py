@@ -47,12 +47,12 @@ def create_user():
 	form = CreateForm()
 
 	if form.validate_on_submit():
-		result = user.register({
+		registered = user.register({
 			'username' : form.username.data,
 			'password' : form.password.data
 		})
 
-		if result:
+		if registered:
 			return redirect('/account')
 
 	return render_template('account/create.html',
