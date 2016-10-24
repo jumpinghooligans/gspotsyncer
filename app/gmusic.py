@@ -4,7 +4,7 @@ from gmusicapi import Mobileclient
 from uuid import getnode as get_mac
 
 class GoogleMusic():
-	def __init__(self, user):
+	def __init__(self, user=None):
 		self.user = user
 
 	def __repr__(self):
@@ -165,27 +165,33 @@ class GoogleMusic():
 
 		return []
 
-	def format_generic_track(self, track, existing_tracks=None):
-		if not track or 'track' not in track:
-			return None
-
+	def get_track_id(self, track):
 		track_id = track.get('trackId', track.get('nid', None))
+
+		if track_id:
+			return track_id
+
 		track_data = track.get('track', None)
 
-		# it could be in the track object
-		if track_data and not track_id:
+		if track_data:
 			track_id = track_data.get('trackId', track_data.get('nid', None))
+
+		if track_id:
+			return track_id
+
+		return None
+
+	def format_generic_track(self, track):
+		if not track:
+			app.logger.error('No track given')
+			return None
+
+		track_id = self.get_track_id(track)
+		track_data = track.get('track', None)
 
 		if not track_id or not track_data:
 			app.logger.error('Failed to format track: ' + str(track))
 			return None
-
-		# if this spotify id already exists in our existing
-		# tracks we can just return that element
-		if existing_tracks:
-			existing = self.get_existing_track(track, existing_tracks)
-			if existing:
-				return existing
 
 		# if we don't have it already, generate it
 		return {

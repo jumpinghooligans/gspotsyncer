@@ -6,7 +6,7 @@ import urllib, requests, json, base64
 from urlparse import urlparse
 
 class Spotify():
-	def __init__(self, user):
+	def __init__(self, user=None):
 		self.user = user
 
 	def __repr__(self):
@@ -208,29 +208,40 @@ class Spotify():
 
 		return {}
 
+	def get_track_id(self, track):
+		if track:
+			track_id = track.get('uri', None)
+
+			if not track_id:
+				track = track.get('track', {})
+				track_id = track.get('uri')
+
+		return track_id
+
 	# track - spotify track
 	# existing_tracks - generic tracks
-	def format_generic_track(self, track, existing_tracks=None):
+	def format_generic_track(self, track):
 		if not track:
+			app.logger.error('No track given')
 			return None
 
 		if 'track' in track:
-			track = track['track']
+			track = track.get('track', None)
 
-		# if this spotify id already exists in our existing
-		# tracks we can just return that element
-		if existing_tracks:
-			existing = self.get_existing_track(track, existing_tracks)
-			if existing:
-				return existing
+		track_id = self.get_track_id(track)
+
+		if not track_id or not track:
+			app.logger.error('Failed to format track: ' + str(track))
+			return None
 
 		# if we don't have it already, generate it
 		return {
-			'spotify_id' : track['uri'],
+			'spotify_id' : track_id,
 			'google_id' : None,
 			'title' : track['name'],
 			'artists' : self.format_generic_artists(track['artists']),
-			'album' : self.format_generic_album(track['album'])
+			'album' : self.format_generic_album(track['album']),
+			'raw_data' : track
 		}
 
 	def format_generic_artists(self, artists):

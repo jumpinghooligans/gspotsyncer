@@ -282,26 +282,6 @@ def modify_playlist(playlist_id):
 							title='Modify Playlist',
 							playlist=p)
 
-@app.route('/playlists/<string:playlist_id>/refresh')
-@user.login_required
-def refresh_playlist(playlist_id):
-	p = playlist.Playlist(str(playlist_id))
-
-	if not user.current_user.can_modify_playlist(p):
-		return redirect('/account')
-
-	# refresh name - just in case
-	p.name = p.spotify_playlist_data.get('name') + ' / ' + p.google_playlist_data.get('name')
-
-	# refresh from the internet
-	p.refresh_external_tracks()
-	p.generate_track_list()
-
-	if p.save():
-		flash('Successfully refreshed playlist data')
-
-	return redirect('/playlists/' + str(playlist_id))
-
 @app.route('/playlists/<string:playlist_id>/process', methods=['GET', 'POST'])
 @user.login_required
 def process_playlist(playlist_id):
@@ -338,6 +318,26 @@ def process_playlist(playlist_id):
 		flash('Successfully processed and published tracks to Spotify and Google Play Music')
 
 	return redirect('/playlists/' + playlist_id)
+
+@app.route('/playlists/<string:playlist_id>/refresh')
+@user.login_required
+def refresh_playlist(playlist_id):
+	p = playlist.Playlist(str(playlist_id))
+
+	if not user.current_user.can_modify_playlist(p):
+		return redirect('/account')
+
+	# refresh name - just in case
+	p.name = p.spotify_playlist_data.get('name') + ' / ' + p.google_playlist_data.get('name')
+
+	# refresh from the internet
+	p.refresh_external_tracks()
+	p.generate_track_list(True)
+
+	if p.save():
+		flash('Successfully refreshed playlist data')
+
+	return redirect('/playlists/' + str(playlist_id))
 
 @app.route('/playlists/<string:playlist_id>/autofill', methods=['GET', 'POST'])
 @user.login_required

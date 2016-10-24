@@ -1,4 +1,5 @@
 from app import app, mongo, cache, user, gmusic, spotify
+from track import Track, SpotifyTrack, GoogleTrack
 
 from flask import flash
 from bson.objectid import ObjectId
@@ -32,7 +33,12 @@ class Playlist():
 
 		# some defaults
 		setattr(self, 'tracks', [])
+		setattr(self, 'spotify_tracks', [])
+		setattr(self, 'google_tracks', [])
+		setattr(self, 'remote_spotify_tracks', [])
+		setattr(self, 'remote_google_tracks', [])
 
+		# override them if we have values
 		for key, value in playlist.items():
 			setattr(self, key, value)
 
@@ -217,55 +223,72 @@ class Playlist():
 
 		return track_ids
 
-	def refresh_external_tracks(self, overwrite_local=False):
+	def refresh_external_tracks(self):
 		u = user.User(str(self.user_id))
 
 		g = gmusic.GoogleMusic(u)
 		s = spotify.Spotify(u)
 
-		self.remote_spotify_tracks = s.get_tracks(self.spotify_playlist_data)
-		self.remote_google_tracks = g.get_tracks(self.google_playlist_data)
+		# formatted tracks we'll save
+		remote_spotify_tracks = []
+		remote_google_tracks = []
 
-		if overwrite_local:
-			self.spotify_tracks = self.remote_spotify_tracks
-			self.google_tracks = self.remote_google_tracks
+		# refresh data from the source - spotify
+		track_data = s.get_tracks(self.spotify_playlist_data)
+		for track in track_data:
+			# creates a generic track
+			remote_spotify_tracks.append(SpotifyTrack(track).get_track())
+
+		app.logger.info(remote_google_tracks)
+
+		# do the same for google
+		track_data = g.get_tracks(self.google_playlist_data)
+		for track in track_data:
+			# creates a generic track
+			remote_google_tracks.append(GoogleTrack(track).get_track())
+
+		self.remote_spotify_tracks = remote_spotify_tracks
+		self.remote_google_tracks = remote_google_tracks
+
+
+		app.logger.info(self.remote_google_tracks)
 
 		# update the last refreshed timestamp
 		self.last_refreshed = time.strftime("%m/%d/%Y %H:%M:%S")
 
-	def generate_track_list(self):
+	def generate_track_list(self, from_remote=False):
+		spotify_tracks = self.spotify_tracks
+		google_tracks = self.google_tracks
+
+		# use the remote list if its flagged
+		if from_remote:
+			spotify_tracks = self.remote_spotify_tracks
+			google_tracks = self.remote_google_tracks
+
 		if self.type == 'masterslave':
 			# build a track list
 			if self.master == 'spotify':
-				self.tracks = self.build_tracks(self.spotify_tracks, 'spotify')
+				self.tracks = spotify_tracks
 
 			if self.master == 'google':
-				self.tracks = self.build_tracks(self.google_tracks, 'google')
+				self.tracks = google_tracks
 
 			return True
 
 		return False
 
-	def build_tracks(self, new_tracks, service):
-		service_api = None
-		u = user.User(str(self.user_id))
-
-		if service == 'google':
-			service_api = gmusic.GoogleMusic(u)
-
-		if service == 'spotify':
-			service_api = spotify.Spotify(u)
+	def build_tracks(self, new_tracks):
 
 		formatted_tracks = []
-		if service_api:
-			for track in new_tracks:
-				formatted_track = service_api.format_generic_track(track, self.tracks)
-				formatted_track['_id'] = ObjectId()
 
-				if formatted_track:
-					formatted_tracks.append(formatted_track)
-				else:
-					app.logger.error('Cannot format track: ' + str(track))
+		for track in new_tracks:
+			formatted_track = service_api.format_generic_track(track, self.tracks)
+			formatted_track['_id'] = ObjectId()
+
+			if formatted_track:
+				formatted_tracks.append(formatted_track)
+			else:
+				app.logger.error('Cannot format track: ' + str(track))
 
 		return formatted_tracks
 
